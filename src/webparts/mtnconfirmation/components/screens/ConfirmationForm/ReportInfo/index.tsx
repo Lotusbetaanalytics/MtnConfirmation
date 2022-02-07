@@ -41,17 +41,23 @@ const Report = () => {
                     />
                     <div className="mtn__InputContainer mtn__child">
                         <label>Does the employee have direct report?</label>
-                        <span>Yes <input
-                            type="radio"
-                            onChange={(e) => setReport(e.target.value)}
-                            value={report}
-                        /></span>
-                        <span>No <input
-                            type="radio"
-                            onChange={(e) => setReport(e.target.value)}
-                            value={report}
-                        /></span>
+                        <div className='most__RadioContainer'>
+                            <span>Yes <input
+                                type="radio"
+                                onChange={(e) => setReport(e.target.value)}
+                                value={report}
+                                name="report"
+                            /></span>
+                            <span>No <input
+                                type="radio"
+                                onChange={(e) => setReport(e.target.value)}
+                                value={report}
+                                name="report"
+                            /></span>
+                        </div>
+
                     </div>
+                    <div className="mtn__InputContainer mtn__child"></div>
                 </div>
                 <div className='mtn__btnContaainer'>
                     <div> <button className='mtn__btn mtn__blackOutline' type='button' onClick={prevHandler}>Back</button></div>

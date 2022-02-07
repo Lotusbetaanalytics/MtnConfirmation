@@ -14,7 +14,7 @@ const HomeScreen = () => {
                     <h1>PORTAL</h1>
                 </div>
             </div>
-            <div>
+            <div className={styles.btnContainer}>
                 <Link to={`/basicInfo`} className="mtn__btn mtn__black">Proceed</Link>
             </div>
         </div>

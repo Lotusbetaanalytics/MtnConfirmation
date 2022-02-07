@@ -1,9 +1,23 @@
 .mtn__header{
     display: flex;
-    justify-content: space-between;
+    // justify-content: space-evenly;
     padding: 1rem 2rem;
     background: rgba(255, 196, 35, 1);
     text-align: center;
-    font-size: 1.5rem;
     font-weight: bold;
 }
+
+.mtn__header__logo{
+display: flex;
+flex: 0.3;
+justify-content: flex-start;
+}
+
+
+.mtn__header__text{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    h1{font-size: 1.5rem;text-align: center;}
+    }
