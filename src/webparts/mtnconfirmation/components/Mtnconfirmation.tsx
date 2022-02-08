@@ -12,6 +12,8 @@ import {
   StaffInfo,
   LocationInfo,
   ReportInfo,
+  Section1__Supervisory,
+  Section2__Supervisory,
 } from "./screens";
 
 export default class Mtnconfirmation extends React.Component<
@@ -33,6 +35,16 @@ export default class Mtnconfirmation extends React.Component<
             <Route path="/reportInfo" exact component={ReportInfo} />
             <Route path="/behavioral/section2" exact component={Section2} />
             <Route path="/behavioral/section3" exact component={Section3} />
+            <Route
+              path="/supervisory/section1"
+              exact
+              component={Section1__Supervisory}
+            />
+            <Route
+              path="/supervisory/section2"
+              exact
+              component={Section2__Supervisory}
+            />
           </Switch>
         </HashRouter>
       </>
