@@ -1,8 +1,28 @@
 import * as React from "react";
 import { Header, Card, Select, TextArea } from "../../../../Containers";
-
+import { useHistory } from "react-router-dom";
 import styles from "./section1.module.scss";
 const Section2 = () => {
+  const history = useHistory();
+  const prevHandler = () => {
+    history.push("/behavioral/section3");
+  };
+  const nextHandler = () => {
+    history.push("/supervisory/section2");
+  };
+
+  const [leadershipComment, setLeadershipComment] = React.useState(
+    localStorage.getItem("leadershipComment") || ""
+  );
+
+  const [delegationComment, setDelegationComment] = React.useState(
+    localStorage.getItem("delegationComment") || ""
+  );
+
+  const [administrationComment, setAdministrationComment] = React.useState(
+    localStorage.getItem("administrationComment") || ""
+  );
+
   return (
     <>
       <Header title="Supervisory Evaluation" />
@@ -29,20 +49,23 @@ const Section2 = () => {
           </div>
           <div className={styles.section1__comments}>
             <h2>Comments</h2>
-            <TextArea onChange />
+            <TextArea
+              value={leadershipComment}
+              onChange={(e: any) => {
+                localStorage.setItem("leadershipComment", e.target.value);
+                setLeadershipComment(e.target.value);
+              }}
+            />
           </div>
         </div>
         <div className={`${styles.evaluation__section} `}>
           <Card header="Delegation">
             <ul>
               <li>
-                Consider the ease with which the employee adjust to any change
-                in duties, procedures, supervisors or the work environment.
-              </li>
-              <li>
-                How well does the employee accept new ideas and approaches to
-                work, responds appropriately to constructive criticisms and
-                suggestions for work improvements?
+                How well does the employee demonstrate the ability to direct
+                others in accomplishing work effectively, select and motivate
+                staff, define assignments and oversee the work of the
+                subordinates?
               </li>
             </ul>
           </Card>
@@ -56,20 +79,27 @@ const Section2 = () => {
           </div>
           <div className={styles.section1__comments}>
             <h2>Comments</h2>
-            <TextArea onChange />
+            <TextArea
+              value={delegationComment}
+              onChange={(e: any) => {
+                localStorage.setItem("delegationComment", e.target.value);
+                setDelegationComment(e.target.value);
+              }}
+            />
           </div>
         </div>
         <div className={`${styles.evaluation__section} `}>
           <Card header="Administration">
             <ul>
               <li>
-                Consider the ease with which the employee adjust to any change
-                in duties, procedures, supervisors or the work environment.
+                How well does the employee perform day to day administrative
+                tasks.
               </li>
+              <li>Manage time</li>
+              <li>Administer policies and implement procedures</li>
               <li>
-                How well does the employee accept new ideas and approaches to
-                work, responds appropriately to constructive criticisms and
-                suggestions for work improvements?
+                Maintain appropriate contact with his/her supervisor and utilize
+                funds, staff or equipment?
               </li>
             </ul>
           </Card>
@@ -83,18 +113,32 @@ const Section2 = () => {
           </div>
           <div className={styles.section1__comments}>
             <h2>Comments</h2>
-            <TextArea onChange />
+            <TextArea
+              value={administrationComment}
+              onChange={(e: any) => {
+                localStorage.setItem("administrationComment", e.target.value);
+                setAdministrationComment(e.target.value);
+              }}
+            />
           </div>
         </div>
         <div className={`${styles.evaluation__section__button} `}>
           <div className="mtn__btnContaainer">
             <div>
-              <button className="mtn__btn mtn__blackOutline" type="button">
+              <button
+                className="mtn__btn mtn__blackOutline"
+                type="button"
+                onClick={() => prevHandler()}
+              >
                 Previous
               </button>
             </div>
             <div>
-              <button className="mtn__btn mtn__black" type="button">
+              <button
+                className="mtn__btn mtn__black"
+                type="button"
+                onClick={() => nextHandler()}
+              >
                 Next
               </button>
             </div>

@@ -1,9 +1,9 @@
 import * as React from "react";
 import styles from "./textarea.module.scss";
-const TextArea = ({ onChange }) => {
+const TextArea = ({ onChange, value }) => {
   return (
     <div className={styles.textArea__container}>
-      <textarea onChange={onChange}></textarea>
+      <textarea maxLength={60} value={value} onChange={onChange}></textarea>
     </div>
   );
 };

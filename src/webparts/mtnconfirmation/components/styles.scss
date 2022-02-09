@@ -1,10 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap");
 
 @font-face {
   font-family: "MTNBrighterSans-Medium";
   src: url("https://mtnonline.com/smartanalytics/assets/assets/fonts/MTNBrighterSans-Medium.eot");
-  src: url("https://mtnonline.com/smartanalytics/assets/assets/fonts/MTNBrighterSans-Medium.woff") format("woff");
-  }
+  src: url("https://mtnonline.com/smartanalytics/assets/assets/fonts/MTNBrighterSans-Medium.woff")
+    format("woff");
+}
 
 * {
   box-sizing: border-box;
@@ -47,10 +48,14 @@
   align-items: center;
 }
 
+.mtn__btn:hover {
+  cursor: pointer;
+}
+
 .mtn__btnContaainer {
   display: flex;
   justify-content: flex-end;
-  padding: .5rem 2rem;
+  padding: 0.5rem 2rem;
   gap: 2rem;
 }
 
@@ -80,12 +85,12 @@
   display: flex;
   flex-direction: column;
   margin-bottom: 2rem;
-  padding: .5rem 2rem;
+  padding: 0.5rem 2rem;
 
   label {
     font-size: 13px;
-    margin-left: .3rem;
-    margin-bottom: .5rem;
+    margin-left: 0.3rem;
+    margin-bottom: 0.5rem;
   }
 
   input {
@@ -93,13 +98,13 @@
     height: 3.5rem;
     outline: none;
     border: none;
-    padding: .5rem 1.5rem;
+    padding: 0.5rem 1.5rem;
     border-radius: 10px;
     background: rgba(196, 196, 196, 0.22);
   }
 
   input:read-only {
-    background: whitesmoke
+    background: whitesmoke;
   }
 
   select {
@@ -107,11 +112,12 @@
     height: 3.5rem;
     outline: none;
     border: none;
-    padding: .5rem 1.5rem;
+    padding: 0.5rem 1.5rem;
     border-radius: 10px;
     background: rgba(196, 196, 196, 0.22);
   }
-  span{
+
+  span {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -126,14 +132,12 @@
     background-clip: content-box;
     border: 1px solid gainsboro;
     border-radius: 50%;
-    margin:0 1rem;
-
-
+    margin: 0 1rem;
   }
   input[type="radio"]:checked {
-    background-color: #FFCC00;
+    background-color: #ffcc00;
   }
-  .most__RadioContainer{
+  .most__RadioContainer {
     display: flex;
     // justify-content: space-between;
   }

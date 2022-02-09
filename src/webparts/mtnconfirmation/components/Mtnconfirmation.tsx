@@ -24,6 +24,7 @@ export default class Mtnconfirmation extends React.Component<
     jQuery("#workbenchPageContent").prop("style", "max-width: none");
     jQuery(".SPCanvas-canvas").prop("style", "max-width: none");
     jQuery(".CanvasZone").prop("style", "max-width: none");
+
     return (
       <>
         <HashRouter>
