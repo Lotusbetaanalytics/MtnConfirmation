@@ -15,12 +15,24 @@ const Section2 = () => {
     localStorage.getItem("leadershipComment") || ""
   );
 
+  const [leadershipRating, setLeadershipRating] = React.useState(
+    localStorage.getItem("leadershipRating") || ""
+  );
+
   const [delegationComment, setDelegationComment] = React.useState(
     localStorage.getItem("delegationComment") || ""
   );
 
+  const [delegationRating, setDelegationRating] = React.useState(
+    localStorage.getItem("delegationRating") || ""
+  );
+
   const [administrationComment, setAdministrationComment] = React.useState(
     localStorage.getItem("administrationComment") || ""
+  );
+
+  const [administrationRating, setAdministrationRating] = React.useState(
+    localStorage.getItem("administrationRating") || ""
   );
 
   return (
@@ -41,10 +53,20 @@ const Section2 = () => {
           </Card>
           <div className={styles.section1__ratings}>
             {/* <h2>Ratings</h2> */}
-            <Select onChange={(e) => {}} title="Ratings" value="Select....">
-              <option>Select</option>
-              <option value="">Level 1</option>
-              <option value="">Level 2</option>
+            <Select
+              onChange={(e: any) => {
+                localStorage.setItem("leadershipRating", e.target.value);
+                setLeadershipRating(e.target.value);
+              }}
+              title="Ratings"
+              value={leadershipRating}
+            >
+              <option value="select rating">Select Rating</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
             </Select>
           </div>
           <div className={styles.section1__comments}>
@@ -71,10 +93,20 @@ const Section2 = () => {
           </Card>
           <div className={styles.section1__ratings}>
             {/* <h2>Ratings</h2> */}
-            <Select onChange={(e) => {}} title="Ratings" value="Select....">
-              <option>Select</option>
-              <option value="">Level 1</option>
-              <option value="">Level 2</option>
+            <Select
+              onChange={(e: any) => {
+                localStorage.setItem("delegationRating", e.target.value);
+                setDelegationRating(e.target.value);
+              }}
+              title="Ratings"
+              value={delegationRating}
+            >
+              <option value="select rating">Select Rating</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
             </Select>
           </div>
           <div className={styles.section1__comments}>
@@ -105,10 +137,20 @@ const Section2 = () => {
           </Card>
           <div className={styles.section1__ratings}>
             {/* <h2>Ratings</h2> */}
-            <Select onChange={(e) => {}} title="Ratings" value="Select....">
-              <option>Select</option>
-              <option value="">Level 1</option>
-              <option value="">Level 2</option>
+            <Select
+              onChange={(e: any) => {
+                localStorage.setItem("administrationRating", e.target.value);
+                setAdministrationRating(e.target.value);
+              }}
+              title="Ratings"
+              value={administrationRating}
+            >
+              <option value="select rating">Select Rating</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
             </Select>
           </div>
           <div className={styles.section1__comments}>

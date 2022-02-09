@@ -7,19 +7,36 @@ const Section3 = () => {
   const prevHandler = () => {
     history.push("/supervisory/section1");
   };
-  const nextHandler = () => {
-    history.push("/");
-  };
 
   const [peopleManagementComment, setPeopleManagementComment] = React.useState(
     localStorage.getItem("peopleManagementComment") || ""
   );
 
-  const [peopleManagementRating, setPeopleManagementRating] =
-    React.useState(null);
+  const [peopleManagementRating, setPeopleManagementRating] = React.useState(
+    localStorage.getItem("peopleManagementRating") || null
+  );
   const [planningComment, setPlanningComment] = React.useState(
     localStorage.getItem("planningComment") || ""
   );
+
+  const [planningRating, setPlanningRating] = React.useState(
+    localStorage.getItem("planningRating") || ""
+  );
+
+  const [supervisorScore, setSupervisorScore] = React.useState(
+    JSON.parse(localStorage.getItem("supervisorScore")) || null
+  );
+
+  const scoreHandler = () => {
+    const total =
+      Number(localStorage.getItem("leadershipRating")) +
+      Number(localStorage.getItem("delegationRating")) +
+      Number(localStorage.getItem("administrationRating")) +
+      Number(localStorage.getItem("peopleManagementRating")) +
+      Number(localStorage.getItem("planningRating"));
+    setSupervisorScore(total);
+    localStorage.setItem("supervisorScore", JSON.stringify(total));
+  };
 
   return (
     <>
@@ -46,10 +63,20 @@ const Section3 = () => {
           </Card>
           <div className={styles.section1__ratings}>
             {/* <h2>Ratings</h2> */}
-            <Select onChange={(e) => {}} title="Ratings" value="Select....">
-              <option>Select</option>
-              <option value="">Level 1</option>
-              <option value="">Level 2</option>
+            <Select
+              onChange={(e: any) => {
+                localStorage.setItem("peopleManagementRating", e.target.value);
+                setPeopleManagementRating(e.target.value);
+              }}
+              title="Ratings"
+              value={peopleManagementRating}
+            >
+              <option value="select rating">Select Rating</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
             </Select>
           </div>
           <div className={styles.section1__comments}>
@@ -76,10 +103,20 @@ const Section3 = () => {
           </Card>
           <div className={styles.section1__ratings}>
             {/* <h2>Ratings</h2> */}
-            <Select onChange={(e) => {}} title="Ratings" value="Select....">
-              <option>Select</option>
-              <option value="">Level 1</option>
-              <option value="">Level 2</option>
+            <Select
+              onChange={(e: any) => {
+                localStorage.setItem("planningRating", e.target.value);
+                setPlanningRating(e.target.value);
+              }}
+              title="Ratings"
+              value={planningRating}
+            >
+              <option value="select rating">Select Rating</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
             </Select>
           </div>
           <div className={styles.section1__comments}>
@@ -99,6 +136,8 @@ const Section3 = () => {
               className={styles.score__input}
               type="text"
               style={{ backgroundColor: "white" }}
+              readOnly
+              value={supervisorScore}
             />
           </Card>
         </div>
@@ -118,7 +157,7 @@ const Section3 = () => {
               <button
                 className="mtn__btn mtn__black"
                 type="button"
-                onClick={() => nextHandler()}
+                onClick={scoreHandler}
               >
                 Calculate Performance
               </button>

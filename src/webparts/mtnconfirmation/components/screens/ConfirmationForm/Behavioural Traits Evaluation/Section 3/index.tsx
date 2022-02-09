@@ -147,7 +147,6 @@ const Section3 = () => {
                     Number(localStorage.getItem("attendanceRating")) +
                     Number(localStorage.getItem("judgementRating"));
                   setPerformanceScore(total);
-                  console.log(total, "...here");
 
                   localStorage.setItem(
                     "performanceScore",
