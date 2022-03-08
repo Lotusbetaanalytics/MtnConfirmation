@@ -27,6 +27,8 @@ const Section3 = () => {
     JSON.parse(localStorage.getItem("supervisorScore")) || null
   );
 
+  const [showSubmitButton, setShowSubmitButton] = React.useState(false);
+
   const scoreHandler = () => {
     const total =
       Number(localStorage.getItem("leadershipRating")) +
@@ -36,6 +38,7 @@ const Section3 = () => {
       Number(localStorage.getItem("planningRating"));
     setSupervisorScore(total);
     localStorage.setItem("supervisorScore", JSON.stringify(total));
+    setShowSubmitButton(true);
   };
 
   return (
@@ -154,13 +157,23 @@ const Section3 = () => {
               </button>
             </div>
             <div>
-              <button
-                className="mtn__btn mtn__black"
-                type="button"
-                onClick={scoreHandler}
-              >
-                Calculate Performance
-              </button>
+              {showSubmitButton ? (
+                <button
+                  className="mtn__btn mtn__black"
+                  type="button"
+                  onClick={() => {}}
+                >
+                  Submit
+                </button>
+              ) : (
+                <button
+                  className="mtn__btn mtn__black"
+                  type="button"
+                  onClick={scoreHandler}
+                >
+                  Calculate Performance
+                </button>
+              )}
             </div>
           </div>
         </div>

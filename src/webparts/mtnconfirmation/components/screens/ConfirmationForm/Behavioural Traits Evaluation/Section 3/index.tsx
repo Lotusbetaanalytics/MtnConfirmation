@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { Header, Card, Select, TextArea, Input } from "../../../../Containers";
+import { Header, Card, Select, TextArea } from "../../../../Containers";
 
 import styles from "./section3.module.scss";
 const Section3 = () => {
@@ -18,6 +18,10 @@ const Section3 = () => {
   const [performanceScore, setPerformanceScore] = React.useState(
     JSON.parse(localStorage.getItem("performanceScore")) || null
   );
+
+  const [showSubmitButton, setShowSubmitButton] = React.useState(false);
+  const [queryResponse, setQueryResponse] = React.useState("");
+  const [disciplinaryResponse, setDisciplinaryResponse] = React.useState("");
 
   return (
     <>
@@ -84,34 +88,50 @@ const Section3 = () => {
             <div>Confirm if employee has any engaging/disciplinary issues</div>
           </div>
           <div className={styles.input__container}>
-            <div className={styles.section1__input}>
-              <Input
-                type="radio"
-                onChange={(e) => {}}
-                title="Yes"
-                value={"Yes"}
-              />
-              <Input
-                type="radio"
-                onChange={(e) => {}}
-                title="No"
-                value={"No"}
-              />
-            </div>
-            <div className={styles.section1__input}>
-              <Input
-                type="radio"
-                onChange={(e) => {}}
-                title="Yes"
-                value={"Yes"}
-              />
-              <Input
-                type="radio"
-                onChange={(e) => {}}
-                title="No"
-                value={"No"}
-              />
-            </div>
+            <form className={styles.section1__input}>
+              <div className={styles.radio_input}>
+                <input
+                  type="radio"
+                  onChange={(e) => {
+                    setQueryResponse(e.target.value);
+                  }}
+                  value="Yes"
+                />
+                <label>Yes</label>
+              </div>
+              <div className={styles.radio_input}>
+                <input
+                  type="radio"
+                  onChange={(e) => {
+                    setQueryResponse(e.target.value);
+                  }}
+                  value="No"
+                />
+                <label>No</label>
+              </div>
+            </form>
+            <form className={styles.section1__input}>
+              <div className={styles.radio_input}>
+                <input
+                  type="radio"
+                  onChange={(e) => {
+                    setDisciplinaryResponse(e.target.value);
+                  }}
+                  value="Yes"
+                />
+                <label>Yes</label>
+              </div>
+              <div className={styles.radio_input}>
+                <input
+                  type="radio"
+                  onChange={(e) => {
+                    setDisciplinaryResponse(e.target.value);
+                  }}
+                  value="No"
+                />
+                <label>No</label>
+              </div>
+            </form>
           </div>
           <div className={styles.section1__comments}>
             <h2>Comments</h2>
@@ -136,26 +156,37 @@ const Section3 = () => {
               </Link>
             </div>
             <div>
-              <button
-                className="mtn__btn mtn__black"
-                type="button"
-                onClick={() => {
-                  const total =
-                    Number(localStorage.getItem("punctualityRating")) +
-                    Number(localStorage.getItem("queryRating")) +
-                    Number(localStorage.getItem("adaptRating")) +
-                    Number(localStorage.getItem("attendanceRating")) +
-                    Number(localStorage.getItem("judgementRating"));
-                  setPerformanceScore(total);
+              {showSubmitButton ? (
+                <button
+                  className="mtn__btn mtn__black"
+                  type="button"
+                  onClick={() => {}}
+                >
+                  Submit
+                </button>
+              ) : (
+                <button
+                  className="mtn__btn mtn__black"
+                  type="button"
+                  onClick={() => {
+                    const total =
+                      Number(localStorage.getItem("punctualityRating")) +
+                      Number(localStorage.getItem("queryRating")) +
+                      Number(localStorage.getItem("adaptRating")) +
+                      Number(localStorage.getItem("attendanceRating")) +
+                      Number(localStorage.getItem("judgementRating"));
+                    setPerformanceScore(total);
 
-                  localStorage.setItem(
-                    "performanceScore",
-                    JSON.stringify(total)
-                  );
-                }}
-              >
-                Calculate Performance
-              </button>
+                    localStorage.setItem(
+                      "performanceScore",
+                      JSON.stringify(total)
+                    );
+                    setShowSubmitButton(true);
+                  }}
+                >
+                  Calculate Performance
+                </button>
+              )}
             </div>
           </div>
         </div>
