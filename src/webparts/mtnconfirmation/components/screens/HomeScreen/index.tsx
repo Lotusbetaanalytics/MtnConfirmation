@@ -15,7 +15,7 @@ const HomeScreen = () => {
                 </div>
             </div>
             <div className={styles.btnContainer}>
-                <Link to={`/basicInfo`} className="mtn__btn mtn__black">Proceed</Link>
+                <Link to={`/admin/dashboard`} className="mtn__btn mtn__black">Proceed</Link>
             </div>
         </div>
     </div>;
