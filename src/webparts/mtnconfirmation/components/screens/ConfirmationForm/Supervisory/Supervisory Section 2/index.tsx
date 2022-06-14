@@ -1,5 +1,11 @@
 import * as React from "react";
-import { Header, Card, Select, TextArea } from "../../../../Containers";
+import {
+  Header,
+  Card,
+  Select,
+  TextArea,
+  Helpers,
+} from "../../../../Containers";
 import { useHistory } from "react-router-dom";
 import styles from "./section2.module.scss";
 const Section3 = () => {
@@ -73,14 +79,8 @@ const Section3 = () => {
               }}
               title="Ratings"
               value={peopleManagementRating}
-            >
-              <option value="select rating">Select Rating</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </Select>
+              options={Helpers.rating}
+            />
           </div>
           <div className={styles.section1__comments}>
             <h2>Comments</h2>
@@ -113,14 +113,8 @@ const Section3 = () => {
               }}
               title="Ratings"
               value={planningRating}
-            >
-              <option value="select rating">Select Rating</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </Select>
+              options={Helpers.rating}
+            />
           </div>
           <div className={styles.section1__comments}>
             <h2>Comments</h2>

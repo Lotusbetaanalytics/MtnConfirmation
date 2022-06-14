@@ -10,18 +10,29 @@ import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
 import * as strings from 'MtnconfirmationWebPartStrings';
 import Mtnconfirmation from './components/Mtnconfirmation';
 import { IMtnconfirmationProps } from './components/IMtnconfirmationProps';
+import { sp } from "@pnp/sp/presets/all";
 
 export interface IMtnconfirmationWebPartProps {
   description: string;
 }
 
 export default class MtnconfirmationWebPart extends BaseClientSideWebPart<IMtnconfirmationWebPartProps> {
-
+  public onInit(): Promise<void> { 
+  
+    sp.setup({
+      spfxContext: this.context
+    });
+    return Promise.resolve(); 
+  }
+  pro
   public render(): void {
+    
     const element: React.ReactElement<IMtnconfirmationProps> = React.createElement(
       Mtnconfirmation,
       {
-        description: this.properties.description
+        description: this.properties.description,
+        context: this.context,  
+        pageContext: this.context.pageContext
       }
     );
 
