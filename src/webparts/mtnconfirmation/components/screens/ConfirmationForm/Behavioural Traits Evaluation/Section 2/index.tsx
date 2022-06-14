@@ -1,6 +1,12 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { Header, Card, Select, TextArea } from "../../../../Containers";
+import {
+  Header,
+  Card,
+  Select,
+  TextArea,
+  Helpers,
+} from "../../../../Containers";
 
 import styles from "./section2.module.scss";
 const Section2 = () => {
@@ -49,14 +55,8 @@ const Section2 = () => {
               }}
               title="Ratings"
               value={adaptRating}
-            >
-              <option value="select rating">Select Rating</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </Select>
+              options={Helpers.rating}
+            />
           </div>
           <div className={styles.section1__comments}>
             <h2>Comments</h2>
@@ -89,14 +89,8 @@ const Section2 = () => {
               }}
               title="Ratings"
               value={judgementRating}
-            >
-              <option value="select rating">Select Rating</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </Select>
+              options={Helpers.rating}
+            />
           </div>
           <div className={styles.section1__comments}>
             <h2>Comments</h2>
@@ -127,14 +121,8 @@ const Section2 = () => {
               }}
               title="Ratings"
               value={attendanceRating}
-            >
-              <option value="select rating">Select Rating</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </Select>
+              options={Helpers.rating}
+            />
           </div>
           <div className={styles.section1__comments}>
             <h2>Comments</h2>

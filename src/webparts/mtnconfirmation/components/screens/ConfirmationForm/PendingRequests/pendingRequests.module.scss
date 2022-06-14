@@ -1,0 +1,61 @@
+.view__Container {
+  padding: 2rem;
+}
+
+table,
+thead,
+tr {
+  border-bottom: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+thead {
+  width: 60%;
+  height: 70px;
+  padding-top: 1rem;
+  background-color: whitesmoke;
+}
+
+tr {
+  font-weight: 900;
+  font-size: 1.8rem;
+  padding: 4px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td {
+  text-align: center;
+  font-size: 12px;
+  padding: 0.5rem;
+}
+
+.view__Btn {
+  width: 70%;
+  height: 2.5rem;
+  outline: none;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  color: aliceblue;
+  text-decoration: none;
+  border: none;
+  outline: none;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  box-shadow: 0px 2px 2px 0px rgb(134, 109, 109);
+  cursor: pointer;
+}
+
+.mtn__black {
+  background: #000;
+}
