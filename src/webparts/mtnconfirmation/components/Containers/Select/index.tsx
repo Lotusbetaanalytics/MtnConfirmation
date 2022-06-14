@@ -1,13 +1,22 @@
 import * as React from 'react';
 
 
-const Select = ({ onChange, value, children, title }) => {
-    return <div className="mtn__InputContainer mtn__child">
-        <label>{title}</label>
+const Select = ({ onChange, value, title, options, required = false, filter = false, filterOption = "", onBlur = null, size = "mtn__child" }) => {
+    return <div className={`mtn__InputContainer ${size}`}>
+        <label>{title} {required && <span className='required'>*</span>}</label>
         <select
             onChange={onChange}
             value={value}
-        >{children}</select>
+            // defaultValue={title}
+            onBlur={onBlur}
+            required={required}>
+            <option value="" disabled>{title}</option>
+            {options && options.map((item) => (
+                !filter ? <option value={item.value}>{item.value}</option> :
+                    <option value={item[filterOption]}>{item[filterOption]}</option>
+            ))}
+
+        </select>
     </div>;
 };
 
