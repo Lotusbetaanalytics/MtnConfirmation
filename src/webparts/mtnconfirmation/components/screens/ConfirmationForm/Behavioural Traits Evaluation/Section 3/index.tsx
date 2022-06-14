@@ -92,6 +92,7 @@ const Section3 = () => {
               <div className={styles.radio_input}>
                 <input
                   type="radio"
+                  name="confirm"
                   onChange={(e) => {
                     setQueryResponse(e.target.value);
                   }}
@@ -102,6 +103,7 @@ const Section3 = () => {
               <div className={styles.radio_input}>
                 <input
                   type="radio"
+                  name="confirm"
                   onChange={(e) => {
                     setQueryResponse(e.target.value);
                   }}
@@ -114,6 +116,7 @@ const Section3 = () => {
               <div className={styles.radio_input}>
                 <input
                   type="radio"
+                  name="disciplinary"
                   onChange={(e) => {
                     setDisciplinaryResponse(e.target.value);
                   }}
@@ -124,6 +127,7 @@ const Section3 = () => {
               <div className={styles.radio_input}>
                 <input
                   type="radio"
+                  name="disciplinary"
                   onChange={(e) => {
                     setDisciplinaryResponse(e.target.value);
                   }}
