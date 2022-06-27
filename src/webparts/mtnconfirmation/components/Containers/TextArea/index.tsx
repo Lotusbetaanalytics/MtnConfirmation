@@ -9,3 +9,16 @@ const TextArea = ({ onChange, value }) => {
 };
 
 export default TextArea;
+
+export const TextAreaSmall = ({ onChange, value, rows = 3 }) => {
+  return (
+    <div>
+      <textarea
+        maxLength={60}
+        value={value}
+        onChange={onChange}
+        rows={rows}
+      ></textarea>
+    </div>
+  );
+};

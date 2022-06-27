@@ -8,6 +8,7 @@ import {
 } from "../../../../Containers";
 import { useHistory } from "react-router-dom";
 import styles from "./section2.module.scss";
+import { TextAreaSmall } from "../../../../Containers/TextArea";
 const Section3 = () => {
   const history = useHistory();
   const prevHandler = () => {
@@ -126,17 +127,41 @@ const Section3 = () => {
               }}
             />
           </div>
-        </div>
-        <div className={`${styles.evaluation__section} `}>
-          <Card header="Total Performance Score">
-            <input
-              className={styles.score__input}
-              type="text"
-              style={{ backgroundColor: "white" }}
-              readOnly
-              value={supervisorScore}
+          <div className={`${styles.evaluation__section} `}>
+            <Card header="Total Performance Score">
+              <input
+                className={styles.score__input}
+                type="text"
+                style={{ backgroundColor: "white" }}
+                readOnly
+                value={supervisorScore}
+              />
+            </Card>
+          </div>
+          <div></div>
+          <div className={styles.section1__comments}>
+            <h2>Rater's final comment</h2>
+            <TextAreaSmall
+              value={planningComment}
+              rows={5}
+              onChange={(e: any) => {
+                localStorage.setItem("planningComment", e.target.value);
+                setPlanningComment(e.target.value);
+              }}
             />
-          </Card>
+          </div>
+          <div></div>
+          <div></div>
+          <div className={styles.section1__comments}>
+            <h2>Next Actor</h2>
+            <TextAreaSmall
+              value={planningComment}
+              onChange={(e: any) => {
+                localStorage.setItem("planningComment", e.target.value);
+                setPlanningComment(e.target.value);
+              }}
+            />
+          </div>
         </div>
 
         <div className={`${styles.evaluation__section__button} `}>

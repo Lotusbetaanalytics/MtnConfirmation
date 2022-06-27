@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import {
   Header,
   Card,
@@ -28,10 +28,31 @@ const Section2 = () => {
   const [attendanceComment, setAttendanceComment] = React.useState(
     localStorage.getItem("attendanceComment") || ""
   );
+
+  const history = useHistory();
+  const nextHandler = () => {
+    localStorage.setItem(
+      "sction2Rating",
+      JSON.stringify({
+        adaptRating,
+        adaptComment,
+        judgementRating,
+        judgementComment,
+        attendanceRating,
+        attendanceComment,
+      })
+    );
+
+    history.push("/behavioral/section3");
+  };
+
   return (
     <>
       <Header title="Behavioural Traits Evaluation" />
-      <div className={styles.evaluation__section2__container}>
+      <form
+        className={styles.evaluation__section2__container}
+        onSubmit={nextHandler}
+      >
         <div className={`${styles.evaluation__section} `}>
           <Card header="Adaptability">
             <ul>
@@ -56,6 +77,7 @@ const Section2 = () => {
               title="Ratings"
               value={adaptRating}
               options={Helpers.rating}
+              required={true}
             />
           </div>
           <div className={styles.section1__comments}>
@@ -88,6 +110,7 @@ const Section2 = () => {
                 setJudgementRating(e.target.value);
               }}
               title="Ratings"
+              required={true}
               value={judgementRating}
               options={Helpers.rating}
             />
@@ -146,18 +169,13 @@ const Section2 = () => {
                 Previous
               </Link>
             </div>
-            <div>
-              <Link
-                to="/behavioral/section3"
-                className="mtn__btn mtn__black"
-                type="button"
-              >
-                Next
-              </Link>
-            </div>
+            <button type="submit" className="mtn__btn mtn__black">
+              {/* <Link to="/behavioral/section3" > */}
+              Next
+            </button>
           </div>
         </div>
-      </div>
+      </form>
     </>
   );
 };

@@ -8,7 +8,7 @@ import {
 } from "../../../../Containers";
 import { useHistory } from "react-router-dom";
 import styles from "./section1.module.scss";
-const Section2 = () => {
+const SuperVisorySection1 = () => {
   const history = useHistory();
   const prevHandler = () => {
     history.push("/behavioral/section3");
@@ -46,6 +46,21 @@ const Section2 = () => {
       <Header title="Supervisory Evaluation" />
       <div className={styles.evaluation__section2__container}>
         <div className={`${styles.evaluation__section} `}>
+          <div>
+            <div>Name</div>
+            <input
+              className={styles.score__input}
+              type="text"
+              style={{ backgroundColor: "white" }}
+              readOnly
+              value=""
+            />
+          </div>
+          <div>Email</div>
+          <div>Date</div>
+        </div>
+
+        <div className={`${styles.evaluation__section} `}>
           <Card header="Leadership">
             <ul>
               <li>
@@ -66,7 +81,7 @@ const Section2 = () => {
               }}
               title="Ratings"
               value={leadershipRating}
-              options={Helpers}
+              options={Helpers.rating}
             />
           </div>
           <div className={styles.section1__comments}>
@@ -100,7 +115,7 @@ const Section2 = () => {
               }}
               title="Ratings"
               value={delegationRating}
-              options={Helpers}
+              options={Helpers.rating}
             />
           </div>
           <div className={styles.section1__comments}>
@@ -138,7 +153,7 @@ const Section2 = () => {
               }}
               title="Ratings"
               value={administrationRating}
-              options={Helpers}
+              options={Helpers.rating}
             />
           </div>
           <div className={styles.section1__comments}>
@@ -179,4 +194,4 @@ const Section2 = () => {
   );
 };
 
-export default Section2;
+export default SuperVisorySection1;
