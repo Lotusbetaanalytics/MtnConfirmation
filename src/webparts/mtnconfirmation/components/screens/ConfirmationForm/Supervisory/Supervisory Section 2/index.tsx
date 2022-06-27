@@ -9,42 +9,42 @@ import {
 import { useHistory } from "react-router-dom";
 import styles from "./section2.module.scss";
 import { TextAreaSmall } from "../../../../Containers/TextArea";
+import { SupervisoryEvaluationContext } from "../../../../Context/SupervisoryContext";
+import { RaterContext } from "../../../../Context/RaterContext";
 const Section3 = () => {
   const history = useHistory();
   const prevHandler = () => {
     history.push("/supervisory/section1");
   };
 
-  const [peopleManagementComment, setPeopleManagementComment] = React.useState(
-    localStorage.getItem("peopleManagementComment") || ""
-  );
-
-  const [peopleManagementRating, setPeopleManagementRating] = React.useState(
-    localStorage.getItem("peopleManagementRating") || null
-  );
-  const [planningComment, setPlanningComment] = React.useState(
-    localStorage.getItem("planningComment") || ""
-  );
-
-  const [planningRating, setPlanningRating] = React.useState(
-    localStorage.getItem("planningRating") || ""
-  );
-
-  const [supervisorScore, setSupervisorScore] = React.useState(
-    JSON.parse(localStorage.getItem("supervisorScore")) || null
-  );
-
   const [showSubmitButton, setShowSubmitButton] = React.useState(false);
+  const {
+    leadershipRating,
+    administrationRating,
+    delegationRating,
+    peopleManagementComment,
+    setPeopleManagementComment,
+    peopleManagementRating,
+    setPeopleManagementRating,
+    planningComment,
+    setPlanningComment,
+    planningRating,
+    setPlanningRating,
+    setSupervisoryEvaluationScore: setSupervisorScore,
+    supervisoryEvaluationScore: supervisorScore,
+  } = React.useContext(SupervisoryEvaluationContext);
+
+  const { raterFinalComments, setRaterFinalComments } =
+    React.useContext(RaterContext);
 
   const scoreHandler = () => {
     const total =
-      Number(localStorage.getItem("leadershipRating")) +
-      Number(localStorage.getItem("delegationRating")) +
-      Number(localStorage.getItem("administrationRating")) +
-      Number(localStorage.getItem("peopleManagementRating")) +
-      Number(localStorage.getItem("planningRating"));
+      Number(leadershipRating) +
+      Number(administrationRating) +
+      Number(delegationRating) +
+      Number(peopleManagementRating) +
+      Number(planningRating);
     setSupervisorScore(total);
-    localStorage.setItem("supervisorScore", JSON.stringify(total));
     setShowSubmitButton(true);
   };
 
@@ -75,7 +75,6 @@ const Section3 = () => {
             {/* <h2>Ratings</h2> */}
             <Select
               onChange={(e: any) => {
-                localStorage.setItem("peopleManagementRating", e.target.value);
                 setPeopleManagementRating(e.target.value);
               }}
               title="Ratings"
@@ -88,7 +87,6 @@ const Section3 = () => {
             <TextArea
               value={peopleManagementComment}
               onChange={(e: any) => {
-                localStorage.setItem("peopleManagementComment", e.target.value);
                 setPeopleManagementComment(e.target.value);
               }}
             />
@@ -109,7 +107,6 @@ const Section3 = () => {
             {/* <h2>Ratings</h2> */}
             <Select
               onChange={(e: any) => {
-                localStorage.setItem("planningRating", e.target.value);
                 setPlanningRating(e.target.value);
               }}
               title="Ratings"
@@ -122,7 +119,6 @@ const Section3 = () => {
             <TextArea
               value={planningComment}
               onChange={(e: any) => {
-                localStorage.setItem("planningComment", e.target.value);
                 setPlanningComment(e.target.value);
               }}
             />
@@ -142,11 +138,10 @@ const Section3 = () => {
           <div className={styles.section1__comments}>
             <h2>Rater's final comment</h2>
             <TextAreaSmall
-              value={planningComment}
+              value={raterFinalComments}
               rows={5}
               onChange={(e: any) => {
-                localStorage.setItem("planningComment", e.target.value);
-                setPlanningComment(e.target.value);
+                setRaterFinalComments(e.target.value);
               }}
             />
           </div>
@@ -157,7 +152,6 @@ const Section3 = () => {
             <TextAreaSmall
               value={planningComment}
               onChange={(e: any) => {
-                localStorage.setItem("planningComment", e.target.value);
                 setPlanningComment(e.target.value);
               }}
             />

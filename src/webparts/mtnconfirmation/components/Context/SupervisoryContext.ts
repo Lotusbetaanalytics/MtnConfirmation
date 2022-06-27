@@ -1,8 +1,6 @@
 import * as React from "react";
 
 export type SupervisoryEvaluationContextType = {
-  rater: string;
-  setRater: React.Dispatch<React.SetStateAction<string>>;
   leadershipRating: number;
   setLeadershipRating: React.Dispatch<React.SetStateAction<number>>;
   leadershipComment: string;
@@ -27,9 +25,6 @@ export type SupervisoryEvaluationContextType = {
   setPeopleManagementRating: React.Dispatch<React.SetStateAction<number>>;
   peopleManagementComment: string;
   setPeopleManagementComment: React.Dispatch<React.SetStateAction<string>>;
-  raterFinalComments: string;
-  setRaterFinalComments: React.Dispatch<React.SetStateAction<string>>;
-
   supervisoryEvaluationScore: number;
   setSupervisoryEvaluationScore: React.Dispatch<React.SetStateAction<number>>;
 };

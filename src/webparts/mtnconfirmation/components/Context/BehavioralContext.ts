@@ -1,8 +1,6 @@
 import * as React from "react";
 
 export type BehavioralContextType = {
-  rater: string;
-  setRater: React.Dispatch<React.SetStateAction<string>>;
   attendanceRating: number;
   setAttendanceRating: React.Dispatch<React.SetStateAction<number>>;
   attendanceComment: string;
