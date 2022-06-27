@@ -1,4 +1,5 @@
 import * as React from "react";
+import { sp } from "@pnp/sp";
 import {
   Header,
   Card,
@@ -11,6 +12,7 @@ import styles from "./section2.module.scss";
 import { TextAreaSmall } from "../../../../Containers/TextArea";
 import { SupervisoryEvaluationContext } from "../../../../Context/SupervisoryContext";
 import { RaterContext } from "../../../../Context/RaterContext";
+import swal from "sweetalert";
 const Section3 = () => {
   const history = useHistory();
   const prevHandler = () => {
@@ -18,6 +20,7 @@ const Section3 = () => {
   };
 
   const [showSubmitButton, setShowSubmitButton] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
   const {
     leadershipRating,
     administrationRating,
@@ -30,11 +33,14 @@ const Section3 = () => {
     setPlanningComment,
     planningRating,
     setPlanningRating,
+    delegationComment,
+    leadershipComment,
+    administrationComment,
     setSupervisoryEvaluationScore: setSupervisorScore,
     supervisoryEvaluationScore: supervisorScore,
   } = React.useContext(SupervisoryEvaluationContext);
 
-  const { raterFinalComments, setRaterFinalComments } =
+  const { raterFinalComments, setRaterFinalComments, rater, raterEmail, date } =
     React.useContext(RaterContext);
 
   const scoreHandler = () => {
@@ -48,10 +54,71 @@ const Section3 = () => {
     setShowSubmitButton(true);
   };
 
+  React.useEffect(() => {
+    sp.web.lists
+      .getByTitle("SupervisoryEvaluation")
+      .items.get()
+      .then((item) => {
+        console.log(item);
+      })
+      .catch((error) => {});
+  }, []);
+
+  const submitHandler = (e) => {
+    setLoading(true);
+    e.preventDefault();
+    const data = {
+      EmployeeID: "",
+      RaterName: rater,
+      RaterEmail: raterEmail,
+      RatingDate: date,
+      LeadershipRating: leadershipRating,
+      AdministrationRating: administrationRating,
+      DelegationRating: delegationRating,
+      PeopleManagementRating: peopleManagementRating,
+      PlanningRating: planningRating,
+      PeopleManagementComment: peopleManagementComment,
+      PlanningComment: planningComment,
+      DelegationComment: delegationComment,
+      LeadershipComment: leadershipComment,
+      AdministrationComment: administrationComment,
+      RaterFinalComment: raterFinalComments,
+      TotalRatingScore: supervisorScore,
+    };
+
+    sp.web.lists
+      .getByTitle("SupervisoryEvaluation")
+      .items.add(data)
+      .then((item) => {
+        setLoading(false);
+        swal({
+          title: "Success",
+          text: "Evaluation Submitted Successfully",
+          icon: "success",
+        }).then((ok) => {
+          if (ok) {
+            history.push("/");
+          }
+        });
+      })
+      .catch((error) => {
+        setLoading(false);
+        swal(
+          "Error Occured",
+          "An error occured while submitting your data!",
+          "error"
+        );
+        console.log(error);
+      });
+  };
+
   return (
     <>
       <Header title="Supervisory Evaluation" />
-      <div className={styles.evaluation__section2__container}>
+      <form
+        className={styles.evaluation__section2__container}
+        onSubmit={submitHandler}
+      >
         <div className={`${styles.evaluation__section} `}>
           <Card header="People Management">
             <ul>
@@ -77,6 +144,7 @@ const Section3 = () => {
               onChange={(e: any) => {
                 setPeopleManagementRating(e.target.value);
               }}
+              required={true}
               title="Ratings"
               value={peopleManagementRating}
               options={Helpers.rating}
@@ -89,6 +157,7 @@ const Section3 = () => {
               onChange={(e: any) => {
                 setPeopleManagementComment(e.target.value);
               }}
+              required={true}
             />
           </div>
         </div>
@@ -112,6 +181,7 @@ const Section3 = () => {
               title="Ratings"
               value={planningRating}
               options={Helpers.rating}
+              required={true}
             />
           </div>
           <div className={styles.section1__comments}>
@@ -121,6 +191,7 @@ const Section3 = () => {
               onChange={(e: any) => {
                 setPlanningComment(e.target.value);
               }}
+              required={true}
             />
           </div>
           <div className={`${styles.evaluation__section} `}>
@@ -131,6 +202,7 @@ const Section3 = () => {
                 style={{ backgroundColor: "white" }}
                 readOnly
                 value={supervisorScore}
+                required
               />
             </Card>
           </div>
@@ -143,6 +215,7 @@ const Section3 = () => {
               onChange={(e: any) => {
                 setRaterFinalComments(e.target.value);
               }}
+              required={true}
             />
           </div>
           <div></div>
@@ -173,24 +246,20 @@ const Section3 = () => {
               {showSubmitButton ? (
                 <button
                   className="mtn__btn mtn__black"
-                  type="button"
-                  onClick={() => {}}
+                  type="submit"
+                  disabled={loading}
                 >
-                  Submit
+                  {loading ? "Loading..." : "Submit"}
                 </button>
               ) : (
-                <button
-                  className="mtn__btn mtn__black"
-                  type="button"
-                  onClick={scoreHandler}
-                >
+                <div className="mtn__btn mtn__black" onClick={scoreHandler}>
                   Calculate Performance
-                </button>
+                </div>
               )}
             </div>
           </div>
         </div>
-      </div>
+      </form>
     </>
   );
 };

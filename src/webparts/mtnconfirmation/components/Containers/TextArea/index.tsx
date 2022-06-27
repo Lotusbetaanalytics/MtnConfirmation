@@ -1,16 +1,26 @@
 import * as React from "react";
 import styles from "./textarea.module.scss";
-const TextArea = ({ onChange, value }) => {
+const TextArea = ({ onChange, value, required = false }) => {
   return (
     <div className={styles.textArea__container}>
-      <textarea maxLength={60} value={value} onChange={onChange}></textarea>
+      <textarea
+        maxLength={60}
+        value={value}
+        onChange={onChange}
+        required={required}
+      ></textarea>
     </div>
   );
 };
 
 export default TextArea;
 
-export const TextAreaSmall = ({ onChange, value, rows = 3 }) => {
+export const TextAreaSmall = ({
+  onChange,
+  value,
+  rows = 3,
+  required = false,
+}) => {
   return (
     <div>
       <textarea
@@ -18,6 +28,7 @@ export const TextAreaSmall = ({ onChange, value, rows = 3 }) => {
         value={value}
         onChange={onChange}
         rows={rows}
+        required={required}
       ></textarea>
     </div>
   );
