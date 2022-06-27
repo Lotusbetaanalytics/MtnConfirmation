@@ -38,6 +38,12 @@ const Section3 = () => {
     administrationComment,
     setSupervisoryEvaluationScore: setSupervisorScore,
     supervisoryEvaluationScore: supervisorScore,
+    setLeadershipRating,
+    setAdministrationComment,
+    setDelegationComment,
+    setLeadershipComment,
+    setAdministrationRating,
+    setDelegationRating,
   } = React.useContext(SupervisoryEvaluationContext);
 
   const { raterFinalComments, setRaterFinalComments, rater, raterEmail, date } =
@@ -91,6 +97,19 @@ const Section3 = () => {
       .items.add(data)
       .then((item) => {
         setLoading(false);
+        setPeopleManagementComment("");
+        setPlanningComment("");
+        setDelegationComment("");
+        setLeadershipComment("");
+        setAdministrationComment("");
+        setRaterFinalComments("");
+        setSupervisorScore(0);
+        setPeopleManagementRating(0);
+        setPlanningRating(0);
+        setDelegationRating(0);
+        setLeadershipRating(0);
+        setAdministrationRating(0);
+
         swal({
           title: "Success",
           text: "Evaluation Submitted Successfully",
@@ -173,7 +192,6 @@ const Section3 = () => {
             </ul>
           </Card>
           <div className={styles.section1__ratings}>
-            {/* <h2>Ratings</h2> */}
             <Select
               onChange={(e: any) => {
                 setPlanningRating(e.target.value);
@@ -238,6 +256,7 @@ const Section3 = () => {
                 className="mtn__btn mtn__blackOutline"
                 type="button"
                 onClick={() => prevHandler()}
+                disabled={loading}
               >
                 Previous
               </button>
