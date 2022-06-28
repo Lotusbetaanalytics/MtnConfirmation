@@ -1,6 +1,12 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { Header, Card, Select, TextArea, Helpers } from "../../../../Containers";
+import {
+  Header,
+  Card,
+  Select,
+  TextArea,
+  Helpers,
+} from "../../../../Containers";
 
 import styles from "./section3.module.scss";
 const Section3 = () => {
@@ -154,7 +160,7 @@ const Section3 = () => {
                 <button
                   className="mtn__btn mtn__black"
                   type="button"
-                  onClick={() => { }}
+                  onClick={() => {}}
                 >
                   Submit
                 </button>
