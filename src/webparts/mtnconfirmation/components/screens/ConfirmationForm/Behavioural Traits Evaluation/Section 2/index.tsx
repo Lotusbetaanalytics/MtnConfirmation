@@ -7,42 +7,27 @@ import {
   TextArea,
   Helpers,
 } from "../../../../Containers";
+import { BehavioralContext } from "../../../../Context/BehavioralContext";
 
 import styles from "./section2.module.scss";
 const Section2 = () => {
-  const [adaptRating, setAdaptRating] = React.useState(
-    localStorage.getItem("adaptRating") || ""
-  );
-  const [adaptComment, setAdaptComment] = React.useState(
-    localStorage.getItem("adaptComment") || ""
-  );
-  const [judgementRating, setJudgementRating] = React.useState(
-    localStorage.getItem("judgementRating") || ""
-  );
-  const [judgementComment, setJudgementComment] = React.useState(
-    localStorage.getItem("judgementComment") || ""
-  );
-  const [attendanceRating, setAttendanceRating] = React.useState(
-    localStorage.getItem("attendanceRating") || ""
-  );
-  const [attendanceComment, setAttendanceComment] = React.useState(
-    localStorage.getItem("attendanceComment") || ""
-  );
+  const {
+    adaptComment,
+    setAdaptComment,
+    adaptRating,
+    setAdaptRating,
+    judgementRating,
+    setJudgementRating,
+    judgementComment,
+    setJudgementComment,
+    attendanceRating,
+    setAttendanceRating,
+    attendanceComment,
+    setAttendanceComment,
+  } = React.useContext(BehavioralContext);
 
   const history = useHistory();
   const nextHandler = () => {
-    localStorage.setItem(
-      "sction2Rating",
-      JSON.stringify({
-        adaptRating,
-        adaptComment,
-        judgementRating,
-        judgementComment,
-        attendanceRating,
-        attendanceComment,
-      })
-    );
-
     history.push("/behavioral/section3");
   };
 
@@ -71,7 +56,6 @@ const Section2 = () => {
             {/* <h2>Ratings</h2> */}
             <Select
               onChange={(e: any) => {
-                localStorage.setItem("adaptRating", e.target.value);
                 setAdaptRating(e.target.value);
               }}
               title="Ratings"
@@ -84,8 +68,8 @@ const Section2 = () => {
             <h2>Comments</h2>
             <TextArea
               value={adaptComment}
+              required={true}
               onChange={(e: any) => {
-                localStorage.setItem("adaptComment", e.target.value);
                 setAdaptComment(e.target.value);
               }}
             />
@@ -106,7 +90,6 @@ const Section2 = () => {
             {/* <h2>Ratings</h2> */}
             <Select
               onChange={(e) => {
-                localStorage.setItem("judgementRating", e.target.value);
                 setJudgementRating(e.target.value);
               }}
               title="Ratings"
@@ -120,9 +103,9 @@ const Section2 = () => {
             <TextArea
               value={judgementComment}
               onChange={(e: any) => {
-                localStorage.setItem("judgementComment", e.target.value);
                 setJudgementComment(e.target.value);
               }}
+              required={true}
             />
           </div>
         </div>
@@ -139,12 +122,12 @@ const Section2 = () => {
             {/* <h2>Ratings</h2> */}
             <Select
               onChange={(e: any) => {
-                localStorage.setItem("attendanceRating", e.target.value);
                 setAttendanceRating(e.target.value);
               }}
               title="Ratings"
               value={attendanceRating}
               options={Helpers.rating}
+              required={true}
             />
           </div>
           <div className={styles.section1__comments}>
@@ -152,9 +135,9 @@ const Section2 = () => {
             <TextArea
               value={attendanceComment}
               onChange={(e: any) => {
-                localStorage.setItem("attendanceComment", e.target.value);
                 setAttendanceComment(e.target.value);
               }}
+              required={true}
             />
           </div>
         </div>
