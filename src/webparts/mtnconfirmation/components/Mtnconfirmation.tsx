@@ -69,6 +69,28 @@ export default class Mtnconfirmation extends React.Component<
     setSupervisoryEvaluationScore: React.Dispatch<React.SetStateAction<number>>;
     raterFinalComments: string;
     setRaterFinalComments: React.Dispatch<React.SetStateAction<string>>;
+    attendanceComment: string;
+    setAttendanceComment: React.Dispatch<React.SetStateAction<string>>;
+    attendanceRating: number;
+    setAttendanceRating: React.Dispatch<React.SetStateAction<number>>;
+    punctualityRating: number;
+    setPunctualityRating: React.Dispatch<React.SetStateAction<number>>;
+    punctualityComment: string;
+    setPunctualityComment: React.Dispatch<React.SetStateAction<string>>;
+    judgementRating: number;
+    setJudgementRating: React.Dispatch<React.SetStateAction<number>>;
+    judgementComment: string;
+    setJudgementComment: React.Dispatch<React.SetStateAction<string>>;
+    behavioralEvaluationScore: number;
+    setBehavioralEvaluationScore: React.Dispatch<React.SetStateAction<number>>;
+    queryRating: string;
+    setQueryRating: React.Dispatch<React.SetStateAction<string>>;
+    queryComment: string;
+    setQueryComment: React.Dispatch<React.SetStateAction<string>>;
+    disciplinaryRating: string;
+    setDisciplinaryRating: React.Dispatch<React.SetStateAction<string>>;
+    disciplinaryComment: string;
+    setDisciplinaryComment: React.Dispatch<React.SetStateAction<string>>;
   }
 > {
   constructor(props: IMtnconfirmationProps) {
@@ -105,6 +127,28 @@ export default class Mtnconfirmation extends React.Component<
       supervisoryEvaluationScore: 0,
       raterFinalComments: "",
       setRaterFinalComments: this.setRaterFinalComments,
+      attendanceComment: "",
+      setAttendanceComment: this.setAttendanceComment,
+      attendanceRating: null,
+      setAttendanceRating: this.setAttendanceRating,
+      punctualityRating: null,
+      setPunctualityRating: this.setPunctualityRating,
+      punctualityComment: "",
+      setPunctualityComment: this.setPunctualityComment,
+      judgementRating: null,
+      setJudgementRating: this.setJudgementRating,
+      judgementComment: "",
+      setJudgementComment: this.setJudgementComment,
+      behavioralEvaluationScore: 0,
+      setBehavioralEvaluationScore: this.setBehavioralEvaluationScore,
+      queryRating: "",
+      queryComment: "",
+      setQueryRating: this.setQueryRating,
+      setQueryComment: this.setQueryComment,
+      disciplinaryRating: "",
+      setDisciplinaryRating: this.setDisciplinaryRating,
+      disciplinaryComment: "",
+      setDisciplinaryComment: this.setDisciplinaryComment,
     };
   }
 
@@ -161,6 +205,50 @@ export default class Mtnconfirmation extends React.Component<
 
   setRaterFinalComments = (raterFinalComments: string): void => {
     this.setState({ raterFinalComments });
+  };
+
+  setAttendanceComment = (attendanceComment: string): void => {
+    this.setState({ attendanceComment });
+  };
+
+  setAttendanceRating = (attendanceRating: number): void => {
+    this.setState({ attendanceRating });
+  };
+
+  setPunctualityComment = (punctualityComment: string): void => {
+    this.setState({ punctualityComment });
+  };
+
+  setPunctualityRating = (punctualityRating: number): void => {
+    this.setState({ punctualityRating });
+  };
+
+  setJudgementComment = (judgementComment: string): void => {
+    this.setState({ judgementComment });
+  };
+
+  setJudgementRating = (judgementRating: number): void => {
+    this.setState({ judgementRating });
+  };
+
+  setBehavioralEvaluationScore = (behavioralEvaluationScore: number): void => {
+    this.setState({ behavioralEvaluationScore });
+  };
+
+  setQueryRating = (queryRating: string): void => {
+    this.setState({ queryRating });
+  };
+
+  setQueryComment = (queryComment: string): void => {
+    this.setState({ queryComment });
+  };
+
+  setDisciplinaryRating = (disciplinaryRating: string): void => {
+    this.setState({ disciplinaryRating });
+  };
+
+  setDisciplinaryComment = (disciplinaryComment: string): void => {
+    this.setState({ disciplinaryComment });
   };
 
   componentDidMount() {
@@ -230,6 +318,30 @@ export default class Mtnconfirmation extends React.Component<
                     adaptRating: this.state.adaptRating,
                     setAdaptRating: this.setAdaptRating,
                     setAdaptComment: this.setAdaptComment,
+                    attendanceComment: this.state.attendanceComment,
+                    attendanceRating: this.state.attendanceRating,
+                    setAttendanceRating: this.setAttendanceRating,
+                    setAttendanceComment: this.setAttendanceComment,
+                    behavioralEvaluationScore:
+                      this.state.behavioralEvaluationScore,
+                    setBehavioralEvaluationScore:
+                      this.setBehavioralEvaluationScore,
+                    judgementComment: this.state.judgementComment,
+                    judgementRating: this.state.judgementRating,
+                    setJudgementRating: this.setJudgementRating,
+                    setJudgementComment: this.setJudgementComment,
+                    punctualityComment: this.state.punctualityComment,
+                    punctualityRating: this.state.punctualityRating,
+                    setPunctualityRating: this.setPunctualityRating,
+                    setPunctualityComment: this.setPunctualityComment,
+                    queryComment: this.state.queryComment,
+                    queryRating: this.state.queryRating,
+                    setQueryRating: this.setQueryRating,
+                    setQueryComment: this.setQueryComment,
+                    disciplinaryComment: this.state.disciplinaryComment,
+                    disciplinaryRating: this.state.disciplinaryRating,
+                    setDisciplinaryRating: this.setDisciplinaryRating,
+                    setDisciplinaryComment: this.setDisciplinaryComment,
                   } as BehavioralContextType
                 }
               >

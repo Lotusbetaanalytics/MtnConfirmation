@@ -17,12 +17,16 @@ export type BehavioralContextType = {
   setPunctualityRating: React.Dispatch<React.SetStateAction<number>>;
   punctualityComment: string;
   setPunctualityComment: React.Dispatch<React.SetStateAction<string>>;
-  queryComment: string;
-  setQueryComment: React.Dispatch<React.SetStateAction<string>>;
-  queryRating: number;
-  setQueryRating: React.Dispatch<React.SetStateAction<number>>;
   behavioralEvaluationScore: number;
   setBehavioralEvaluationScore: React.Dispatch<React.SetStateAction<number>>;
+  queryComment: string;
+  setQueryComment: React.Dispatch<React.SetStateAction<string>>;
+  queryRating: string;
+  setQueryRating: React.Dispatch<React.SetStateAction<string>>;
+  disciplinaryRating: string;
+  setDisciplinaryRating: React.Dispatch<React.SetStateAction<string>>;
+  disciplinaryComment: string;
+  setDisciplinaryComment: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export const BehavioralContext =
