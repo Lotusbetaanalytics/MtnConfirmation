@@ -4,7 +4,7 @@ const TextArea = ({ onChange, value, required = false }) => {
   return (
     <div className={styles.textArea__container}>
       <textarea
-        maxLength={60}
+        minLength={60}
         value={value}
         onChange={onChange}
         required={required}
@@ -24,7 +24,7 @@ export const TextAreaSmall = ({
   return (
     <div>
       <textarea
-        maxLength={60}
+        minLength={60}
         value={value}
         onChange={onChange}
         rows={rows}
