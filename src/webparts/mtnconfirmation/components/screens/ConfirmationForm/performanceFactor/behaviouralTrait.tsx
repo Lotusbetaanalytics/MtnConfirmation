@@ -7,12 +7,10 @@ import styles from "./performance.module.scss";
 
 const BehaviouralTrait = () => {
   const history = useHistory();
-  // const [dependabilityRating, setDependabilityRating] = useState("");
-  // const [dependabilityComment, setDependabilityComment] = useState("");
-  // const [coperationRating, setCoperationRating] = useState("");
-  // const [coperationComment, setCoperationComment] = useState("");
-  // const [initiativeComment, setInitiativeComment] = useState("");
-  // const [initiativeRating, setIntiativeRating] = useState("");
+  const [workMsg2,setWorkMsg2] = useState(false)
+  const [knowlegdeMsg,setknowlegdeMsg] = useState(false)
+  const [workMsg,setWorkMsg] = useState(false) 
+  
   const [msg,setMsg] = useState(false);
   const {
     dependabilityRating,
@@ -31,11 +29,22 @@ const BehaviouralTrait = () => {
   
 
   const nextHandler = () => {
-    history.push("/workHabit");
+    if (dependabilityComment.length < 60) {
+      setknowlegdeMsg(true)
+    } 
+    if (coperationComment.length < 60) {
+      setWorkMsg(true)
+    }
+    if (initiativeComment.length < 60) {
+      setWorkMsg2(true)
+    } else {
+      
+      history.push("/behavioral/section2");
+    }
   };
   return (
     <>
-      <Header title="Performance Factor" />
+      <Header title="Behavioural Traits Evaluation" />
       <div className={styles.evaluation__section2__container}>
         <div className={styles.evaluation__section}>
           <Card header="Dependability">
@@ -64,13 +73,11 @@ const BehaviouralTrait = () => {
             <h2>Comment</h2>
             <TextArea
               onChange={(e) =>{
-                // localStorage.setItem("dependabilityComment",e.target.value)
-                // e.target.value.length < 60
-                //   ? setMsg(true) :
+               
               setDependabilityComment(e.target.value)}}
               value={dependabilityComment}
             />
-            {msg ? (
+            {knowlegdeMsg ? (
               <span>Your comment should be at least 60 characters </span>
             ) : null}
           </div>
@@ -100,13 +107,11 @@ const BehaviouralTrait = () => {
             <h2>Comment</h2>
             <TextArea
               onChange={(e) => {
-                // localStorage.setItem("workHabitComment",e.target.value)
-                // e.target.value.length < 60
-                //   ? setMsg(true) :
+                
                 setCoperationComment(e.target.value)}}
               value={coperationComment}
             />
-            {msg ? (
+            {workMsg ? (
               <span>Your comment should be at least 60 characters </span>
             ) : null}
           </div>
@@ -135,13 +140,11 @@ const BehaviouralTrait = () => {
             <h2>Comment</h2>
             <TextArea
               onChange={(e) => {
-                // localStorage.setItem("workHabitComment",e.target.value)
-                // e.target.value.length < 60
-                //   ? setMsg(true) :
+                
                 setInitiativeComment(e.target.value)}}
               value={initiativeComment}
             />
-            {msg ? (
+            {workMsg2 ? (
               <span>Your comment should be at least 60 characters </span>
             ) : null}
           </div>
@@ -158,13 +161,14 @@ const BehaviouralTrait = () => {
               </Link>
             </div>
             <div>
-              <Link
-                to="/behavioral/section2"
+              <button
+              onClick={nextHandler}
+               
                 className="mtn__btn mtn__black"
                 type="button"
               >
                 Next
-              </Link>
+              </button>
             </div>
           </div>
         </div>

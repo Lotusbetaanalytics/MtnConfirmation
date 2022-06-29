@@ -5,24 +5,21 @@ import { Header, Select,Helpers,TextArea, Card } from "../../../Containers";
 import { performanceEvaluationContext } from "../../../Context/performanceContext";
 import { RaterContext } from "../../../Context/RaterContext";
 import styles from "./performance.module.scss";
-import "@pnp/sp/webs";
-import "@pnp/sp/site-users/web";
+
 import { sp } from "@pnp/sp";
 import swal from "sweetalert";
 
 const workHabit = () => {
-  // const [workHabitRating, setWorkHabitRating] = useState("");
-  // const [workHabitComment, setWorkHabitComment] = useState("");
-  // const [communicatonRating, setCommunicationRating] = useState("");
-  // const [communicationComment, setCommunicationComment] = useState("");
-  // const [totalPerformanceScore, setTotalPerformanceScore] = useState(0);
+  
   const [showSubmitButton, setShowSubmitButton] = React.useState(true);
-  const [msg,setMsg] = React.useState(false);
+ 
   const [loading, setLoading] = React.useState(false);
   const history = useHistory()
+  const [workMsg,setWorkMsg] = useState(false)
+  const [knowlegdeMsg,setknowlegdeMsg] = useState(false)
   const { rater, raterEmail, date } =
   React.useContext(RaterContext);
-  console.log(rater)
+ 
   const {
     knowlegdeRating,
     setKnowlegdeRating,
@@ -69,34 +66,40 @@ React.useEffect(() => {
 }, []);
 
 const submitHandler = (e) => {
-  setLoading(true);
   e.preventDefault();
-  const data = {
-    EmployeeID: "",
+  if (workHabitComment.length < 60) {
+    setknowlegdeMsg(true)
+  } 
+  if (communicationComment.length < 60) {
+    setWorkMsg(true)
+  } else {
+  setLoading(true);
+ 
+ 
+  sp.web.lists
+    .getByTitle("PerformanceFactorEvaluation")
+    .items.add({
+      employeeID: "",
     RaterName: rater,
     RaterEmail: raterEmail,
     RatingDate: date,
     KnowlegdeRating: knowlegdeRating,
     KnowlegdeComment: knowlegdeComment,
-    WorkQualityRating: workQualityRating,
-    WorkQualityComment: workQualityComment,
-    WorkQualityRatingTwo: workQualityRatingtwo,
-    WorkQualityCommentTwo: workQualityCommenttwo,
-    WorkHabitRating: workHabitRating,
+    workQualityRating: workQualityRating,
+    workQualityComment: workQualityComment,
+    workQualityRatingtwo: workQualityRatingtwo,
+    workQualityCommentTwo: workQualityCommenttwo,
+    workHabitRating: workHabitRating,
     workHabitComment: workHabitComment,
-    communicationRating: communicationRating,
-    CommunicationComment: communicationComment,
-    TotalPerformanceScore: totalPerformanceScore
-    
-  };
-
-  sp.web.lists
-    .getByTitle("PerformanceFactorEvaluation")
-    .items.add(data)
+    communicatonRating: communicationRating,
+    communicationComment: communicationComment,
+    totalPerformanceScore: totalPerformanceScore
+    })
     .then((item) => {
       setLoading(false);
       setKnowlegdeRating(0)
      setknowlegdeComment("");
+     setWorkQualityComment("");
       setWorkQualityCommenttwo("");
       setWorkHabitComment("");
       setCommunicationComment("");
@@ -126,6 +129,7 @@ const submitHandler = (e) => {
       );
       console.log(error);
     });
+  }
 };
 
   return (
@@ -151,7 +155,7 @@ const submitHandler = (e) => {
           <Select
             value={workHabitRating}
             onChange={(e:any) => {
-            localStorage.setItem("workHabitRating",e.target.value)
+            
             setWorkHabitRating(e.target.value)}
             }
             title="Rating"
@@ -166,14 +170,11 @@ const submitHandler = (e) => {
           </h2>
           <TextArea
             onChange={(e:any) => {
-                localStorage.setItem("workHabitComment",e.target.value)
-                e.target.value.length < 60
-                  ? setMsg(true) :
                 setWorkHabitComment(e.target.value)}
             } 
             value={workHabitComment}
           />
-           {msg ? (
+           {knowlegdeMsg ? (
               <span>Your comment should be at least 60 characters </span>
             ) : null}
         </div>
@@ -208,14 +209,12 @@ const submitHandler = (e) => {
           
           <TextArea
             onChange={(e) => {
-                localStorage.setItem("communicationComment",e.target.value)
-                e.target.value.length < 60
-                ? setMsg(true) :
+               
                 setCommunicationComment(e.target.value)}
             } 
             value={communicationComment}
           />
-          {msg ? (
+          {workMsg ? (
               <span>Your comment should be at least 60 characters </span>
             ) : null}
         </div>
@@ -248,7 +247,7 @@ const submitHandler = (e) => {
             <button
             className="mtn__btn mtn__black"
             type="button"
-            // value={performanceScore}
+            
             onClick={scoreHandler}
           >
             Calculate Performance
@@ -260,7 +259,7 @@ const submitHandler = (e) => {
             onClick={submitHandler}
           >
             {loading ? "Loading..." : "Submit"}
-            Submit
+           
           </button>)}
         </div>
       </div>

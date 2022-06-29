@@ -14,6 +14,9 @@ const KnowlegdeFactor = () => {
   // const [workQualityRatingtwo, setWorkQualityRatingtwo] = useState("");
   // const [workQualityCommenttwo, setWorkQualityCommenttwo] = useState("");
   const [msg,setMsg] = useState(false)
+  const [workMsg2,setWorkMsg2] = useState(false)
+  const [knowlegdeMsg,setknowlegdeMsg] = useState(false)
+  const [workMsg,setWorkMsg] = useState(false) 
 
   const {knowlegdeRating,
     setKnowlegdeRating,
@@ -32,10 +35,16 @@ const KnowlegdeFactor = () => {
   const prevHandler = () => {
     history.push("/");
   };
-
+  
   const nextHandler = () => {
-    if (knowlegdeComment.length < 60){
-      setMsg(true)
+    if (knowlegdeComment.length < 60) {
+      setknowlegdeMsg(true)
+    } 
+    if (workQualityComment.length < 60) {
+      setWorkMsg(true)
+    }
+    if (workQualityCommenttwo.length < 60) {
+      setWorkMsg2(true)
     } else {
       history.push("/performance/section2");
     }
@@ -66,7 +75,6 @@ const KnowlegdeFactor = () => {
           <Select
              value={knowlegdeRating}
              onChange={(e: any) => {
-              //  localStorage.setItem("knowlegdeRating", e.target.value);
                setKnowlegdeRating(e.target.value);
              }}
            title="Ratings"
@@ -81,11 +89,10 @@ const KnowlegdeFactor = () => {
           <TextArea
           value={knowlegdeComment}
             onChange={(e:any) => {
-            // localStorage.setItem("knowlegdeComment",e.target.value);
             setknowlegdeComment(e.target.value)
            }}
           />
-           {msg ? (
+           {knowlegdeMsg ? (
               <span>Your comment should be at least 60 characters </span>
             ) : null}
         </div>
@@ -105,7 +112,7 @@ const KnowlegdeFactor = () => {
           <Select
           title="Rating"
             onChange={(e:any) => {
-                // localStorage.setItem("workQualityRating",e.target.value)
+               
                 setWorkQualityRating(e.target.value)}}
             value={workQualityRating}
             options={Helpers.rating}
@@ -119,13 +126,12 @@ const KnowlegdeFactor = () => {
            value={workQualityComment}
             onChange={(e:any) => {
                 localStorage.setItem("workQualityComment",e.target.value)
-                // e.target.value.length < 60
-                // ? setMsg(true) :
+               
                 setWorkQualityComment(e.target.value)}
             }
 
           />
-          {msg ? (
+          {workMsg ? (
               <span>Your comment should be at least 60 characters </span>
             ) : null}
         </div>
@@ -150,7 +156,7 @@ const KnowlegdeFactor = () => {
           <Select
             value={workQualityRatingtwo}
             onChange={(e:any) =>{
-                // localStorage.setItem("workQualityRatingTwo",e.target.value)
+               
                 setWorkQualityRatingtwo(e.target.value)}
             } 
             title="Rating"
@@ -164,13 +170,10 @@ const KnowlegdeFactor = () => {
           <TextArea
           value={workQualityCommenttwo}
             onChange={(e:any) => {
-                // localStorage.setItem("workQualityTwo",e.target.value)
-                // e.target.value.length < 60
-                //   ? setMsg(true) :
                 setWorkQualityCommenttwo(e.target.value)}
             } 
           />
-          {msg ? (
+          {workMsg2 ? (
               <span>Your comment should be at least 60 characters </span>
             ) : null}
         </div>
