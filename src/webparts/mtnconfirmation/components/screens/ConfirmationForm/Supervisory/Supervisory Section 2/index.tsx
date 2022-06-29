@@ -1,4 +1,5 @@
 import * as React from "react";
+import { sp } from "@pnp/sp";
 import {
   Header,
   Card,
@@ -8,49 +9,135 @@ import {
 } from "../../../../Containers";
 import { useHistory } from "react-router-dom";
 import styles from "./section2.module.scss";
+import { TextAreaSmall } from "../../../../Containers/TextArea";
+import { SupervisoryEvaluationContext } from "../../../../Context/SupervisoryContext";
+import { RaterContext } from "../../../../Context/RaterContext";
+import swal from "sweetalert";
 const Section3 = () => {
   const history = useHistory();
   const prevHandler = () => {
     history.push("/supervisory/section1");
   };
 
-  const [peopleManagementComment, setPeopleManagementComment] = React.useState(
-    localStorage.getItem("peopleManagementComment") || ""
-  );
-
-  const [peopleManagementRating, setPeopleManagementRating] = React.useState(
-    localStorage.getItem("peopleManagementRating") || null
-  );
-  const [planningComment, setPlanningComment] = React.useState(
-    localStorage.getItem("planningComment") || ""
-  );
-
-  const [planningRating, setPlanningRating] = React.useState(
-    localStorage.getItem("planningRating") || ""
-  );
-
-  const [supervisorScore, setSupervisorScore] = React.useState(
-    JSON.parse(localStorage.getItem("supervisorScore")) || null
-  );
-
   const [showSubmitButton, setShowSubmitButton] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
+  const {
+    leadershipRating,
+    administrationRating,
+    delegationRating,
+    peopleManagementComment,
+    setPeopleManagementComment,
+    peopleManagementRating,
+    setPeopleManagementRating,
+    planningComment,
+    setPlanningComment,
+    planningRating,
+    setPlanningRating,
+    delegationComment,
+    leadershipComment,
+    administrationComment,
+    setSupervisoryEvaluationScore: setSupervisorScore,
+    supervisoryEvaluationScore: supervisorScore,
+    setLeadershipRating,
+    setAdministrationComment,
+    setDelegationComment,
+    setLeadershipComment,
+    setAdministrationRating,
+    setDelegationRating,
+  } = React.useContext(SupervisoryEvaluationContext);
+
+  const { raterFinalComments, setRaterFinalComments, rater, raterEmail, date } =
+    React.useContext(RaterContext);
 
   const scoreHandler = () => {
     const total =
-      Number(localStorage.getItem("leadershipRating")) +
-      Number(localStorage.getItem("delegationRating")) +
-      Number(localStorage.getItem("administrationRating")) +
-      Number(localStorage.getItem("peopleManagementRating")) +
-      Number(localStorage.getItem("planningRating"));
+      Number(leadershipRating) +
+      Number(administrationRating) +
+      Number(delegationRating) +
+      Number(peopleManagementRating) +
+      Number(planningRating);
     setSupervisorScore(total);
-    localStorage.setItem("supervisorScore", JSON.stringify(total));
     setShowSubmitButton(true);
+  };
+
+  React.useEffect(() => {
+    sp.web.lists
+      .getByTitle("SupervisoryEvaluation")
+      .items.get()
+      .then((item) => {
+        console.log(item);
+      })
+      .catch((error) => {});
+  }, []);
+
+  const submitHandler = (e) => {
+    setLoading(true);
+    e.preventDefault();
+    const data = {
+      EmployeeID: "",
+      RaterName: rater,
+      RaterEmail: raterEmail,
+      RatingDate: date,
+      LeadershipRating: leadershipRating,
+      AdministrationRating: administrationRating,
+      DelegationRating: delegationRating,
+      PeopleManagementRating: peopleManagementRating,
+      PlanningRating: planningRating,
+      PeopleManagementComment: peopleManagementComment,
+      PlanningComment: planningComment,
+      DelegationComment: delegationComment,
+      LeadershipComment: leadershipComment,
+      AdministrationComment: administrationComment,
+      RaterFinalComment: raterFinalComments,
+      TotalRatingScore: supervisorScore,
+    };
+
+    sp.web.lists
+      .getByTitle("SupervisoryEvaluation")
+      .items.add(data)
+      .then((item) => {
+        setLoading(false);
+        setPeopleManagementComment("");
+        setPlanningComment("");
+        setDelegationComment("");
+        setLeadershipComment("");
+        setAdministrationComment("");
+        setRaterFinalComments("");
+        setSupervisorScore(0);
+        setPeopleManagementRating(0);
+        setPlanningRating(0);
+        setDelegationRating(0);
+        setLeadershipRating(0);
+        setAdministrationRating(0);
+
+        swal({
+          title: "Success",
+          text: "Evaluation Submitted Successfully",
+          icon: "success",
+        }).then((ok) => {
+          if (ok) {
+            history.push("/");
+          }
+        });
+      })
+      .catch((error) => {
+        setLoading(false);
+        swal(
+          "Error Occured",
+          "An error occured while submitting your data!",
+          "error"
+        );
+        console.log(error);
+      });
   };
 
   return (
     <>
       <Header title="Supervisory Evaluation" />
-      <div className={styles.evaluation__section2__container}>
+      <form
+        className={styles.evaluation__section2__container}
+        onSubmit={submitHandler}
+      >
         <div className={`${styles.evaluation__section} `}>
           <Card header="People Management">
             <ul>
@@ -74,9 +161,9 @@ const Section3 = () => {
             {/* <h2>Ratings</h2> */}
             <Select
               onChange={(e: any) => {
-                localStorage.setItem("peopleManagementRating", e.target.value);
                 setPeopleManagementRating(e.target.value);
               }}
+              required={true}
               title="Ratings"
               value={peopleManagementRating}
               options={Helpers.rating}
@@ -87,9 +174,9 @@ const Section3 = () => {
             <TextArea
               value={peopleManagementComment}
               onChange={(e: any) => {
-                localStorage.setItem("peopleManagementComment", e.target.value);
                 setPeopleManagementComment(e.target.value);
               }}
+              required={true}
             />
           </div>
         </div>
@@ -105,15 +192,14 @@ const Section3 = () => {
             </ul>
           </Card>
           <div className={styles.section1__ratings}>
-            {/* <h2>Ratings</h2> */}
             <Select
               onChange={(e: any) => {
-                localStorage.setItem("planningRating", e.target.value);
                 setPlanningRating(e.target.value);
               }}
               title="Ratings"
               value={planningRating}
               options={Helpers.rating}
+              required={true}
             />
           </div>
           <div className={styles.section1__comments}>
@@ -121,22 +207,46 @@ const Section3 = () => {
             <TextArea
               value={planningComment}
               onChange={(e: any) => {
-                localStorage.setItem("planningComment", e.target.value);
+                setPlanningComment(e.target.value);
+              }}
+              required={true}
+            />
+          </div>
+          <div className={`${styles.evaluation__section} `}>
+            <Card header="Total Performance Score">
+              <input
+                className={styles.score__input}
+                type="text"
+                style={{ backgroundColor: "white" }}
+                readOnly
+                value={supervisorScore}
+                required
+              />
+            </Card>
+          </div>
+          <div></div>
+          <div className={styles.section1__comments}>
+            <h2>Rater's final comment</h2>
+            <TextAreaSmall
+              value={raterFinalComments}
+              rows={5}
+              onChange={(e: any) => {
+                setRaterFinalComments(e.target.value);
+              }}
+              required={true}
+            />
+          </div>
+          <div></div>
+          <div></div>
+          <div className={styles.section1__comments}>
+            <h2>Next Actor</h2>
+            <TextAreaSmall
+              value={planningComment}
+              onChange={(e: any) => {
                 setPlanningComment(e.target.value);
               }}
             />
           </div>
-        </div>
-        <div className={`${styles.evaluation__section} `}>
-          <Card header="Total Performance Score">
-            <input
-              className={styles.score__input}
-              type="text"
-              style={{ backgroundColor: "white" }}
-              readOnly
-              value={supervisorScore}
-            />
-          </Card>
         </div>
 
         <div className={`${styles.evaluation__section__button} `}>
@@ -146,6 +256,7 @@ const Section3 = () => {
                 className="mtn__btn mtn__blackOutline"
                 type="button"
                 onClick={() => prevHandler()}
+                disabled={loading}
               >
                 Previous
               </button>
@@ -154,24 +265,20 @@ const Section3 = () => {
               {showSubmitButton ? (
                 <button
                   className="mtn__btn mtn__black"
-                  type="button"
-                  onClick={() => {}}
+                  type="submit"
+                  disabled={loading}
                 >
-                  Submit
+                  {loading ? "Loading..." : "Submit"}
                 </button>
               ) : (
-                <button
-                  className="mtn__btn mtn__black"
-                  type="button"
-                  onClick={scoreHandler}
-                >
+                <div className="mtn__btn mtn__black" onClick={scoreHandler}>
                   Calculate Performance
-                </button>
+                </div>
               )}
             </div>
           </div>
         </div>
-      </div>
+      </form>
     </>
   );
 };
