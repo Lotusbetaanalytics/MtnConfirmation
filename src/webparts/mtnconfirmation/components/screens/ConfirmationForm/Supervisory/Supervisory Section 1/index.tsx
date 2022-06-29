@@ -1,8 +1,16 @@
 import * as React from "react";
-import { Header, Card, Select, TextArea, Helpers } from "../../../../Containers";
+import {
+  Header,
+  Card,
+  Select,
+  TextArea,
+  Helpers,
+} from "../../../../Containers";
 import { useHistory } from "react-router-dom";
 import styles from "./section1.module.scss";
-const Section2 = () => {
+import { RaterContext } from "../../../../Context/RaterContext";
+import { SupervisoryEvaluationContext } from "../../../../Context/SupervisoryContext";
+const SuperVisorySection1 = () => {
   const history = useHistory();
   const prevHandler = () => {
     history.push("/behavioral/section3");
@@ -11,34 +19,59 @@ const Section2 = () => {
     history.push("/supervisory/section2");
   };
 
-  const [leadershipComment, setLeadershipComment] = React.useState(
-    localStorage.getItem("leadershipComment") || ""
-  );
-
-  const [leadershipRating, setLeadershipRating] = React.useState(
-    localStorage.getItem("leadershipRating") || ""
-  );
-
-  const [delegationComment, setDelegationComment] = React.useState(
-    localStorage.getItem("delegationComment") || ""
-  );
-
-  const [delegationRating, setDelegationRating] = React.useState(
-    localStorage.getItem("delegationRating") || ""
-  );
-
-  const [administrationComment, setAdministrationComment] = React.useState(
-    localStorage.getItem("administrationComment") || ""
-  );
-
-  const [administrationRating, setAdministrationRating] = React.useState(
-    localStorage.getItem("administrationRating") || ""
-  );
+  const { date, raterEmail, rater } = React.useContext(RaterContext);
+  const {
+    leadershipRating,
+    setLeadershipRating,
+    leadershipComment,
+    setLeadershipComment,
+    delegationComment,
+    setDelegationComment,
+    delegationRating,
+    setDelegationRating,
+    administrationComment,
+    setAdministrationComment,
+    administrationRating,
+    setAdministrationRating,
+  } = React.useContext(SupervisoryEvaluationContext);
 
   return (
     <>
       <Header title="Supervisory Evaluation" />
       <div className={styles.evaluation__section2__container}>
+        <div className={`${styles.evaluation__section} `}>
+          <div>
+            <div>Rater Name</div>
+            <input
+              className={styles.score__input}
+              type="text"
+              style={{ backgroundColor: "white" }}
+              readOnly
+              value={rater}
+            />
+          </div>
+          <div>
+            <div>Rater Email</div>
+            <input
+              className={styles.score__input}
+              type="text"
+              style={{ backgroundColor: "white" }}
+              readOnly
+              value={raterEmail}
+            />
+          </div>
+          <div>
+            <div>Rating Date</div>
+            <input
+              className={styles.score__input}
+              type="text"
+              style={{ backgroundColor: "white" }}
+              readOnly
+              value={date}
+            />
+          </div>
+        </div>
+
         <div className={`${styles.evaluation__section} `}>
           <Card header="Leadership">
             <ul>
@@ -55,21 +88,18 @@ const Section2 = () => {
             {/* <h2>Ratings</h2> */}
             <Select
               onChange={(e: any) => {
-                localStorage.setItem("leadershipRating", e.target.value);
                 setLeadershipRating(e.target.value);
               }}
               title="Ratings"
               value={leadershipRating}
-              options={Helpers}
+              options={Helpers.rating}
             />
-
           </div>
           <div className={styles.section1__comments}>
             <h2>Comments</h2>
             <TextArea
               value={leadershipComment}
               onChange={(e: any) => {
-                localStorage.setItem("leadershipComment", e.target.value);
                 setLeadershipComment(e.target.value);
               }}
             />
@@ -90,12 +120,11 @@ const Section2 = () => {
             {/* <h2>Ratings</h2> */}
             <Select
               onChange={(e: any) => {
-                localStorage.setItem("delegationRating", e.target.value);
                 setDelegationRating(e.target.value);
               }}
               title="Ratings"
               value={delegationRating}
-              options={Helpers}
+              options={Helpers.rating}
             />
           </div>
           <div className={styles.section1__comments}>
@@ -103,7 +132,6 @@ const Section2 = () => {
             <TextArea
               value={delegationComment}
               onChange={(e: any) => {
-                localStorage.setItem("delegationComment", e.target.value);
                 setDelegationComment(e.target.value);
               }}
             />
@@ -128,12 +156,11 @@ const Section2 = () => {
             {/* <h2>Ratings</h2> */}
             <Select
               onChange={(e: any) => {
-                localStorage.setItem("administrationRating", e.target.value);
                 setAdministrationRating(e.target.value);
               }}
               title="Ratings"
               value={administrationRating}
-              options={Helpers}
+              options={Helpers.rating}
             />
           </div>
           <div className={styles.section1__comments}>
@@ -141,7 +168,6 @@ const Section2 = () => {
             <TextArea
               value={administrationComment}
               onChange={(e: any) => {
-                localStorage.setItem("administrationComment", e.target.value);
                 setAdministrationComment(e.target.value);
               }}
             />
@@ -174,4 +200,4 @@ const Section2 = () => {
   );
 };
 
-export default Section2;
+export default SuperVisorySection1;
