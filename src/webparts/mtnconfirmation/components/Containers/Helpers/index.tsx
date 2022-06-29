@@ -8,11 +8,12 @@ const level: any = [
     { value: "Level 6" },
 ]
 const rating: any = [
+    { value: "Select Rating" },
     { value: "1" },
     { value: "2" },
     { value: "3" },
     { value: "4" },
-    { value: "5" },
+    
 ]
 const roles: any = [
     { value: "HR Administrator, Records" },
