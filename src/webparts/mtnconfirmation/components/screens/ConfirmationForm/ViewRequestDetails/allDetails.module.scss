@@ -14,7 +14,7 @@
 .eachGridbox__allContent {
   display: grid;
   padding: 1rem;
-  background-color: whitesmoke;
+  // background-color: whitesmoke;
   border-radius: 10px;
 }
 
@@ -32,19 +32,16 @@
 
 .view__Btn2 {
   float: right;
-  width: 50%;
-  height: 2.5rem;
-  outline: none;
-  padding: 1rem 2rem;
+  width: 30%;
+  padding: 1rem 3rem;
   border-radius: 10px;
   display: flex;
   justify-content: center;
-  text-align: center;
+  align-items: center;
   color: aliceblue;
   text-decoration: none;
   border: none;
   outline: none;
-  align-items: center;
   margin-top: 1rem;
   margin-right: 1rem;
   margin-bottom: 1rem;
@@ -58,6 +55,7 @@
 }
 
 .allContent__btn {
-  width: 50%;
+  width: 40%;
   float: right;
+  // padding: 1rem 5rem;
 }
