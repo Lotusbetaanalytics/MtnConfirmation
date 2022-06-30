@@ -25,7 +25,10 @@ import {
   AdminViewPending,
   Performance_Section1,
   Performance_Section2,
-  Section1,
+  Rater_Performance_Section1,
+  Rater_Performance_Section2,
+  Rater_behavioral_Section1,
+  behavioral_Section1,
 } from './screens';
 import {
   performanceEvaluationContext,
@@ -293,11 +296,14 @@ import { number } from 'echarts';
             <Route path="/requestpage" exact component={RequestPage} />
             <Route path="/pendingrequests" exact component={PendingRequests} />
             <Route path="/viewRequestDetails" exact component={ViewRequestDetails} />
-            <Route path="/behavioral/section1" exact component={Section1} />
+            <Route path="/rater/behavioral/section1" exact component={Rater_behavioral_Section1} />
+            <Route path="/behavioral/section1" exact component={behavioral_Section1} />
             <Route path="/behavioral/section2" exact component={Section2} />
             <Route path="/behavioral/section3" exact component={Section3} />
             <Route path="/supervisory/section1" exact component={Section1__Supervisory} />
             <Route path="/supervisory/section2" exact component={Section2__Supervisory} />
+            <Route path="/rater/performance/section1" exact component={Rater_Performance_Section1} />
+            <Route path="/rater/performance/section2" exact component={Rater_Performance_Section2} />
             <Route path="/performance/section1" exact component={Performance_Section1} />
             <Route path="/performance/section2" exact component={Performance_Section2} />
           </Switch>

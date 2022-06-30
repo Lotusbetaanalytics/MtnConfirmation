@@ -1,15 +1,15 @@
 import * as React from "react";
 import { useState } from "react";
 import { useHistory,Link } from "react-router-dom";
-import { Header, Select,Helpers,TextArea, Card } from "../../../Containers";
-import { performanceEvaluationContext } from "../../../Context/performanceContext";
-import { RaterContext } from "../../../Context/RaterContext";
-import styles from "./performance.module.scss";
+import { Header, Select,Helpers,TextArea, Card } from "../../../../Containers";
+import { performanceEvaluationContext } from "../../../../Context/performanceContext";
+import { RaterContext } from "../../../../Context/RaterContext";
+import styles from "../performance.module.scss";
 
 import { sp } from "@pnp/sp";
 import swal from "sweetalert";
 
-const workHabit = () => {
+const RatersWorkHabit = () => {
   
   const [showSubmitButton, setShowSubmitButton] = React.useState(true);
  
@@ -268,4 +268,4 @@ const submitHandler = (e) => {
   );
 };
 
-export default workHabit;
+export default RatersWorkHabit;

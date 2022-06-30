@@ -1,11 +1,11 @@
 import * as React from "react";
 import { useState } from "react";
 import { useHistory,Link } from "react-router-dom";
-import { Header, Select,Helpers, Card, TextArea } from "../../../Containers";
-import { performanceEvaluationContext } from "../../../Context/performanceContext";
-import styles from "./performance.module.scss";
+import { Header, Select,Helpers, Card, TextArea } from "../../../../Containers";
+import { performanceEvaluationContext } from "../../../../Context/performanceContext";
+import styles from "../performance.module.scss";
 
-const KnowlegdeFactor = () => {
+const RatersKnowlegdeFactor = () => {
   const history = useHistory();
   // const [knowlegdeRating, setKnowlegdeRating] = useState("");
   // const [knowlegdeComment, setknowlegdeComment] = useState("");
@@ -205,4 +205,4 @@ const KnowlegdeFactor = () => {
   );
 };
 
-export default KnowlegdeFactor;
+export default RatersKnowlegdeFactor;

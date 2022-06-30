@@ -5,6 +5,7 @@ const Select = ({ onChange, value, title, options, required = false, filter = fa
     return <div className={`mtn__InputContainer ${size}`}>
         <label>{title} {required && <span className='required'>*</span>}</label>
         <select
+            
             onChange={onChange}
             value={value}
             // defaultValue={title}

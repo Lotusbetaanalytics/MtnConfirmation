@@ -1,11 +1,11 @@
 import * as React from "react";
 import { useState } from "react";
 import { useHistory,Link } from "react-router-dom";
-import { Header, Select, Helpers,TextArea,Card } from "../../../Containers";
-import { BehavioralContext1 } from "../../../Context/behavioralContext1";
-import styles from "./performance.module.scss";
+import { Header, Select, Helpers,TextArea,Card } from "../../../../Containers";
+import { BehavioralContext1 } from "../../../../Context/behavioralContext1";
+import styles from "../performance.module.scss";
 
-const BehaviouralTrait = () => {
+const RatersBehaviouralTrait = () => {
   const history = useHistory();
   const [workMsg2,setWorkMsg2] = useState(false)
   const [knowlegdeMsg,setknowlegdeMsg] = useState(false)
@@ -177,4 +177,4 @@ const BehaviouralTrait = () => {
   );
 };
 
-export default BehaviouralTrait;
+export default RatersBehaviouralTrait;
