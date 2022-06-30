@@ -53,7 +53,7 @@ const Section2 = () => {
             </ul>
           </Card>
           <div className={styles.section1__ratings}>
-            {/* <h2>Ratings</h2> */}
+          
             <Select
               onChange={(e: any) => {
                 setAdaptRating(e.target.value);

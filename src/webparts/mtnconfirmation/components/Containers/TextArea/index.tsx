@@ -1,6 +1,6 @@
 import * as React from "react";
 import styles from "./textarea.module.scss";
-const TextArea = ({ onChange, value, required = false }) => {
+const TextArea = ({ onChange, value, required = false, readOnly = false }) => {
   return (
     <div className={styles.textArea__container}>
       <textarea
@@ -8,6 +8,7 @@ const TextArea = ({ onChange, value, required = false }) => {
         value={value}
         onChange={onChange}
         required={required}
+        readOnly={readOnly}
       ></textarea>
     </div>
   );
