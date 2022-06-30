@@ -95,7 +95,7 @@ const Section3 = () => {
           icon: "success",
         }).then((ok) => {
           if (ok) {
-            history.push("/");
+            history.push("/supervisory/section1");
           }
         });
       })
