@@ -13,6 +13,8 @@ import { TextAreaSmall } from "../../../../Containers/TextArea";
 import { SupervisoryEvaluationContext } from "../../../../Context/SupervisoryContext";
 import { RaterContext } from "../../../../Context/RaterContext";
 import swal from "sweetalert";
+import { EmployeeContext } from "../../../../Context/EmployeeContext";
+import { BehavioralContext } from "../../../../Context/BehavioralContext";
 const Section3 = () => {
   const history = useHistory();
   const prevHandler = () => {
@@ -49,32 +51,27 @@ const Section3 = () => {
   const { raterFinalComments, setRaterFinalComments, rater, raterEmail, date } =
     React.useContext(RaterContext);
 
+  const { behavioralEvaluationScore } = React.useContext(BehavioralContext);
+
+  const { id, itemId } = React.useContext(EmployeeContext);
+
   const scoreHandler = () => {
     const total =
       Number(leadershipRating) +
       Number(administrationRating) +
       Number(delegationRating) +
       Number(peopleManagementRating) +
-      Number(planningRating);
+      Number(planningRating) +
+      Number(behavioralEvaluationScore);
     setSupervisorScore(total);
     setShowSubmitButton(true);
   };
-
-  React.useEffect(() => {
-    sp.web.lists
-      .getByTitle("SupervisoryEvaluation")
-      .items.get()
-      .then((item) => {
-        console.log(item);
-      })
-      .catch((error) => {});
-  }, []);
 
   const submitHandler = (e) => {
     setLoading(true);
     e.preventDefault();
     const data = {
-      EmployeeID: "",
+      EmployeeID: id,
       RaterName: rater,
       RaterEmail: raterEmail,
       RatingDate: date,
@@ -110,13 +107,20 @@ const Section3 = () => {
         setLeadershipRating(0);
         setAdministrationRating(0);
 
+        sp.web.lists
+          .getByTitle("Confirmation")
+          .items.getById(Number(itemId))
+          .update({
+            Approvals: "Rater Line Manager",
+          });
+
         swal({
           title: "Success",
           text: "Evaluation Submitted Successfully",
           icon: "success",
         }).then((ok) => {
           if (ok) {
-            history.push("/");
+            history.push("/pendingrequests");
           }
         });
       })

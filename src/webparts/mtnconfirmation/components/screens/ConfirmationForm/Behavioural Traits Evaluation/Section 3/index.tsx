@@ -13,6 +13,9 @@ import { sp } from "@pnp/sp";
 import styles from "./section3.module.scss";
 import swal from "sweetalert";
 import { RaterContext } from "../../../../Context/RaterContext";
+import { EmployeeContext } from "../../../../Context/EmployeeContext";
+import { performanceEvaluationContext } from "../../../../Context/performanceContext";
+import { BehavioralContext1 } from "../../../../Context/behavioralContext1";
 const Section3 = () => {
   const {
     punctualityRating,
@@ -41,20 +44,47 @@ const Section3 = () => {
     setAdaptComment,
   } = React.useContext(BehavioralContext);
 
-  const { raterFinalComments, setRaterFinalComments, rater, raterEmail, date } =
-    React.useContext(RaterContext);
+  const { rater, raterEmail, date } = React.useContext(RaterContext);
+  const { totalPerformanceScore } = React.useContext(
+    performanceEvaluationContext
+  );
+  const {
+    coperationRating,
+    dependabilityRating,
+    initiativeRating,
+    setInitiativeComment,
+    setCoperationRating,
+    setDependabilityRating,
+    setInitiativeRating,
+    setDependabilityComment,
+    setCoperationComment,
+    dependabilityComment,
+    coperationComment,
+    initiativeComment,
+  } = React.useContext(BehavioralContext1);
 
   const [showMsg, setShowMsg] = React.useState(false);
   const [showSubmitButton, setShowSubmitButton] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
 
+  const { id } = React.useContext(EmployeeContext);
+
   const history = useHistory();
+
+  React.useEffect(() => {
+    sp.web.lists
+      .getByTitle("BehavioralTraitsEvaluation")
+      .items.get()
+      .then((items) => {
+        console.log(items);
+      });
+  }, []);
 
   const submitHandler = (e) => {
     setLoading(true);
     e.preventDefault();
     const data = {
-      EmployeeID: "",
+      EmployeeID: id,
       RaterEmail: raterEmail,
       RatingDate: date,
       RaterName: rater,
@@ -69,6 +99,12 @@ const Section3 = () => {
       QueryRating: queryResponse,
       Disciplinary: disciplinaryResponse,
       DisciplinaryAndQueryComment: queryComment,
+      Dependability: dependabilityRating,
+      DependabilityComment: dependabilityComment,
+      Initiative: initiativeRating,
+      InitiativeComment: initiativeComment,
+      Co_x002d_operation: coperationRating,
+      CooperationComment: coperationComment,
       Total: performanceScore,
     };
     sp.web.lists
@@ -80,7 +116,6 @@ const Section3 = () => {
         setAdaptRating(0);
         setAttendanceComment("");
         setAttendanceRating(0);
-        setPerformanceScore(0);
         setDisciplinaryResponse("");
         setJudgementRating(0);
         setJudgementComment("");
@@ -88,7 +123,12 @@ const Section3 = () => {
         setPunctualityRating(0);
         setQueryComment("");
         setQueryResponse("");
-
+        setCoperationComment("");
+        setCoperationRating(0);
+        setDependabilityComment("");
+        setDependabilityRating(0);
+        setInitiativeComment("");
+        setInitiativeRating(0);
         swal({
           title: "Success",
           text: "Evaluation Submitted Successfully!",
@@ -271,7 +311,11 @@ const Section3 = () => {
                       Number(punctualityRating) +
                       Number(adaptRating) +
                       Number(judgementRating) +
-                      Number(attendanceRating);
+                      Number(attendanceRating) +
+                      Number(initiativeRating) +
+                      Number(dependabilityRating) +
+                      Number(coperationRating) +
+                      Number(totalPerformanceScore);
                     setPerformanceScore(total);
                     setShowSubmitButton(true);
                   }}

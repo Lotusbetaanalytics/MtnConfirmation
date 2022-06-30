@@ -48,6 +48,10 @@ import {
   BehavioralContext1Type,
 } from "./Context/behavioralContext1";
 import { RaterContext, RaterContextType } from "./Context/RaterContext";
+import {
+  EmployeeContext,
+  EmployeeContextType,
+} from "./Context/EmployeeContext";
 
 export default class Mtnconfirmation extends React.Component<
   IMtnconfirmationProps,
@@ -141,6 +145,10 @@ export default class Mtnconfirmation extends React.Component<
     setInitiativeRating: React.Dispatch<React.SetStateAction<number>>;
     initiativeComment: string;
     setInitiativeComment: React.Dispatch<React.SetStateAction<string>>;
+    employeeId: string;
+    setEmployeeId: React.Dispatch<React.SetStateAction<string>>;
+    itemId: string;
+    setItemId: React.Dispatch<React.SetStateAction<string>>;
   }
 > {
   constructor(props: IMtnconfirmationProps) {
@@ -233,9 +241,19 @@ export default class Mtnconfirmation extends React.Component<
       setInitiativeRating: this.setIntiativeRating,
       initiativeComment: "",
       setInitiativeComment: this.setInitiativeComment,
+      employeeId: "",
+      setEmployeeId: this.setEmployeeId,
+      itemId: "",
+      setItemId: this.setItemId,
     };
   }
 
+  setItemId = (itemId: string): void => {
+    this.setState({ itemId });
+  };
+  setEmployeeId = (employeeId: string): void => {
+    this.setState({ employeeId });
+  };
   setAdaptRating = (adaptRating: number): void => {
     this.setState({ adaptRating });
   };
@@ -428,238 +446,250 @@ export default class Mtnconfirmation extends React.Component<
               } as RaterContextType
             }
           >
-            <SupervisoryEvaluationContext.Provider
+            <EmployeeContext.Provider
               value={
                 {
-                  leadershipRating: this.state.leadershipRating,
-                  setLeadershipRating: this.state.setLeaderShipRating,
-                  leadershipComment: this.state.leadershipComment,
-                  setLeadershipComment: this.state.setLeadershipComment,
-                  delegationRating: this.state.delegationRating,
-                  setDelegationRating: this.state.setDelegationRating,
-                  delegationComment: this.state.delegationComment,
-                  setDelegationComment: this.state.setDelegationComment,
-                  administrationRating: this.state.administrationRating,
-                  setAdministrationRating: this.state.setAdministrationRating,
-                  administrationComment: this.state.administrationComment,
-                  setAdministrationComment: this.state.setAdministrationComment,
-                  setSupervisoryEvaluationScore:
-                    this.state.setSupervisoryEvaluationScore,
-                  supervisoryEvaluationScore:
-                    this.state.supervisoryEvaluationScore,
-                  planningRating: this.state.planningRating,
-                  setPlanningRating: this.state.setPlanningRating,
-                  planningComment: this.state.planningComment,
-                  setPlanningComment: this.state.setPlanningComment,
-                  peopleManagementRating: this.state.peopleManagementRating,
-                  setPeopleManagementRating:
-                    this.state.setPeopleManagementRating,
-                  peopleManagementComment: this.state.peopleManagementComment,
-                  setPeopleManagementComment:
-                    this.state.setPeopleManagementComment,
-                } as SupervisoryEvaluationContextType
+                  id: this.state.employeeId,
+                  setId: this.setEmployeeId,
+                } as EmployeeContextType
               }
             >
-              <BehavioralContext.Provider
+              <SupervisoryEvaluationContext.Provider
                 value={
                   {
-                    adaptComment: this.state.adaptComment,
-                    adaptRating: this.state.adaptRating,
-                    setAdaptRating: this.setAdaptRating,
-                    setAdaptComment: this.setAdaptComment,
-                    attendanceComment: this.state.attendanceComment,
-                    attendanceRating: this.state.attendanceRating,
-                    setAttendanceRating: this.setAttendanceRating,
-                    setAttendanceComment: this.setAttendanceComment,
-                    behavioralEvaluationScore:
-                      this.state.behavioralEvaluationScore,
-                    setBehavioralEvaluationScore:
-                      this.setBehavioralEvaluationScore,
-                    judgementComment: this.state.judgementComment,
-                    judgementRating: this.state.judgementRating,
-                    setJudgementRating: this.setJudgementRating,
-                    setJudgementComment: this.setJudgementComment,
-                    punctualityComment: this.state.punctualityComment,
-                    punctualityRating: this.state.punctualityRating,
-                    setPunctualityRating: this.setPunctualityRating,
-                    setPunctualityComment: this.setPunctualityComment,
-                    queryComment: this.state.queryComment,
-                    queryRating: this.state.queryRating,
-                    setQueryRating: this.setQueryRating,
-                    setQueryComment: this.setQueryComment,
-                    disciplinaryComment: this.state.disciplinaryComment,
-                    disciplinaryRating: this.state.disciplinaryRating,
-                    setDisciplinaryRating: this.setDisciplinaryRating,
-                    setDisciplinaryComment: this.setDisciplinaryComment,
-                  } as BehavioralContextType
+                    leadershipRating: this.state.leadershipRating,
+                    setLeadershipRating: this.state.setLeaderShipRating,
+                    leadershipComment: this.state.leadershipComment,
+                    setLeadershipComment: this.state.setLeadershipComment,
+                    delegationRating: this.state.delegationRating,
+                    setDelegationRating: this.state.setDelegationRating,
+                    delegationComment: this.state.delegationComment,
+                    setDelegationComment: this.state.setDelegationComment,
+                    administrationRating: this.state.administrationRating,
+                    setAdministrationRating: this.state.setAdministrationRating,
+                    administrationComment: this.state.administrationComment,
+                    setAdministrationComment:
+                      this.state.setAdministrationComment,
+                    setSupervisoryEvaluationScore:
+                      this.state.setSupervisoryEvaluationScore,
+                    supervisoryEvaluationScore:
+                      this.state.supervisoryEvaluationScore,
+                    planningRating: this.state.planningRating,
+                    setPlanningRating: this.state.setPlanningRating,
+                    planningComment: this.state.planningComment,
+                    setPlanningComment: this.state.setPlanningComment,
+                    peopleManagementRating: this.state.peopleManagementRating,
+                    setPeopleManagementRating:
+                      this.state.setPeopleManagementRating,
+                    peopleManagementComment: this.state.peopleManagementComment,
+                    setPeopleManagementComment:
+                      this.state.setPeopleManagementComment,
+                  } as SupervisoryEvaluationContextType
                 }
               >
-                <performanceEvaluationContext.Provider
+                <BehavioralContext.Provider
                   value={
                     {
-                      knowlegdeRating: this.state.knowlegdeRating,
-                      setKnowlegdeRating: this.state.setKnowlegdeRating,
-                      knowlegdeComment: this.state.knowlegdeComment,
-                      setknowlegdeComment: this.state.setknowlegdeComment,
-                      workQualityRating: this.state.workQualityRating,
-                      setWorkQualityRating: this.state.setWorkQualityRating,
-                      workQualityComment: this.state.workQualityComment,
-                      setWorkQualityComment: this.state.setWorkQualityComment,
-                      workQualityRatingtwo: this.state.workQualityRatingtwo,
-                      setWorkQualityRatingtwo:
-                        this.state.setWorkQualityRatingtwo,
-                      workQualityCommenttwo: this.state.workQualityCommenttwo,
-                      setWorkQualityCommenttwo:
-                        this.state.setWorkQualityCommenttwo,
-                      workHabitRating: this.state.workHabitRating,
-                      setWorkHabitRating: this.state.setWorkHabitRating,
-                      workHabitComment: this.state.workHabitComment,
-                      setWorkHabitComment: this.state.setWorkHabitComment,
-                      communicationRating: this.state.communicationRating,
-                      setCommunicationRating: this.state.setCommunicationRating,
-                      communicationComment: this.state.communicationComment,
-                      setCommunicationComment:
-                        this.state.setCommunicationComment,
-                      totalPerformanceScore: this.state.totalPerformanceScore,
-                      setTotalPerformanceScore:
-                        this.state.setTotalPerformanceScore,
-                    } as performanceEvaluationContextType
+                      adaptComment: this.state.adaptComment,
+                      adaptRating: this.state.adaptRating,
+                      setAdaptRating: this.setAdaptRating,
+                      setAdaptComment: this.setAdaptComment,
+                      attendanceComment: this.state.attendanceComment,
+                      attendanceRating: this.state.attendanceRating,
+                      setAttendanceRating: this.setAttendanceRating,
+                      setAttendanceComment: this.setAttendanceComment,
+                      behavioralEvaluationScore:
+                        this.state.behavioralEvaluationScore,
+                      setBehavioralEvaluationScore:
+                        this.setBehavioralEvaluationScore,
+                      judgementComment: this.state.judgementComment,
+                      judgementRating: this.state.judgementRating,
+                      setJudgementRating: this.setJudgementRating,
+                      setJudgementComment: this.setJudgementComment,
+                      punctualityComment: this.state.punctualityComment,
+                      punctualityRating: this.state.punctualityRating,
+                      setPunctualityRating: this.setPunctualityRating,
+                      setPunctualityComment: this.setPunctualityComment,
+                      queryComment: this.state.queryComment,
+                      queryRating: this.state.queryRating,
+                      setQueryRating: this.setQueryRating,
+                      setQueryComment: this.setQueryComment,
+                      disciplinaryComment: this.state.disciplinaryComment,
+                      disciplinaryRating: this.state.disciplinaryRating,
+                      setDisciplinaryRating: this.setDisciplinaryRating,
+                      setDisciplinaryComment: this.setDisciplinaryComment,
+                    } as BehavioralContextType
                   }
                 >
-                  <BehavioralContext1.Provider
+                  <performanceEvaluationContext.Provider
                     value={
                       {
-                        dependabilityRating: this.state.dependabilityRating,
-                        setDependabilityRating:
-                          this.state.setDependabilityRating,
-                        dependabilityComment: this.state.dependabilityComment,
-                        setDependabilityComment:
-                          this.state.setDependabilityComment,
-                        coperationRating: this.state.coperationRating,
-                        setCoperationRating: this.state.setCoperationRating,
-                        coperationComment: this.state.coperationComment,
-                        setCoperationComment: this.state.setCoperationComment,
-                        initiativeRating: this.state.initiativeRating,
-                        setInitiativeRating: this.state.setInitiativeRating,
+                        knowlegdeRating: this.state.knowlegdeRating,
+                        setKnowlegdeRating: this.state.setKnowlegdeRating,
+                        knowlegdeComment: this.state.knowlegdeComment,
+                        setknowlegdeComment: this.state.setknowlegdeComment,
+                        workQualityRating: this.state.workQualityRating,
+                        setWorkQualityRating: this.state.setWorkQualityRating,
+                        workQualityComment: this.state.workQualityComment,
+                        setWorkQualityComment: this.state.setWorkQualityComment,
+                        workQualityRatingtwo: this.state.workQualityRatingtwo,
+                        setWorkQualityRatingtwo:
+                          this.state.setWorkQualityRatingtwo,
                         workQualityCommenttwo: this.state.workQualityCommenttwo,
-                        initiativeComment: this.state.initiativeComment,
-                        setInitiativeComment: this.state.setInitiativeComment,
-                      } as BehavioralContext1Type
+                        setWorkQualityCommenttwo:
+                          this.state.setWorkQualityCommenttwo,
+                        workHabitRating: this.state.workHabitRating,
+                        setWorkHabitRating: this.state.setWorkHabitRating,
+                        workHabitComment: this.state.workHabitComment,
+                        setWorkHabitComment: this.state.setWorkHabitComment,
+                        communicationRating: this.state.communicationRating,
+                        setCommunicationRating:
+                          this.state.setCommunicationRating,
+                        communicationComment: this.state.communicationComment,
+                        setCommunicationComment:
+                          this.state.setCommunicationComment,
+                        totalPerformanceScore: this.state.totalPerformanceScore,
+                        setTotalPerformanceScore:
+                          this.state.setTotalPerformanceScore,
+                      } as performanceEvaluationContextType
                     }
                   >
-                    <Switch>
-                      <Route path="/" exact component={HomeScreen} />
-                      <Route
-                        path="/admin/dashboard"
-                        exact
-                        component={Dashboard}
-                      />
-                      <Route
-                        path="/admin/confirmation"
-                        exact
-                        component={Confirmation}
-                      />
-                      <Route
-                        path="/admin/confirmation/edit/:id"
-                        exact
-                        component={EditConfirmation}
-                      />
-                      <Route path="/admin/config" exact component={Roles} />
-                      <Route
-                        path="/admin/location"
-                        exact
-                        component={Location}
-                      />
-                      <Route
-                        path="/admin/division"
-                        exact
-                        component={Division}
-                      />
-                      <Route
-                        path="/admin/pending"
-                        exact
-                        component={AdminPending}
-                      />
-                      <Route
-                        path="/admin/pending/:id"
-                        exact
-                        component={AdminViewPending}
-                      />
-                      <Route
-                        path="/admin/completed"
-                        exact
-                        component={AdminCompleted}
-                      />
-                      <Route
-                        path="/requestpage"
-                        exact
-                        component={RequestPage}
-                      />
-                      <Route
-                        path="/pendingrequests"
-                        exact
-                        component={PendingRequests}
-                      />
-                      <Route
-                        path="/viewrequest/details/:id"
-                        exact
-                        component={ViewRequestDetails}
-                      />
-                      <Route
-                        path="/rater/behavioral/section1"
-                        exact
-                        component={Rater_behavioral_Section1}
-                      />
-                      <Route
-                        path="/behavioral/section1"
-                        exact
-                        component={behavioral_Section1}
-                      />
-                      <Route
-                        path="/behavioral/section2"
-                        exact
-                        component={Section2}
-                      />
-                      <Route
-                        path="/behavioral/section3"
-                        exact
-                        component={Section3}
-                      />
-                      <Route
-                        path="/supervisory/section1"
-                        exact
-                        component={Section1__Supervisory}
-                      />
-                      <Route
-                        path="/supervisory/section2"
-                        exact
-                        component={Section2__Supervisory}
-                      />
-                      <Route
-                        path="/rater/performance/section1"
-                        exact
-                        component={Rater_Performance_Section1}
-                      />
-                      <Route
-                        path="/rater/performance/section2"
-                        exact
-                        component={Rater_Performance_Section2}
-                      />
-                      <Route
-                        path="/performance/section1"
-                        exact
-                        component={Performance_Section1}
-                      />
-                      <Route
-                        path="/performance/section2"
-                        exact
-                        component={Performance_Section2}
-                      />
-                    </Switch>
-                  </BehavioralContext1.Provider>
-                </performanceEvaluationContext.Provider>
-              </BehavioralContext.Provider>
-            </SupervisoryEvaluationContext.Provider>
+                    <BehavioralContext1.Provider
+                      value={
+                        {
+                          dependabilityRating: this.state.dependabilityRating,
+                          setDependabilityRating:
+                            this.state.setDependabilityRating,
+                          dependabilityComment: this.state.dependabilityComment,
+                          setDependabilityComment:
+                            this.state.setDependabilityComment,
+                          coperationRating: this.state.coperationRating,
+                          setCoperationRating: this.state.setCoperationRating,
+                          coperationComment: this.state.coperationComment,
+                          setCoperationComment: this.state.setCoperationComment,
+                          initiativeRating: this.state.initiativeRating,
+                          setInitiativeRating: this.state.setInitiativeRating,
+                          workQualityCommenttwo:
+                            this.state.workQualityCommenttwo,
+                          initiativeComment: this.state.initiativeComment,
+                          setInitiativeComment: this.state.setInitiativeComment,
+                        } as BehavioralContext1Type
+                      }
+                    >
+                      <Switch>
+                        <Route path="/" exact component={HomeScreen} />
+                        <Route
+                          path="/admin/dashboard"
+                          exact
+                          component={Dashboard}
+                        />
+                        <Route
+                          path="/admin/confirmation"
+                          exact
+                          component={Confirmation}
+                        />
+                        <Route
+                          path="/admin/confirmation/edit/:id"
+                          exact
+                          component={EditConfirmation}
+                        />
+                        <Route path="/admin/config" exact component={Roles} />
+                        <Route
+                          path="/admin/location"
+                          exact
+                          component={Location}
+                        />
+                        <Route
+                          path="/admin/division"
+                          exact
+                          component={Division}
+                        />
+                        <Route
+                          path="/admin/pending"
+                          exact
+                          component={AdminPending}
+                        />
+                        <Route
+                          path="/admin/pending/:id"
+                          exact
+                          component={AdminViewPending}
+                        />
+                        <Route
+                          path="/admin/completed"
+                          exact
+                          component={AdminCompleted}
+                        />
+                        <Route
+                          path="/requestpage"
+                          exact
+                          component={RequestPage}
+                        />
+                        <Route
+                          path="/pendingrequests"
+                          exact
+                          component={PendingRequests}
+                        />
+                        <Route
+                          path="/viewrequest/details/:id"
+                          exact
+                          component={ViewRequestDetails}
+                        />
+                        <Route
+                          path="/rater/behavioral/section1"
+                          exact
+                          component={Rater_behavioral_Section1}
+                        />
+                        <Route
+                          path="/behavioral/section1"
+                          exact
+                          component={behavioral_Section1}
+                        />
+                        <Route
+                          path="/behavioral/section2"
+                          exact
+                          component={Section2}
+                        />
+                        <Route
+                          path="/behavioral/section3"
+                          exact
+                          component={Section3}
+                        />
+                        <Route
+                          path="/supervisory/section1"
+                          exact
+                          component={Section1__Supervisory}
+                        />
+                        <Route
+                          path="/supervisory/section2"
+                          exact
+                          component={Section2__Supervisory}
+                        />
+                        <Route
+                          path="/rater/performance/section1"
+                          exact
+                          component={Rater_Performance_Section1}
+                        />
+                        <Route
+                          path="/rater/performance/section2"
+                          exact
+                          component={Rater_Performance_Section2}
+                        />
+                        <Route
+                          path="/performance/section1"
+                          exact
+                          component={Performance_Section1}
+                        />
+                        <Route
+                          path="/performance/section2"
+                          exact
+                          component={Performance_Section2}
+                        />
+                      </Switch>
+                    </BehavioralContext1.Provider>
+                  </performanceEvaluationContext.Provider>
+                </BehavioralContext.Provider>
+              </SupervisoryEvaluationContext.Provider>
+            </EmployeeContext.Provider>
           </RaterContext.Provider>
         </HashRouter>
       </>

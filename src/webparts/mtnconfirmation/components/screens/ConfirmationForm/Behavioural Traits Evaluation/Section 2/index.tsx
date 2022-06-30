@@ -53,7 +53,6 @@ const Section2 = () => {
             </ul>
           </Card>
           <div className={styles.section1__ratings}>
-          
             <Select
               onChange={(e: any) => {
                 setAdaptRating(e.target.value);
@@ -145,7 +144,7 @@ const Section2 = () => {
           <div className="mtn__btnContaainer">
             <div>
               <Link
-                to="/behavioral/section1"
+                to="/rater/behavioral/section1"
                 className="mtn__btn mtn__blackOutline"
                 type="button"
               >

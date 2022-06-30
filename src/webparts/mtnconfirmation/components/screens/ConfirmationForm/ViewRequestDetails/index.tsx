@@ -2,10 +2,12 @@ import * as React from "react";
 import { Header, Spinner } from "../../../Containers";
 import styles from "./allDetails.module.scss";
 import { sp } from "@pnp/sp";
+import { useHistory, Link } from "react-router-dom";
+import { EmployeeContext } from "../../../Context/EmployeeContext";
 
 const ViewRequestDetails = ({ match }) => {
   let itemID = match.params.id;
-
+  const { setId: setEmployeeId, setItemId } = React.useContext(EmployeeContext);
   const [loading, setLoading] = React.useState(false);
   const [id, setId] = React.useState("");
   const [employee_Name, setEmployee_Name] = React.useState("");
@@ -27,6 +29,8 @@ const ViewRequestDetails = ({ match }) => {
   const [divisions, setDivisions] = React.useState([]);
   const [departments, setDepartments] = React.useState([]);
 
+  const history = useHistory();
+
   React.useEffect(() => {
     sp.web.lists
       .getByTitle(`Confirmation`)
@@ -36,6 +40,7 @@ const ViewRequestDetails = ({ match }) => {
         setId(res[0].ID);
         setEmployee_Name(res[0].EmployeeName);
         setEmployee_Id(res[0].EmployeeID);
+        setEmployeeId(res[0].EmployeeID);
         setForm_No(res[0].FormNo);
         setJob_Title(res[0].JobTitle);
         setStaff_Level(res[0].Level);
@@ -54,6 +59,14 @@ const ViewRequestDetails = ({ match }) => {
   }, []);
 
   // sp.web.lists.getByTitle()
+
+  const nextHandler = () => {
+    history.push("/rater/performance/section1");
+  };
+
+  React.useEffect(() => {
+    setItemId(itemID);
+  }, [itemID]);
 
   return (
     <div>
@@ -167,6 +180,7 @@ const ViewRequestDetails = ({ match }) => {
           <button
             type="button"
             className={`${styles.view__Btn2} ${styles.mtn__black}`}
+            onClick={nextHandler}
           >
             Next
           </button>
