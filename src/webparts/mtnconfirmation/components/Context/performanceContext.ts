@@ -9,10 +9,10 @@ export type performanceEvaluationContextType = {
     setWorkQualityRating: React.Dispatch<React.SetStateAction<number>>;
     workQualityComment: string;
     setWorkQualityComment: React.Dispatch<React.SetStateAction<string>>;
-    workQualityRatingtwo: number;
-    setWorkQualityRatingtwo: React.Dispatch<React.SetStateAction<number>>;
-    workQualityCommenttwo: string;
-    setWorkQualityCommenttwo: React.Dispatch<React.SetStateAction<string>>;
+    workQuantityRating: number;
+    setworkQuantityRating: React.Dispatch<React.SetStateAction<number>>;
+    workQuantityComment: string;
+    setworkQuantityComment: React.Dispatch<React.SetStateAction<string>>;
   
 
     workHabitRating: number;

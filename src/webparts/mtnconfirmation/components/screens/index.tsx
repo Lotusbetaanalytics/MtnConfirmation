@@ -21,3 +21,4 @@ export {default as Rater_Performance_Section1} from "./ConfirmationForm/performa
 export {default as Rater_Performance_Section2} from "./ConfirmationForm/performanceFactor/Raters/pageTwo"
 export {default as Performance_Section1 } from "./ConfirmationForm/performanceFactor/Others/pageOne"
 export {default as Performance_Section2} from "./ConfirmationForm/performanceFactor/Others/pageTwo"
+export {default as Hr_performance_Section2} from "./ConfirmationForm/performanceFactor/Others/HrPageTwo"

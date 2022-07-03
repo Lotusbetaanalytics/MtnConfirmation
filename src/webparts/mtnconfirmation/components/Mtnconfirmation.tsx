@@ -29,6 +29,7 @@ import {
   Rater_Performance_Section2,
   Rater_behavioral_Section1,
   behavioral_Section1,
+  Hr_performance_Section2,
 } from './screens';
 import {
   performanceEvaluationContext,
@@ -51,10 +52,10 @@ import { number } from 'echarts';
     setWorkQualityRating: React.Dispatch<React.SetStateAction<number>>;
     workQualityComment: string;
     setWorkQualityComment: React.Dispatch<React.SetStateAction<string>>;
-    workQualityRatingtwo: number;
-    setWorkQualityRatingtwo: React.Dispatch<React.SetStateAction<number>>;
-    workQualityCommenttwo: string;
-    setWorkQualityCommenttwo: React.Dispatch<React.SetStateAction<string>>;
+    workQuantityRating: number;
+    setworkQuantityRating: React.Dispatch<React.SetStateAction<number>>;
+    workQuantityComment: string;
+    setworkQuantityComment: React.Dispatch<React.SetStateAction<string>>;
   
     rater: string;
     raterEmail: string;
@@ -97,10 +98,10 @@ import { number } from 'echarts';
     setWorkQualityRating: this.setWorkQualityRating,
     workQualityComment: "",
     setWorkQualityComment: this.setWorkQualityComment,
-    workQualityRatingtwo: null,
-    setWorkQualityRatingtwo: this.setWorkQualityRatingtwo,
-    workQualityCommenttwo: "",
-    setWorkQualityCommenttwo: this.setWorkQualityCommenttwo,
+    workQuantityRating: null,
+    setworkQuantityRating: this.setworkQuantityRating,
+    workQuantityComment: "",
+    setworkQuantityComment: this.setworkQuantityComment,
 
     rater: "",
     raterEmail: "",
@@ -176,12 +177,12 @@ import { number } from 'echarts';
     this.setState({ workQualityComment });
   };
 
-  setWorkQualityRatingtwo = (workQualityRatingtwo: number): void => {
-    this.setState({ workQualityRatingtwo });
+  setworkQuantityRating = (workQuantityRating: number): void => {
+    this.setState({ workQuantityRating });
   };
 
-  setWorkQualityCommenttwo = (workQualityCommenttwo: string): void => {
-    this.setState({ workQualityCommenttwo });
+  setworkQuantityComment = (workQuantityComment: string): void => {
+    this.setState({ workQuantityComment });
   };
 
   setWorkHabitRating = (workHabitRating: number): void => {
@@ -241,10 +242,10 @@ import { number } from 'echarts';
                   setWorkQualityRating: this.state.setWorkQualityRating,
                   workQualityComment: this.state.workQualityComment,
                   setWorkQualityComment: this.state.setWorkQualityComment,
-                  workQualityRatingtwo: this.state.workQualityRatingtwo,
-                  setWorkQualityRatingtwo: this.state.setWorkQualityRatingtwo,
-                  workQualityCommenttwo: this.state.workQualityCommenttwo,
-                  setWorkQualityCommenttwo: this.state.setWorkQualityCommenttwo,
+                  workQuantityRating: this.state.workQuantityRating,
+                  setworkQuantityRating: this.state.setworkQuantityRating,
+                  workQuantityComment: this.state.workQuantityComment,
+                  setworkQuantityComment: this.state.setworkQuantityComment,
                   workHabitRating:this.state.workHabitRating,
                   setWorkHabitRating:
                     this.state.setWorkHabitRating,
@@ -275,7 +276,7 @@ import { number } from 'echarts';
                   setCoperationComment: this.state.setCoperationComment,
                   initiativeRating: this.state.initiativeRating,
                   setInitiativeRating: this.state.setInitiativeRating,
-                  workQualityCommenttwo: this.state.workQualityCommenttwo,
+                  workQuantityComment: this.state.workQuantityComment,
                   initiativeComment: this.state.initiativeComment,
                   setInitiativeComment:this.state.setInitiativeComment,
                   
@@ -306,6 +307,7 @@ import { number } from 'echarts';
             <Route path="/rater/performance/section2" exact component={Rater_Performance_Section2} />
             <Route path="/performance/section1" exact component={Performance_Section1} />
             <Route path="/performance/section2" exact component={Performance_Section2} />
+            <Route path="/hr/performance/section2" exact component={Hr_performance_Section2} />
           </Switch>
           </BehavioralContext1.Provider>
           </performanceEvaluationContext.Provider>

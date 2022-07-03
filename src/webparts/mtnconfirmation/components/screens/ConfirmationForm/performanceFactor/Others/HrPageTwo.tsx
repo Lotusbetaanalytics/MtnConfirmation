@@ -1,3 +1,4 @@
+import { sp } from "@pnp/sp";
 import * as React from "react";
 import { useState } from "react";
 import { useHistory, Link, useParam } from "react-router-dom";
@@ -11,12 +12,13 @@ import {
 } from "../../../../Containers";
 import styles from "../performance.module.scss";
 
-import { sp } from "@pnp/sp";
 
-const workHabit = () => {
+const HRworkHabit = () => {
   const [detail, setDetail] = useState({});
   const [workHabitRating, setWorkHabitRating] = useState(0);
   const [workHabitComment, setWorkHabitComment] = useState("");
+  const [managerComment,setManagerComment] = useState("")
+  const [MHRBPComment,setMHRBPComment] = useState("")
   const [communicationRating, setCommunicationRating] = useState(0);
   const [communicationComment, setCommunicationComment] = useState("");
   const [totalPerformanceScore, setTotalPerformanceScore] = useState(0);
@@ -24,7 +26,7 @@ const workHabit = () => {
   const [role,setRole] =useState("")
   const history = useHistory();
   // const {id} = useParam()
-  
+  const [data, setData] = useState([]);
 
   console.log(role)
 
@@ -45,22 +47,32 @@ const workHabit = () => {
       setRole(res[0]? res[0].Role  : "Employee" )
     }))
   });
-    sp.web.lists
-      .getByTitle("PerformanceFactorEvaluation")
+    sp.web.lists.getByTitle("PerformanceFactorEvaluation")
       .items.getById(1)
       .get()
       .then((res) => {
+        setData(res[0]);
         setLoading(false);
         setWorkHabitRating(res.workHabitRating);
         setWorkHabitComment(res.workHabitComment);
         setCommunicationRating(res.communicatonRating);
         setCommunicationComment(res.communicationComment);
         setTotalPerformanceScore(res.totalPerformanceScore);
-        
+        console.log(res);
+      });
+      sp.web.lists.getByTitle("EvaluationComments")
+      .items.getById(1)
+      .get()
+      .then((res) => {
+        setData(res[0]);
+        setMHRBPComment(res.MHRBPComment)
+        setManagerComment(res.ManagerIndustrialComments)
+        console.log(res);
       });
   }, []);
 
- 
+  console.log(detail);
+
   const nextHandler = (e) => {
     history.push();
   };
@@ -149,9 +161,41 @@ const workHabit = () => {
                 readOnly
               />
             </Card>
+            <div></div>
+            
+              <div
+                className={styles.section1__comments}
+              >
+                <h2>Manager's Comment</h2>
+
+                <TextArea
+                  readOnly={true}
+                  onChange={(e) => {
+                    setCommunicationComment(e.target.value);
+                  }}
+                  value={managerComment}
+                />
+              </div>
+        
           </div>
         </div>
-        
+          <div className={styles.evaluation__section} 
+          >
+            <div></div>
+            <div></div>
+            <div className={styles.section1__comments}>
+              <h2>MHRBP’s Comment</h2>
+
+              <TextArea
+                readOnly={true}
+                onChange={(e) => {
+                  setCommunicationComment(e.target.value);
+                }}
+                value={MHRBPComment}
+              />
+            </div>
+          </div>
+
         <div className={styles.evaluation__section__button}>
           <div className="mtn__btnContaainer">
             <div>
@@ -175,4 +219,4 @@ const workHabit = () => {
   );
 };
 
-export default workHabit;
+export default HRworkHabit;

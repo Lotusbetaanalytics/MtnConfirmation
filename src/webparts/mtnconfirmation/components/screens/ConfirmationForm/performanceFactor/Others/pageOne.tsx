@@ -11,15 +11,30 @@ const KnowlegdeFactor = () => {
   const [knowlegdeComment, setknowlegdeComment] = useState("");
   const [workQualityRating, setWorkQualityRating] = useState("");
   const [workQualityComment, setWorkQualityComment] = useState("");
-  const [workQualityRatingtwo, setWorkQualityRatingtwo] = useState("");
-  const [workQualityCommenttwo, setWorkQualityCommenttwo] = useState("");
+  const [workQuantityRating, setworkQuantityRating] = useState("");
+  const [workQuantityComment, setworkQuantityComment] = useState("");
   const [loading,setLoading] = useState(false)
+  const [detail, setDetail] = useState({});
+  const [role,setRole] =useState("")
   const [data,setData] = useState({})
   
   // const {id} = useParam()
   
   React.useEffect(() => {
     setLoading(true);
+    sp.profiles.myProperties.get().then((res) => {
+      setDetail({res});
+      console.log(res);
+      
+   
+    sp.web.lists
+    .getByTitle("Admin")
+    .items.filter(`Email eq '${res?.Email}' `)
+    .get()
+    .then((res=>{
+      setRole(res[0]? res[0].Role  : "Employee" )
+    }))
+  });
     sp.web.lists
       .getByTitle("PerformanceFactorEvaluation")
       .items.getById(1)
@@ -31,8 +46,8 @@ const KnowlegdeFactor = () => {
             setknowlegdeComment(res.KnowlegdeComment)
             setWorkQualityRating(res.workQualityRating)
             setWorkQualityComment(res.workQualityComment)
-            setWorkQualityRatingtwo(res.workQualityRatingtwo)
-            setWorkQualityCommenttwo(res.workQualityCommentTwo)
+            setworkQuantityRating(res.workQualityRatingtwo)
+            setworkQuantityComment(res.workQualityCommentTwo)
 
             console.log(res);
             
@@ -46,10 +61,17 @@ const KnowlegdeFactor = () => {
   };
   
   const nextHandler = () => {
+    if (role === "HR Administrator, Records" || "Manager Industrial Relations" ||
+    "Senior Manager Employee Services" || "Chief Human Recourse Officer "|| "GM HR"
+    ) {
+      history.push("/hr/performance/section2");
+    } else {
       history.push("/performance/section2");
+    }
+     
   };
 
-  
+  console.log(role)
 
   return (
     <>
@@ -126,7 +148,7 @@ const KnowlegdeFactor = () => {
           </div>
         <div className={styles.evaluation__section}>
           <div>
-            <Card header="Quality of Work">
+            <Card header="Quantity of Work">
             <ul>
             <li>
             Consider the degree to which the employee exhibits
@@ -142,7 +164,7 @@ const KnowlegdeFactor = () => {
         </div>
         <div className={styles.section1__ratings}>
           <Select
-            value={workQualityRatingtwo}
+            value={workQuantityRating}
             onChange={""}
             
             title="Rating"
@@ -155,7 +177,7 @@ const KnowlegdeFactor = () => {
           Rater's comment</h2>
           <TextArea
           readOnly={true}
-          value={workQualityCommenttwo}
+          value={workQuantityComment}
             onChange={""} 
           />
           

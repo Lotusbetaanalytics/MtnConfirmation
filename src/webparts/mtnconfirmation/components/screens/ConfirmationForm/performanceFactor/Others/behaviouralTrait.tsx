@@ -29,6 +29,7 @@ const BehaviouralTrait = () => {
           .then((res) => {
               setData(res[0]);
             setLoading(false);
+            
             console.log(res);
             
           });
