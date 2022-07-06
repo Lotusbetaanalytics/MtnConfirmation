@@ -21,30 +21,28 @@ const workHabit = () => {
   const [communicationComment, setCommunicationComment] = useState("");
   const [totalPerformanceScore, setTotalPerformanceScore] = useState(0);
   const [loading, setLoading] = React.useState(false);
-  const [role,setRole] =useState("")
+  const [role, setRole] = useState("");
   const history = useHistory();
   // const {id} = useParam()
-  
 
-  console.log(role)
+  console.log(role);
 
   console.log(Helpers.Helpers.settings[role]);
 
   React.useEffect(() => {
     setLoading(true);
     sp.profiles.myProperties.get().then((res) => {
-      setDetail({res});
+      setDetail({ res });
       console.log(res);
-      
-   
-    sp.web.lists
-    .getByTitle("Admin")
-    .items.filter(`Email eq '${res?.Email}' `)
-    .get()
-    .then((res=>{
-      setRole(res[0]? res[0].Role  : "Employee" )
-    }))
-  });
+
+      sp.web.lists
+        .getByTitle("Admin")
+        .items.filter(`Email eq '${res?.Email}' `)
+        .get()
+        .then((res) => {
+          setRole(res[0] ? res[0].Role : "Employee");
+        });
+    });
     sp.web.lists
       .getByTitle("PerformanceFactorEvaluation")
       .items.getById(1)
@@ -56,11 +54,9 @@ const workHabit = () => {
         setCommunicationRating(res.communicatonRating);
         setCommunicationComment(res.communicationComment);
         setTotalPerformanceScore(res.totalPerformanceScore);
-        
       });
   }, []);
 
- 
   const nextHandler = (e) => {
     history.push();
   };
@@ -151,7 +147,7 @@ const workHabit = () => {
             </Card>
           </div>
         </div>
-        
+
         <div className={styles.evaluation__section__button}>
           <div className="mtn__btnContaainer">
             <div>

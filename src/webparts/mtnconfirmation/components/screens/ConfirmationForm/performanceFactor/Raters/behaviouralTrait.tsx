@@ -1,44 +1,48 @@
 import * as React from "react";
 import { useState } from "react";
-import { useHistory,Link } from "react-router-dom";
-import { Header, Select, Helpers,TextArea,Card } from "../../../../Containers";
+import { useHistory, Link } from "react-router-dom";
+import {
+  Header,
+  Select,
+  Helpers,
+  TextArea,
+  Card,
+} from "../../../../Containers";
 import { BehavioralContext1 } from "../../../../Context/behavioralContext1";
 import styles from "../performance.module.scss";
 
 const RatersBehaviouralTrait = () => {
   const history = useHistory();
-  const [workMsg2,setWorkMsg2] = useState(false)
-  const [knowlegdeMsg,setknowlegdeMsg] = useState(false)
-  const [workMsg,setWorkMsg] = useState(false) 
-  
-  const [msg,setMsg] = useState(false);
+  const [workMsg2, setWorkMsg2] = useState(false);
+  const [knowlegdeMsg, setknowlegdeMsg] = useState(false);
+  const [workMsg, setWorkMsg] = useState(false);
+
+  const [msg, setMsg] = useState(false);
   const {
     dependabilityRating,
-  setDependabilityRating,
-  dependabilityComment,
-  setDependabilityComment,
-  coperationRating,
-  setCoperationRating,
-  coperationComment,
-  setCoperationComment,
-  initiativeRating,
-  setInitiativeRating,
-  initiativeComment,
-  setInitiativeComment,
-  } = React.useContext(BehavioralContext1)
-  
+    setDependabilityRating,
+    dependabilityComment,
+    setDependabilityComment,
+    coperationRating,
+    setCoperationRating,
+    coperationComment,
+    setCoperationComment,
+    initiativeRating,
+    setInitiativeRating,
+    initiativeComment,
+    setInitiativeComment,
+  } = React.useContext(BehavioralContext1);
 
   const nextHandler = () => {
     if (dependabilityComment.length < 60) {
-      setknowlegdeMsg(true)
-    } 
+      setknowlegdeMsg(true);
+    }
     if (coperationComment.length < 60) {
-      setWorkMsg(true)
+      setWorkMsg(true);
     }
     if (initiativeComment.length < 60) {
-      setWorkMsg2(true)
+      setWorkMsg2(true);
     } else {
-      
       history.push("/behavioral/section2");
     }
   };
@@ -49,7 +53,9 @@ const RatersBehaviouralTrait = () => {
         <div className={styles.evaluation__section}>
           <Card header="Dependability">
             <ul>
-              <li>Consider the amount of time spent directing this employee </li>
+              <li>
+                Consider the amount of time spent directing this employee{" "}
+              </li>
               <li>
                 Does this employee monitor project and exercise follow-through?
               </li>
@@ -72,9 +78,9 @@ const RatersBehaviouralTrait = () => {
           <div className={styles.section1__comments}>
             <h2>Comment</h2>
             <TextArea
-              onChange={(e) =>{
-               
-              setDependabilityComment(e.target.value)}}
+              onChange={(e) => {
+                setDependabilityComment(e.target.value);
+              }}
               value={dependabilityComment}
             />
             {knowlegdeMsg ? (
@@ -107,8 +113,8 @@ const RatersBehaviouralTrait = () => {
             <h2>Comment</h2>
             <TextArea
               onChange={(e) => {
-                
-                setCoperationComment(e.target.value)}}
+                setCoperationComment(e.target.value);
+              }}
               value={coperationComment}
             />
             {workMsg ? (
@@ -140,8 +146,8 @@ const RatersBehaviouralTrait = () => {
             <h2>Comment</h2>
             <TextArea
               onChange={(e) => {
-                
-                setInitiativeComment(e.target.value)}}
+                setInitiativeComment(e.target.value);
+              }}
               value={initiativeComment}
             />
             {workMsg2 ? (
@@ -162,8 +168,7 @@ const RatersBehaviouralTrait = () => {
             </div>
             <div>
               <button
-              onClick={nextHandler}
-               
+                onClick={nextHandler}
                 className="mtn__btn mtn__black"
                 type="button"
               >
