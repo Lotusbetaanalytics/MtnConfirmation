@@ -22,8 +22,13 @@ import {
   AdminPending,
   EditConfirmation,
   AdminViewPending,
+  HrAdminstrationPendingPage,
 } from "./screens";
 import "./assets/icon.scss";
+import LineManagerPendingPage from "./screens/ConfirmationForm/PendingRequests/LineManagerPendingPage";
+import HrbpPendingPage from "./screens/ConfirmationForm/PendingRequests/HrbpPendingPage";
+import SeniorManagerESPendingPage from "./screens/ConfirmationForm/PendingRequests/SeniorManagerESPendingPage";
+import GmHrOperationsPendingPage from "./screens/ConfirmationForm/PendingRequests/GmHrOperationsPendingPage";
 
 export default class Mtnconfirmation extends React.Component<
   IMtnconfirmationProps,
@@ -57,6 +62,31 @@ export default class Mtnconfirmation extends React.Component<
             <Route path="/admin/completed" exact component={AdminCompleted} />
             <Route path="/requestpage" exact component={RequestPage} />
             <Route path="/pendingrequests" exact component={PendingRequests} />
+            <Route
+              path="/pending/requests/linemanager"
+              exact
+              component={LineManagerPendingPage}
+            />
+            <Route
+              path="/pending/requests/hrbp"
+              exact
+              component={HrbpPendingPage}
+            />
+            <Route
+              path="/pending/requests/hradministrator"
+              exact
+              component={HrAdminstrationPendingPage}
+            />
+            <Route
+              path="/pending/requests/seniormanageremployeeservices"
+              exact
+              component={SeniorManagerESPendingPage}
+            />
+            <Route
+              path="/pending/requests/gmhroperations"
+              exact
+              component={GmHrOperationsPendingPage}
+            />
             <Route
               path="/viewrequest/details/:id"
               exact

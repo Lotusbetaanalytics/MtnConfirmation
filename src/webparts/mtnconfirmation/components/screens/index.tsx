@@ -14,4 +14,9 @@ export { default as Section3 } from "./ConfirmationForm/Behavioural Traits Evalu
 export { default as Section1__Supervisory } from "./ConfirmationForm/Supervisory/Supervisory Section 1";
 export { default as Section2__Supervisory } from "./ConfirmationForm/Supervisory/Supervisory Section 2";
 export { default as PendingRequests } from "./ConfirmationForm/PendingRequests";
+export { default as LineManagerPendingPage } from "./ConfirmationForm/PendingRequests/LineManagerPendingPage";
+export { default as HrbpPendingPage } from "./ConfirmationForm/PendingRequests/HrbpPendingPage";
+export { default as HrAdminstrationPendingPage } from "./ConfirmationForm/PendingRequests/HrAdminstrationPendingPage";
+export { default as SeniorManagerESPendingPage } from "./ConfirmationForm/PendingRequests/SeniorManagerESPendingPage";
+export { default as GmHrOperationsPendingPage } from "./ConfirmationForm/PendingRequests/GmHrOperationsPendingPage";
 export { default as ViewRequestDetails } from "./ConfirmationForm/ViewRequestDetails";

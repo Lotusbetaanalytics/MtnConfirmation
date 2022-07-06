@@ -27,6 +27,8 @@ const ViewRequestDetails = ({ match }) => {
   const [divisions, setDivisions] = React.useState([]);
   const [departments, setDepartments] = React.useState([]);
 
+  const [confirmRater, setConfirmRater] = React.useState("");
+
   React.useEffect(() => {
     sp.web.lists
       .getByTitle(`Confirmation`)
@@ -39,12 +41,12 @@ const ViewRequestDetails = ({ match }) => {
         setForm_No(res[0].FormNo);
         setJob_Title(res[0].JobTitle);
         setStaff_Level(res[0].Level);
-        setDivision(res[0].Divison);
+        setDivision(res[0].Division);
         setDepartment(res[0].Department);
         setPhone(res[0].Phone);
         setLocation(res[0].Location);
         setRater(res[0].Rater);
-        setEmployeeDate(res[0].EmployeeDate);
+        setEmployeeDate(res[0].EmploymentDate);
         setConfirmationDate(res[0].ConfirmationDate);
         setStartDate(res[0].StartDate);
         setEndDate(res[0].EndDate);
@@ -53,7 +55,15 @@ const ViewRequestDetails = ({ match }) => {
       });
   }, []);
 
-  // sp.web.lists.getByTitle()
+  // sp.web.lists
+  //   .getByTitle(`Confirmation`)
+  //   .items.filter(`Rater eq '${id}'`)
+  //   .get()
+  //   .then((res) => {
+  //     const raterId = res.filter((x) => x.id === id);
+  //     return raterId[0].id;
+  //     ``;
+  //   });
 
   return (
     <div>

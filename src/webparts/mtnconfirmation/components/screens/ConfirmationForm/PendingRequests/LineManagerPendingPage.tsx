@@ -7,7 +7,7 @@ import { sp } from "@pnp/sp";
 import { graph } from "@pnp/graph";
 import "@pnp/graph/users";
 
-const PendingRequest = () => {
+const LineManagerPendingPage = () => {
   const history = useHistory();
 
   type IType =
@@ -36,7 +36,9 @@ const PendingRequest = () => {
     setLoading(true);
     sp.web.lists
       .getByTitle(`Confirmation`)
-      .items.filter(`ConfirmationStatus eq 'Pending' and Approvals eq 'Rater'`)
+      .items.filter(
+        `ConfirmationStatus eq 'Pending' and Approvals eq 'Rater Line Manager'`
+      )
       .get()
       .then((res) => {
         setData(res);
@@ -108,4 +110,4 @@ const PendingRequest = () => {
   );
 };
 
-export default PendingRequest;
+export default LineManagerPendingPage;
