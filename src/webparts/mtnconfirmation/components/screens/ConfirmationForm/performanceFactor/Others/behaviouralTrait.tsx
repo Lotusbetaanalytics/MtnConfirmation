@@ -1,56 +1,70 @@
 import * as React from "react";
 import { useState } from "react";
-import { useHistory,Link,useParam } from "react-router-dom";
-import { Header, Select, Helpers,TextArea,Card, Spinner } from "../../../../Containers";
+import { useHistory, Link, useParam } from "react-router-dom";
+import {
+  Header,
+  Select,
+  Helpers,
+  TextArea,
+  Card,
+  Spinner,
+} from "../../../../Containers";
 import styles from "../performance.module.scss";
 import { sp } from "@pnp/sp";
+import { EmployeeContext } from "../../../../Context/EmployeeContext";
 
 const BehaviouralTrait = () => {
   const history = useHistory();
-  
-  
-  const [dependabilityRating,setDependabilityRating] = useState(0)
-  const [dependabilityComment,setDependabilityComment] = useState("")
-  const [coperationRating,setCoperationRating] = useState(0)
-  const [ coperationComment,setCoperationComment] = useState("")
-  const [initiativeRating,setInitiativeRating] =useState(0)
-  const [ initiativeComment,setInitiativeComment] = useState("")
-  const [loading,setLoading] = useState(false)
-  const [data,setData] = useState({})
-  const [msg,setMsg] = useState(false);
-  // const {id} = useParam()
-  
+  const { id } = React.useContext(EmployeeContext);
+  const [dependabilityRating, setDependabilityRating] = useState(0);
+  const [dependabilityComment, setDependabilityComment] = useState("");
+  const [coperationRating, setCoperationRating] = useState(0);
+  const [coperationComment, setCoperationComment] = useState("");
+  const [initiativeRating, setInitiativeRating] = useState(0);
+  const [initiativeComment, setInitiativeComment] = useState("");
+  const [loading, setLoading] = useState(false);
+
   React.useEffect(() => {
-    setLoading(true);
+    if (!id) {
+      history.push("/pendingrequests");
+      return;
+    }
+
     sp.web.lists
-      .getByTitle("PerformanceFactorEvaluation")
-      .items.getById(1)
-          .get()
-          .then((res) => {
-              setData(res[0]);
-            setLoading(false);
-            console.log(res);
-            
-          });
-         
-      },[]);
-     
- 
+      .getByTitle("BehavioralTraitsEvaluation")
+      .items.filter(`EmployeeID eq '${id}'`)
+      .get()
+      .then((response) => {
+        setLoading(false);
+        if (response.length > 0) {
+          setDependabilityRating(response[0].Dependability);
+          setDependabilityComment(response[0].DependabilityComment);
+          setCoperationComment(response[0].CooperationComment);
+          setCoperationRating(response[0].Co_x002d_operation);
+          setInitiativeRating(response[0].Initiative);
+          setInitiativeComment(response[0].InitiativeComment);
+        }
+      })
+      .catch((error) => {
+        setLoading(false);
+        console.log(error);
+      });
+  }, []);
 
   const nextHandler = () => {
-      history.push("/behavioral/section2");
+    history.push("/view-behavioral/section2");
   };
   return (
     <>
       <Header title="Behavioural Traits Evaluation" />
-      {
-        loading? <Spinner/> : null
-      }
+      {loading ? <Spinner /> : null}
       <div className={styles.evaluation__section2__container}>
         <div className={styles.evaluation__section}>
           <Card header="Dependability">
             <ul>
-              <li>Consider the amount of time spent directing this employee </li>
+              <li>
+                Consider the amount of time spent directing this employee{" "}
+              </li>
               <li>
                 Does this employee monitor project and exercise follow-through?
               </li>
@@ -68,19 +82,17 @@ const BehaviouralTrait = () => {
               title="Rating"
               value={dependabilityRating}
               options={Helpers.rating}
-              
             />
           </div>
           <div className={styles.section1__comments}>
             <h2>Comment</h2>
             <TextArea
-            readOnly={true}
-              onChange={(e) =>{
-               
-              setDependabilityComment(e.target.value)}}
+              readOnly={true}
+              onChange={(e) => {
+                setDependabilityComment(e.target.value);
+              }}
               value={dependabilityComment}
             />
-           
           </div>
         </div>
         <div className={styles.evaluation__section}>
@@ -107,13 +119,12 @@ const BehaviouralTrait = () => {
           <div className={styles.section1__comments}>
             <h2>Comment</h2>
             <TextArea
-            readOnly={true}
+              readOnly={true}
               onChange={(e) => {
-                
-                setCoperationComment(e.target.value)}}
+                setCoperationComment(e.target.value);
+              }}
               value={coperationComment}
             />
-           
           </div>
         </div>
 
@@ -139,19 +150,19 @@ const BehaviouralTrait = () => {
           <div className={styles.section1__comments}>
             <h2>Comment</h2>
             <TextArea
-            readOnly={true}
+              readOnly={true}
               onChange={(e) => {
-                setInitiativeComment(e.target.value)}}
+                setInitiativeComment(e.target.value);
+              }}
               value={initiativeComment}
             />
-            
           </div>
         </div>
         <div className={`${styles.evaluation__section__button} `}>
           <div className="mtn__btnContaainer">
             <div>
               <Link
-                to="/behavioral/section1"
+                to="/performance/section2"
                 className="mtn__btn mtn__blackOutline"
                 type="button"
               >
@@ -160,8 +171,7 @@ const BehaviouralTrait = () => {
             </div>
             <div>
               <button
-              onClick={nextHandler}
-               
+                onClick={nextHandler}
                 className="mtn__btn mtn__black"
                 type="button"
               >

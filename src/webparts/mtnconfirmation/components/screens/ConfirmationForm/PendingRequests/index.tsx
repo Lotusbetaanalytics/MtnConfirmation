@@ -37,7 +37,7 @@ const PendingRequest = () => {
     setLoading(true);
     sp.web.lists
       .getByTitle(`Confirmation`)
-      .items.filter(`ConfirmationStatus eq 'Pending'`)
+      .items.filter(`ConfirmationStatus eq 'Pending' `)
       .get()
       .then((res) => {
         setData(res);

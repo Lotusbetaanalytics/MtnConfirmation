@@ -9,14 +9,10 @@ import {
 } from "../../../../Containers";
 import { BehavioralContext } from "../../../../Context/BehavioralContext";
 import { sp } from "@pnp/sp";
-
 import styles from "./section3.module.scss";
-import swal from "sweetalert";
-import { RaterContext } from "../../../../Context/RaterContext";
 import { EmployeeContext } from "../../../../Context/EmployeeContext";
-import { performanceEvaluationContext } from "../../../../Context/performanceContext";
-import { BehavioralContext1 } from "../../../../Context/behavioralContext1";
-const Section3 = () => {
+
+const GetBehavioralSection3Rating = () => {
   const {
     punctualityRating,
     setPunctualityRating,
@@ -30,124 +26,43 @@ const Section3 = () => {
     setBehavioralEvaluationScore: setPerformanceScore,
     disciplinaryRating: disciplinaryResponse,
     setDisciplinaryRating: setDisciplinaryResponse,
-    judgementRating,
-    judgementComment,
-    setJudgementRating,
-    setJudgementComment,
-    attendanceRating,
-    setAttendanceRating,
-    attendanceComment,
-    setAttendanceComment,
-    adaptRating,
-    setAdaptRating,
-    adaptComment,
-    setAdaptComment,
   } = React.useContext(BehavioralContext);
 
-  const { rater, raterEmail, date } = React.useContext(RaterContext);
-  const { totalPerformanceScore } = React.useContext(
-    performanceEvaluationContext
-  );
-  const {
-    coperationRating,
-    dependabilityRating,
-    initiativeRating,
-    setInitiativeComment,
-    setCoperationRating,
-    setDependabilityRating,
-    setInitiativeRating,
-    setDependabilityComment,
-    setCoperationComment,
-    dependabilityComment,
-    coperationComment,
-    initiativeComment,
-  } = React.useContext(BehavioralContext1);
-
   const [showMsg, setShowMsg] = React.useState(false);
-  const [showSubmitButton, setShowSubmitButton] = React.useState(false);
-  const [loading, setLoading] = React.useState(false);
 
   const { id } = React.useContext(EmployeeContext);
 
   const history = useHistory();
 
-  const submitHandler = (e) => {
-    setLoading(true);
-    e.preventDefault();
-    const data = {
-      EmployeeID: id,
-      RaterEmail: raterEmail,
-      RatingDate: date,
-      RaterName: rater,
-      Adaptability: adaptRating,
-      AdaptComment: adaptComment,
-      Judgement: judgementRating,
-      JudgementComment: judgementComment,
-      Attendance: attendanceRating,
-      AttendanceComment: attendanceComment,
-      Punctuality: punctualityRating,
-      PuctualityComment: punctualityComment,
-      QueryRating: queryResponse,
-      Disciplinary: disciplinaryResponse,
-      DisciplinaryAndQueryComment: queryComment,
-      Dependability: dependabilityRating,
-      DependabilityComment: dependabilityComment,
-      Initiative: initiativeRating,
-      InitiativeComment: initiativeComment,
-      Co_x002d_operation: coperationRating,
-      CooperationComment: coperationComment,
-      Total: performanceScore,
-    };
+  const nextHandler = () => {
+    history.push("/view-supervisory/section1");
+  };
+
+  React.useEffect(() => {
+    if (!id) {
+      history.push("/pendingrequests");
+      return;
+    }
     sp.web.lists
       .getByTitle("BehavioralTraitsEvaluation")
-      .items.add(data)
-      .then(() => {
-        setLoading(false);
-        setAdaptComment("");
-        setAdaptRating(0);
-        setAttendanceComment("");
-        setAttendanceRating(0);
-        setDisciplinaryResponse("");
-        setJudgementRating(0);
-        setJudgementComment("");
-        setPunctualityComment("");
-        setPunctualityRating(0);
-        setQueryComment("");
-        setQueryResponse("");
-        setCoperationComment("");
-        setCoperationRating(0);
-        setDependabilityComment("");
-        setDependabilityRating(0);
-        setInitiativeComment("");
-        setInitiativeRating(0);
-        swal({
-          title: "Success",
-          text: "Evaluation Submitted Successfully!",
-          icon: "success",
-        }).then((ok) => {
-          if (ok) {
-            history.push("/supervisory/section1");
-          }
-        });
-      })
-      .catch((error) => {
-        setLoading(false);
-        swal(
-          "Error Occured",
-          "An error occured while submitting your data!",
-          "error"
-        );
-        console.log(error);
+      .items.filter(`EmployeeID eq '${id}'`)
+      .get()
+      .then((response) => {
+        if (response.length > 0) {
+          setPunctualityRating(response[0].Punctuality);
+          setPunctualityComment(response[0].PuctualityComment);
+          setQueryResponse(response[0].QueryRating);
+          setQueryComment(response[0].DisciplinaryAndQueryComment);
+          setDisciplinaryResponse(response[0].Disciplinary);
+          setPerformanceScore(response[0].Total);
+        }
       });
-  };
+  }, []);
 
   return (
     <>
       <Header title="Behavioural Traits Evaluation" />
-      <form
-        className={styles.evaluation__section2__container}
-        onSubmit={submitHandler}
-      >
+      <div className={styles.evaluation__section2__container}>
         <div className={`${styles.evaluation__section} `}>
           <Card header="Punctuality">
             <ul>
@@ -158,12 +73,12 @@ const Section3 = () => {
             </ul>
           </Card>
           <div className={styles.section1__ratings}>
-            {/* <h2>Ratings</h2> */}
             <Select
               onChange={(e: any) => {
                 setPunctualityRating(e.target.value);
               }}
               title="Ratings"
+              readOnly={true}
               value={punctualityRating}
               options={Helpers.rating}
               required={true}
@@ -172,6 +87,7 @@ const Section3 = () => {
           <div className={styles.section1__comments}>
             <h2>Comments</h2>
             <TextArea
+              readOnly={true}
               value={punctualityComment}
               onChange={(e: any) => {
                 e.target.value.length <= 60
@@ -206,28 +122,30 @@ const Section3 = () => {
               <div className={styles.radio_input}>
                 <input
                   type="radio"
+                  disabled={true}
                   name="confirm"
                   onChange={(e) => {
                     setQueryResponse(e.target.value);
                   }}
                   value="Yes"
+                  checked={queryResponse === "Yes"}
                   // @ts-ignore
                   name="query"
-                  required
                 />
                 <label>Yes</label>
               </div>
               <div className={styles.radio_input}>
                 <input
                   type="radio"
+                  disabled={true}
                   name="confirm"
                   onChange={(e) => {
                     setQueryResponse(e.target.value);
                   }}
                   value="No"
+                  checked={queryResponse === "No"}
                   // @ts-ignore
                   name="query"
-                  required
                 />
                 <label>No</label>
               </div>
@@ -236,11 +154,13 @@ const Section3 = () => {
               <div className={styles.radio_input}>
                 <input
                   type="radio"
+                  disabled={true}
                   name="disciplinary"
                   onChange={(e) => {
                     setDisciplinaryResponse(e.target.value);
                   }}
                   value="Yes"
+                  checked={disciplinaryResponse === "Yes"}
                   // @ts-ignore
                   name="disciplinary"
                   required
@@ -250,11 +170,13 @@ const Section3 = () => {
               <div className={styles.radio_input}>
                 <input
                   type="radio"
+                  disabled={true}
                   name="disciplinary"
                   onChange={(e) => {
                     setDisciplinaryResponse(e.target.value);
                   }}
                   value="No"
+                  checked={disciplinaryResponse === "No"}
                   // @ts-ignore
                   name="disciplinary"
                   required
@@ -266,6 +188,7 @@ const Section3 = () => {
           <div className={styles.section1__comments}>
             <h2>Comments</h2>
             <TextArea
+              readOnly={true}
               value={queryComment}
               onChange={(e: any) => {
                 setQueryComment(e.target.value);
@@ -278,7 +201,7 @@ const Section3 = () => {
           <div className="mtn__btnContaainer">
             <div>
               <Link
-                to="/behavioral/section2"
+                to="/view-behavioral/section2"
                 className="mtn__btn mtn__blackOutline"
                 type="button"
               >
@@ -286,40 +209,19 @@ const Section3 = () => {
               </Link>
             </div>
             <div>
-              {showSubmitButton ? (
-                <button
-                  className="mtn__btn mtn__black"
-                  type="submit"
-                  disabled={loading}
-                >
-                  {loading ? "Loading..." : "Submit"}
-                </button>
-              ) : (
-                <div
-                  className="mtn__btn mtn__black"
-                  onClick={() => {
-                    const total =
-                      Number(punctualityRating) +
-                      Number(adaptRating) +
-                      Number(judgementRating) +
-                      Number(attendanceRating) +
-                      Number(initiativeRating) +
-                      Number(dependabilityRating) +
-                      Number(coperationRating) +
-                      Number(totalPerformanceScore);
-                    setPerformanceScore(total);
-                    setShowSubmitButton(true);
-                  }}
-                >
-                  Calculate Performance
-                </div>
-              )}
+              <button
+                className="mtn__btn mtn__black"
+                type="button"
+                onClick={nextHandler}
+              >
+                Next
+              </button>
             </div>
           </div>
         </div>
-      </form>
+      </div>
     </>
   );
 };
 
-export default Section3;
+export default GetBehavioralSection3Rating;

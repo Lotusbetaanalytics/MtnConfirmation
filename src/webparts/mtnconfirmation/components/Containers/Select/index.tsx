@@ -10,6 +10,7 @@ const Select = ({
   filterOption = "",
   onBlur = null,
   size = "mtn__child",
+  readOnly = false,
 }) => {
   return (
     <div className={`mtn__InputContainer ${size}`}>

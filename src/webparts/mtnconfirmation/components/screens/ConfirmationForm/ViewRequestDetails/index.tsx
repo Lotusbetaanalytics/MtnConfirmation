@@ -4,10 +4,16 @@ import styles from "./allDetails.module.scss";
 import { sp } from "@pnp/sp";
 import { useHistory, Link } from "react-router-dom";
 import { EmployeeContext } from "../../../Context/EmployeeContext";
+import { ActorContext } from "../../../Context/ActorContext";
+import { RaterContext } from "../../../Context/RaterContext";
+import { RoleContext } from "../../../Context/RoleContext";
 
 const ViewRequestDetails = ({ match }) => {
   let itemID = match.params.id;
   const { setId: setEmployeeId, setItemId } = React.useContext(EmployeeContext);
+  const { setActor, actor } = React.useContext(ActorContext);
+  const { raterEmail } = React.useContext(RaterContext);
+  const { setRole, role } = React.useContext(RoleContext);
   const [loading, setLoading] = React.useState(false);
   const [id, setId] = React.useState("");
   const [employee_Name, setEmployee_Name] = React.useState("");
@@ -38,6 +44,7 @@ const ViewRequestDetails = ({ match }) => {
       .get()
       .then((res) => {
         setId(res[0].ID);
+        setActor(res[0].Approvals);
         setEmployee_Name(res[0].EmployeeName);
         setEmployee_Id(res[0].EmployeeID);
         setEmployeeId(res[0].EmployeeID);
@@ -61,12 +68,40 @@ const ViewRequestDetails = ({ match }) => {
   // sp.web.lists.getByTitle()
 
   const nextHandler = () => {
-    history.push("/rater/performance/section1");
+    switch (role) {
+      case "Rater":
+        history.push("/rater/performance/section1");
+        break;
+
+      default:
+        history.push("/performance/section1");
+        break;
+    }
   };
 
   React.useEffect(() => {
     setItemId(itemID);
   }, [itemID]);
+
+  React.useEffect(() => {
+    switch (actor) {
+      case "Rater":
+        setRole("Rater");
+        break;
+      case "Rater Line Manager":
+        setRole("Rater Line Manager");
+
+      default:
+        sp.web.lists
+          .getByTitle("Admin")
+          .items.filter(`Email eq '${raterEmail}'`)
+          .get()
+          .then((res) => {
+            setRole(res[0]?.Role);
+          });
+        break;
+    }
+  }, [actor]);
 
   return (
     <div>

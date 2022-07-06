@@ -21,6 +21,7 @@ export const TextAreaSmall = ({
   value,
   rows = 3,
   required = false,
+  readOnly = false,
 }) => {
   return (
     <div>
@@ -30,6 +31,7 @@ export const TextAreaSmall = ({
         onChange={onChange}
         rows={rows}
         required={required}
+        readOnly={readOnly}
       ></textarea>
     </div>
   );
