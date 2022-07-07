@@ -1,3 +1,5 @@
+import { helper } from "echarts";
+
 const level: any = [
   { value: "Level 1" },
   { value: "Level 2" },
@@ -13,10 +15,37 @@ const rating: any = [
   { value: "2" },
   { value: "3" },
   { value: "4" },
+  { value: "5" },
 ];
 const roles: any = [
   { value: "HR Administrator, Records" },
   { value: "HR HCM Administrator" },
   { value: "HR Analyst " },
 ];
-export default { level, rating, roles };
+
+const Helpers: any = {
+  settings: {
+    HR_Administrator_Records: [
+      {
+        display: "grid",
+      },
+    ],
+    HR_HCM_Administrator: [
+      {
+        display: "none",
+      },
+    ],
+    HR_Analyst: [
+      {
+        display: "none",
+      },
+    ],
+    Employee: [
+      {
+        display: "none",
+      },
+    ],
+  },
+};
+
+export default { level, rating, roles, Helpers };

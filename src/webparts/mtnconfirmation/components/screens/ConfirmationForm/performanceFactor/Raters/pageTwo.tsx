@@ -12,19 +12,22 @@ import { performanceEvaluationContext } from "../../../../Context/performanceCon
 import { RaterContext } from "../../../../Context/RaterContext";
 import styles from "../performance.module.scss";
 
-import { sp } from "@pnp/sp";
+import { registerCustomRequestClientFactory, sp } from "@pnp/sp";
 import swal from "sweetalert";
 import { EmployeeContext } from "../../../../Context/EmployeeContext";
 
 const RatersWorkHabit = () => {
+  const [workHabitRatingMsg, setworkHabitRatingMsg] = useState(false);
+  const [communicationRatingMsg, setcommunicationRatingMsg] = useState(false);
   const [showSubmitButton, setShowSubmitButton] = React.useState(true);
 
   const [loading, setLoading] = React.useState(false);
   const history = useHistory();
-  const [workMsg, setWorkMsg] = useState(false);
-  const [knowlegdeMsg, setknowlegdeMsg] = useState(false);
+  const [communicationCommentMsg, setcommunicationCommentMsg] = useState(false);
+  const [workhabitcommentMsg, setworkhabitcommentMsg] = useState(false);
   const { rater, raterEmail, date } = React.useContext(RaterContext);
-  const { id } = React.useContext(EmployeeContext);
+
+  console.log(rater, date);
 
   const {
     knowlegdeRating,
@@ -35,10 +38,10 @@ const RatersWorkHabit = () => {
     setWorkQualityRating,
     workQualityComment,
     setWorkQualityComment,
-    workQualityRatingtwo,
-    setWorkQualityRatingtwo,
-    workQualityCommenttwo,
-    setWorkQualityCommenttwo,
+    workQuantityRating,
+    setworkQuantityRating,
+    workQuantityComment,
+    setworkQuantityComment,
     workHabitRating,
     setWorkHabitRating,
     workHabitComment,
@@ -51,14 +54,41 @@ const RatersWorkHabit = () => {
     setTotalPerformanceScore,
   } = React.useContext(performanceEvaluationContext);
   const scoreHandler = () => {
-    const total =
-      Number(workHabitRating) +
-      Number(knowlegdeRating) +
-      Number(workQualityRating) +
-      Number(workQualityRatingtwo) +
-      Number(communicationRating);
-    setTotalPerformanceScore(total);
-    setShowSubmitButton(false);
+    if (
+      !knowlegdeRating ||
+      !knowlegdeComment ||
+      !workQualityRating ||
+      !workQualityComment ||
+      !workQuantityRating ||
+      !workQuantityComment ||
+      !workHabitRating ||
+      !workHabitComment ||
+      !communicationRating ||
+      !communicationComment ||
+      !totalPerformanceScore
+    ) {
+    }
+    if (workHabitComment.length < 60) {
+      setworkhabitcommentMsg(true);
+    }
+    if (communicationComment.length < 60) {
+      setcommunicationCommentMsg(true);
+    }
+    if (workHabitRating === null) {
+      setworkHabitRatingMsg(true);
+    }
+    if (communicationRating === null) {
+      setcommunicationRatingMsg(true);
+    } else {
+      const total =
+        Number(workHabitRating) +
+        Number(knowlegdeRating) +
+        Number(workQualityRating) +
+        Number(workQuantityRating) +
+        Number(communicationRating);
+      setTotalPerformanceScore(total);
+      setShowSubmitButton(false);
+    }
   };
 
   React.useEffect(() => {
@@ -74,17 +104,17 @@ const RatersWorkHabit = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     if (workHabitComment.length < 60) {
-      setknowlegdeMsg(true);
+      setworkhabitcommentMsg(true);
     }
     if (communicationComment.length < 60) {
-      setWorkMsg(true);
+      setcommunicationCommentMsg(true);
     } else {
       setLoading(true);
 
       sp.web.lists
         .getByTitle("PerformanceFactorEvaluation")
         .items.add({
-          employeeID: id,
+          employeeID: "",
           RaterName: rater,
           RaterEmail: raterEmail,
           RatingDate: date,
@@ -92,8 +122,8 @@ const RatersWorkHabit = () => {
           KnowlegdeComment: knowlegdeComment,
           workQualityRating: workQualityRating,
           workQualityComment: workQualityComment,
-          workQualityRatingtwo: workQualityRatingtwo,
-          workQualityCommentTwo: workQualityCommenttwo,
+          workQualityRatingtwo: workQuantityRating,
+          workQualityCommentTwo: workQuantityComment,
           workHabitRating: workHabitRating,
           workHabitComment: workHabitComment,
           communicatonRating: communicationRating,
@@ -105,13 +135,15 @@ const RatersWorkHabit = () => {
           setKnowlegdeRating(0);
           setknowlegdeComment("");
           setWorkQualityComment("");
-          setWorkQualityCommenttwo("");
+          setworkQuantityComment("");
           setWorkHabitComment("");
           setCommunicationComment("");
           setWorkQualityRating(0);
-          setWorkQualityRatingtwo(0);
+          setworkQuantityRating(0);
           setWorkHabitRating(0);
           setCommunicationRating(0);
+          setTotalPerformanceScore(0);
+
           swal({
             title: "Success",
             text: "Evaluation Submitted Successfully",
@@ -161,16 +193,19 @@ const RatersWorkHabit = () => {
               title="Rating"
               options={Helpers.rating}
             />
+            {workHabitRatingMsg ? (
+              <span className={styles.msg}>kindly rate </span>
+            ) : null}
           </div>
           <div className={styles.section1__comments}>
-            <h2>Rater's comment</h2>
+            <h2>Comment</h2>
             <TextArea
               onChange={(e: any) => {
                 setWorkHabitComment(e.target.value);
               }}
               value={workHabitComment}
             />
-            {knowlegdeMsg ? (
+            {workhabitcommentMsg ? (
               <span>Your comment should be at least 60 characters </span>
             ) : null}
           </div>
@@ -184,21 +219,22 @@ const RatersWorkHabit = () => {
                 writting,listen well and respond appropriately
               </li>
             </ul>
-            \
           </Card>
           <div className={styles.section1__ratings}>
             <Select
               onChange={(e) => {
-                localStorage.setItem("communicationRating", e.target.value);
                 setCommunicationRating(e.target.value);
               }}
               title="Rating"
               value={communicationRating}
               options={Helpers.rating}
             />
+            {communicationRatingMsg ? (
+              <span className={styles.msg}>kindly rate </span>
+            ) : null}
           </div>
           <div className={styles.section1__comments}>
-            <h2>Rater's comment</h2>
+            <h2>Comment</h2>
 
             <TextArea
               onChange={(e) => {
@@ -206,7 +242,7 @@ const RatersWorkHabit = () => {
               }}
               value={communicationComment}
             />
-            {workMsg ? (
+            {communicationCommentMsg ? (
               <span>Your comment should be at least 60 characters </span>
             ) : null}
           </div>
@@ -226,7 +262,7 @@ const RatersWorkHabit = () => {
         <div className={styles.mtn__btnContaainer2}>
           <div>
             <Link
-              to="/behavioral/section2"
+              to="/rater/performance/section1"
               className="mtn__btn mtn__blackOutline"
               type="button"
             >

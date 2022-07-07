@@ -131,11 +131,10 @@ export default class Mtnconfirmation extends React.Component<
     setWorkQualityRating: React.Dispatch<React.SetStateAction<number>>;
     workQualityComment: string;
     setWorkQualityComment: React.Dispatch<React.SetStateAction<string>>;
-    workQualityRatingtwo: number;
-    setWorkQualityRatingtwo: React.Dispatch<React.SetStateAction<number>>;
-    workQualityCommenttwo: string;
-    setWorkQualityCommenttwo: React.Dispatch<React.SetStateAction<string>>;
-
+    workQuantityRating: number;
+    setworkQuantityRating: React.Dispatch<React.SetStateAction<number>>;
+    workQuantityComment: string;
+    setworkQuantityComment: React.Dispatch<React.SetStateAction<string>>;
     workHabitRating: number;
     setWorkHabitRating: React.Dispatch<React.SetStateAction<number>>;
     workHabitComment: string;
@@ -233,10 +232,6 @@ export default class Mtnconfirmation extends React.Component<
       setWorkQualityRating: this.setWorkQualityRating,
       workQualityComment: "",
       setWorkQualityComment: this.setWorkQualityComment,
-      workQualityRatingtwo: null,
-      setWorkQualityRatingtwo: this.setWorkQualityRatingtwo,
-      workQualityCommenttwo: "",
-      setWorkQualityCommenttwo: this.setWorkQualityCommenttwo,
       workHabitRating: null,
       setWorkHabitRating: this.setWorkHabitRating,
       workHabitComment: "",
@@ -267,6 +262,11 @@ export default class Mtnconfirmation extends React.Component<
       actor: "",
       setActor: this.setActor,
       setRole: this.setRole,
+
+      workQuantityRating: null,
+      setworkQuantityRating: this.setworkQuantityRating,
+      workQuantityComment: "",
+      setworkQuantityComment: this.setworkQuantityComment,
     };
   }
 
@@ -421,12 +421,12 @@ export default class Mtnconfirmation extends React.Component<
     this.setState({ workQualityComment });
   };
 
-  setWorkQualityRatingtwo = (workQualityRatingtwo: number): void => {
-    this.setState({ workQualityRatingtwo });
+  setworkQuantityRating = (workQuantityRating: number): void => {
+    this.setState({ workQuantityRating });
   };
 
-  setWorkQualityCommenttwo = (workQualityCommenttwo: string): void => {
-    this.setState({ workQualityCommenttwo });
+  setworkQuantityComment = (workQuantityComment: string): void => {
+    this.setState({ workQuantityComment });
   };
 
   setWorkHabitRating = (workHabitRating: number): void => {
@@ -583,14 +583,12 @@ export default class Mtnconfirmation extends React.Component<
                             workQualityComment: this.state.workQualityComment,
                             setWorkQualityComment:
                               this.state.setWorkQualityComment,
-                            workQualityRatingtwo:
-                              this.state.workQualityRatingtwo,
-                            setWorkQualityRatingtwo:
-                              this.state.setWorkQualityRatingtwo,
-                            workQualityCommenttwo:
-                              this.state.workQualityCommenttwo,
-                            setWorkQualityCommenttwo:
-                              this.state.setWorkQualityCommenttwo,
+                            workQuantityRating: this.state.workQuantityRating,
+                            setworkQuantityRating:
+                              this.state.setworkQuantityRating,
+                            workQuantityComment: this.state.workQuantityComment,
+                            setworkQuantityComment:
+                              this.state.setworkQuantityComment,
                             workHabitRating: this.state.workHabitRating,
                             setWorkHabitRating: this.state.setWorkHabitRating,
                             workHabitComment: this.state.workHabitComment,
@@ -629,8 +627,8 @@ export default class Mtnconfirmation extends React.Component<
                               initiativeRating: this.state.initiativeRating,
                               setInitiativeRating:
                                 this.state.setInitiativeRating,
-                              workQualityCommenttwo:
-                                this.state.workQualityCommenttwo,
+                              workQuantityComment:
+                                this.state.workQuantityComment,
                               initiativeComment: this.state.initiativeComment,
                               setInitiativeComment:
                                 this.state.setInitiativeComment,

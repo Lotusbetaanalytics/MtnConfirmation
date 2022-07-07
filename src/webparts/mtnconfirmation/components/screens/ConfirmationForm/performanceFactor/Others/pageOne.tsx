@@ -19,8 +19,8 @@ const KnowlegdeFactor = () => {
   const [knowlegdeComment, setknowlegdeComment] = useState("");
   const [workQualityRating, setWorkQualityRating] = useState("");
   const [workQualityComment, setWorkQualityComment] = useState("");
-  const [workQualityRatingtwo, setWorkQualityRatingtwo] = useState("");
-  const [workQualityCommenttwo, setWorkQualityCommenttwo] = useState("");
+  const [workQuantityRating, setworkQuantityRating] = useState("");
+  const [workQuantityComment, setworkQuantityComment] = useState("");
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({});
   const { id } = React.useContext(EmployeeContext);
@@ -29,6 +29,18 @@ const KnowlegdeFactor = () => {
 
   React.useEffect(() => {
     setLoading(true);
+    // sp.profiles.myProperties.get().then((res) => {
+    //   setDetail({ res });
+    //   console.log(res);
+
+    //   sp.web.lists
+    //     .getByTitle("Admin")
+    //     .items.filter(`Email eq '${res?.Email}' `)
+    //     .get()
+    //     .then((res) => {
+    //       setRole(res[0] ? res[0].Role : "Employee");
+    //     });
+    // });
     sp.web.lists
       .getByTitle("PerformanceFactorEvaluation")
       .items.filter(`employeeID eq '${id}'`)
@@ -42,8 +54,8 @@ const KnowlegdeFactor = () => {
           setknowlegdeComment(res[0].KnowlegdeComment);
           setWorkQualityRating(res[0].workQualityRating);
           setWorkQualityComment(res[0].workQualityComment);
-          setWorkQualityRatingtwo(res[0].workQualityratingTwo);
-          setWorkQualityCommenttwo(res[0].workQualityCommentTwo);
+          setworkQuantityRating(res[0].workQualityratingTwo);
+          setworkQuantityComment(res[0].workQualityCommentTwo);
         }
       });
   }, []);
@@ -115,7 +127,7 @@ const KnowlegdeFactor = () => {
         </div>
         <div className={styles.evaluation__section}>
           <div>
-            <Card header="Quality of Work">
+            <Card header="Quantity of Work">
               <ul>
                 <li>Consider the degree to which the employee exhibits</li>
                 <li>
@@ -130,7 +142,7 @@ const KnowlegdeFactor = () => {
           </div>
           <div className={styles.section1__ratings}>
             <Select
-              value={workQualityRatingtwo}
+              value={workQuantityRating}
               onChange={""}
               title="Rating"
               options={Helpers.rating}
@@ -140,7 +152,7 @@ const KnowlegdeFactor = () => {
             <h2>Rater's comment</h2>
             <TextArea
               readOnly={true}
-              value={workQualityCommenttwo}
+              value={workQuantityComment}
               onChange={""}
             />
           </div>

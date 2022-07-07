@@ -1,3 +1,4 @@
+import { sp } from "@pnp/sp";
 import * as React from "react";
 import { useState } from "react";
 import { useHistory, Link, useParam } from "react-router-dom";
@@ -11,12 +12,12 @@ import {
 } from "../../../../Containers";
 import styles from "../performance.module.scss";
 
-import { sp } from "@pnp/sp";
-
-const workHabit = () => {
+const HRworkHabit = () => {
   const [detail, setDetail] = useState({});
   const [workHabitRating, setWorkHabitRating] = useState(0);
   const [workHabitComment, setWorkHabitComment] = useState("");
+  const [managerComment, setManagerComment] = useState("");
+  const [MHRBPComment, setMHRBPComment] = useState("");
   const [communicationRating, setCommunicationRating] = useState(0);
   const [communicationComment, setCommunicationComment] = useState("");
   const [totalPerformanceScore, setTotalPerformanceScore] = useState(0);
@@ -24,6 +25,7 @@ const workHabit = () => {
   const [role, setRole] = useState("");
   const history = useHistory();
   // const {id} = useParam()
+  const [data, setData] = useState([]);
 
   console.log(role);
 
@@ -48,17 +50,31 @@ const workHabit = () => {
       .items.getById(1)
       .get()
       .then((res) => {
+        setData(res[0]);
         setLoading(false);
         setWorkHabitRating(res.workHabitRating);
         setWorkHabitComment(res.workHabitComment);
         setCommunicationRating(res.communicatonRating);
         setCommunicationComment(res.communicationComment);
         setTotalPerformanceScore(res.totalPerformanceScore);
+        console.log(res);
+      });
+    sp.web.lists
+      .getByTitle("EvaluationComments")
+      .items.getById(1)
+      .get()
+      .then((res) => {
+        setData(res[0]);
+        setMHRBPComment(res.MHRBPComment);
+        setManagerComment(res.ManagerIndustrialComments);
+        console.log(res);
       });
   }, []);
 
+  console.log(detail);
+
   const nextHandler = (e) => {
-    history.push("/behavioral/section1");
+    history.push();
   };
 
   return (
@@ -145,26 +161,53 @@ const workHabit = () => {
                 readOnly
               />
             </Card>
+            <div></div>
+
+            <div className={styles.section1__comments}>
+              <h2>Manager's Comment</h2>
+
+              <TextArea
+                readOnly={true}
+                onChange={(e) => {
+                  setCommunicationComment(e.target.value);
+                }}
+                value={managerComment}
+              />
+            </div>
           </div>
         </div>
-        <div className={styles.mtn__btnContaainer2}>
-          <div>
-            <Link
-              to="/behavioral/section2"
-              className="mtn__btn mtn__blackOutline"
-              type="button"
-            >
-              Back
-            </Link>
+        <div className={styles.evaluation__section}>
+          <div></div>
+          <div></div>
+          <div className={styles.section1__comments}>
+            <h2>MHRBP’s Comment</h2>
+
+            <TextArea
+              readOnly={true}
+              onChange={(e) => {
+                setCommunicationComment(e.target.value);
+              }}
+              value={MHRBPComment}
+            />
           </div>
-          <div>
-            <button
-              className="mtn__btn mtn__black"
-              type="button"
-              onClick={nextHandler}
-            >
-              Next
-            </button>
+        </div>
+
+        <div className={styles.evaluation__section__button}>
+          <div className="mtn__btnContaainer">
+            <div>
+              <Link to="/" className="mtn__btn mtn__blackOutline" type="button">
+                Previous
+              </Link>
+            </div>
+            <div>
+              <button
+                onClick={nextHandler}
+                className="mtn__btn mtn__black"
+                type="button"
+              >
+                Next
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -172,4 +215,4 @@ const workHabit = () => {
   );
 };
 
-export default workHabit;
+export default HRworkHabit;

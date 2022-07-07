@@ -13,12 +13,10 @@ import styles from "../performance.module.scss";
 
 const RatersKnowlegdeFactor = () => {
   const history = useHistory();
-  // const [knowlegdeRating, setKnowlegdeRating] = useState("");
-  // const [knowlegdeComment, setknowlegdeComment] = useState("");
-  // const [workQualityRating, setWorkQualityRating] = useState("");
-  // const [workQualityComment, setWorkQualityComment] = useState("");
-  // const [workQualityRatingtwo, setWorkQualityRatingtwo] = useState("");
-  // const [workQualityCommenttwo, setWorkQualityCommenttwo] = useState("");
+  const [knowlegdeRatingMsg, setKnowlegdeRatingMsg] = useState(false);
+  const [workQualityRatingMsg, setWorkQualityRatingMsg] = useState(false);
+  const [workQuantityRatingMsg, setworkQuantityRatingMsg] = useState(false);
+
   const [msg, setMsg] = useState(false);
   const [workMsg2, setWorkMsg2] = useState(false);
   const [knowlegdeMsg, setknowlegdeMsg] = useState(false);
@@ -33,10 +31,10 @@ const RatersKnowlegdeFactor = () => {
     setWorkQualityRating,
     workQualityComment,
     setWorkQualityComment,
-    workQualityRatingtwo,
-    setWorkQualityRatingtwo,
-    workQualityCommenttwo,
-    setWorkQualityCommenttwo,
+    workQuantityRating,
+    setworkQuantityRating,
+    workQuantityComment,
+    setworkQuantityComment,
   } = React.useContext(performanceEvaluationContext);
 
   const prevHandler = () => {
@@ -44,13 +42,22 @@ const RatersKnowlegdeFactor = () => {
   };
 
   const nextHandler = () => {
+    if (knowlegdeRating === null) {
+      setKnowlegdeRatingMsg(true);
+    }
+    if (workQualityRating === null) {
+      setWorkQualityRatingMsg(true);
+    }
+    if (workQuantityRating === null) {
+      setworkQuantityRatingMsg(true);
+    }
     if (knowlegdeComment.length < 60) {
       setknowlegdeMsg(true);
     }
     if (workQualityComment.length < 60) {
       setWorkMsg(true);
     }
-    if (workQualityCommenttwo.length < 60) {
+    if (workQuantityComment.length < 60) {
       setWorkMsg2(true);
     } else {
       history.push("/rater/performance/section2");
@@ -82,10 +89,13 @@ const RatersKnowlegdeFactor = () => {
               title="Ratings"
               options={Helpers.rating}
             />
+            {knowlegdeRatingMsg ? (
+              <span className={styles.msg}>kindly rate </span>
+            ) : null}
           </div>
 
           <div className={styles.section1__comments}>
-            <h2>Rater's comment</h2>
+            <h2>Comment</h2>
             <TextArea
               value={knowlegdeComment}
               onChange={(e: any) => {
@@ -116,14 +126,15 @@ const RatersKnowlegdeFactor = () => {
               value={workQualityRating}
               options={Helpers.rating}
             />
+            {workQualityRatingMsg ? (
+              <span className={styles.msg}>kindly rate </span>
+            ) : null}
           </div>
           <div className={styles.section1__comments}>
-            <h2>Rater's comment</h2>
+            <h2>Comment</h2>
             <TextArea
               value={workQualityComment}
               onChange={(e: any) => {
-                localStorage.setItem("workQualityComment", e.target.value);
-
                 setWorkQualityComment(e.target.value);
               }}
             />
@@ -134,7 +145,7 @@ const RatersKnowlegdeFactor = () => {
         </div>
         <div className={styles.evaluation__section}>
           <div>
-            <Card header="Quality of Work">
+            <Card header="Quantity of Work">
               <ul>
                 <li>Consider the degree to which the employee exhibits</li>
                 <li>
@@ -149,20 +160,23 @@ const RatersKnowlegdeFactor = () => {
           </div>
           <div className={styles.section1__ratings}>
             <Select
-              value={workQualityRatingtwo}
+              value={workQuantityRating}
               onChange={(e: any) => {
-                setWorkQualityRatingtwo(e.target.value);
+                setworkQuantityRating(e.target.value);
               }}
               title="Rating"
               options={Helpers.rating}
             />
+            {workQuantityRatingMsg ? (
+              <span className={styles.msg}>kindly rate </span>
+            ) : null}
           </div>
           <div className={styles.section1__comments}>
-            <h2>Rater's comment</h2>
+            <h2>Comment</h2>
             <TextArea
-              value={workQualityCommenttwo}
+              value={workQuantityComment}
               onChange={(e: any) => {
-                setWorkQualityCommenttwo(e.target.value);
+                setworkQuantityComment(e.target.value);
               }}
             />
             {workMsg2 ? (
@@ -173,7 +187,11 @@ const RatersKnowlegdeFactor = () => {
         <div className={styles.evaluation__section__button}>
           <div className="mtn__btnContaainer">
             <div>
-              <Link to="/" className="mtn__btn mtn__blackOutline" type="button">
+              <Link
+                to="/pendingRequests"
+                className="mtn__btn mtn__blackOutline"
+                type="button"
+              >
                 Previous
               </Link>
             </div>
