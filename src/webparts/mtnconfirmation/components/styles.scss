@@ -1,9 +1,8 @@
-
 @font-face {
   font-family: "MTNBrighterSans-Medium";
   src: url("./assets/MTNBrighterSans-Medium.eot");
   src: url("./assets/MTNBrighterSans-Medium.woff") format("woff");
-  }
+}
 
 * {
   box-sizing: border-box;
@@ -12,7 +11,7 @@
   font-family: MTNBrighterSans-Medium;
 }
 //   Admin Page Setup
-.appContainer{
+.appContainer {
   display: flex;
   flex: 1;
   height: 100vh;
@@ -27,11 +26,10 @@
   display: flex;
   flex-direction: column;
   flex: 0.87;
-  padding: .5rem 2rem;
+  padding: 0.5rem 2rem;
   background: white;
-
 }
-.cardContainer{
+.cardContainer {
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
@@ -70,7 +68,9 @@
   align-items: center;
 }
 
-
+.mtn__btn:hover {
+  cursor: pointer;
+}
 .mtn__btns {
   height: 3.5rem;
   outline: none;
@@ -88,7 +88,7 @@
 
 .mtn__btn_table {
   outline: none;
-  padding: .5rem 2rem;
+  padding: 0.5rem 2rem;
   border-radius: 50px;
   display: flex;
   justify-content: center;
@@ -105,7 +105,7 @@
 .mtn__btnContaainer {
   display: flex;
   justify-content: flex-end;
-  padding: .5rem 2rem;
+  padding: 0.5rem 2rem;
   gap: 2rem;
 }
 
@@ -137,12 +137,12 @@
   display: flex;
   flex-direction: column;
   margin-bottom: 1rem;
-  padding: .5rem 2rem;
+  padding: 0.5rem 2rem;
 
   label {
     font-size: 13px;
-    margin-left: .3rem;
-    margin-bottom: .5rem;
+    margin-left: 0.3rem;
+    margin-bottom: 0.5rem;
     display: flex;
   }
 
@@ -151,24 +151,24 @@
     height: 3.5rem;
     outline: none;
     border: none;
-    padding: .5rem 1.5rem;
+    padding: 0.5rem 1.5rem;
     border-radius: 10px;
     background: rgba(196, 196, 196, 0.22);
   }
 
   input:read-only {
-    background: whitesmoke
+    background: whitesmoke;
   }
   input:focus {
-    border: 1px solid #FFCC00;
-    outline: 1px solid #FFCC00;
+    border: 1px solid #ffcc00;
+    outline: 1px solid #ffcc00;
   }
   select {
     width: 100%;
     height: 3.5rem;
     outline: none;
     border: none;
-    padding: .5rem 1.5rem;
+    padding: 0.5rem 1.5rem;
     border-radius: 10px;
     background: rgba(196, 196, 196, 0.22);
     appearance: none;
@@ -178,10 +178,11 @@
     background-size: 1em;
   }
   select:focus {
-    border: 1px solid #FFCC00;
-    outline: 1px solid #FFCC00;
+    border: 1px solid #ffcc00;
+    outline: 1px solid #ffcc00;
   }
-  span{
+
+  span {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -196,40 +197,37 @@
     background-clip: content-box;
     border: 1px solid gainsboro;
     border-radius: 50%;
-    margin:0 1rem;
-
-
+    margin: 0 1rem;
   }
   input[type="radio"]:checked {
-    background-color: #FFCC00;
+    background-color: #ffcc00;
   }
-  .most__RadioContainer{
+  .most__RadioContainer {
     display: flex;
     // justify-content: space-between;
   }
 }
-.required{
+.required {
   color: crimson;
-  margin-left: .5rem;
+  margin-left: 0.5rem;
 }
 
 .mtn__btnContainer {
   display: flex;
   justify-content: flex-start;
- 
 }
-.right{
+.right {
   display: flex;
   justify-content: flex-end;
 }
 .mtn__black {
   background: #000;
 }
-.mtn__yellow{
-    background: rgba(255, 196, 35, 1);
-    color: #000;
+.mtn__yellow {
+  background: rgba(255, 196, 35, 1);
+  color: #000;
 }
-.mtn__blue{
+.mtn__blue {
   background: #006993;
   color: #fff;
 }
