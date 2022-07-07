@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
-import { useHistory, Link, useParam } from "react-router-dom";
+import { useHistory, Link,} from "react-router-dom";
 import {
   Header,
   Select,
@@ -10,50 +10,38 @@ import {
   Spinner,
 } from "../../../../Containers";
 import styles from "../performance.module.scss";
-
+import { EmployeeContext } from "../../../../Context/EmployeeContext";
 import { sp } from "@pnp/sp";
 
 const workHabit = () => {
-  const [detail, setDetail] = useState({});
+ 
   const [workHabitRating, setWorkHabitRating] = useState(0);
   const [workHabitComment, setWorkHabitComment] = useState("");
   const [communicationRating, setCommunicationRating] = useState(0);
   const [communicationComment, setCommunicationComment] = useState("");
   const [totalPerformanceScore, setTotalPerformanceScore] = useState(0);
   const [loading, setLoading] = React.useState(false);
-  const [role, setRole] = useState("");
+ 
   const history = useHistory();
-  // const {id} = useParam()
-
-  console.log(role);
-
-  console.log(Helpers.Helpers.settings[role]);
-
+  const { id } = React.useContext(EmployeeContext);
+  
   React.useEffect(() => {
     setLoading(true);
-    sp.profiles.myProperties.get().then((res) => {
-      setDetail({ res });
-      console.log(res);
-
-      sp.web.lists
-        .getByTitle("Admin")
-        .items.filter(`Email eq '${res?.Email}' `)
-        .get()
-        .then((res) => {
-          setRole(res[0] ? res[0].Role : "Employee");
-        });
-    });
+   
     sp.web.lists
       .getByTitle("PerformanceFactorEvaluation")
-      .items.getById(1)
+      .items.filter(`employeeID eq '${id}'`)
       .get()
       .then((res) => {
+        console.log(res);
         setLoading(false);
-        setWorkHabitRating(res.workHabitRating);
-        setWorkHabitComment(res.workHabitComment);
-        setCommunicationRating(res.communicatonRating);
-        setCommunicationComment(res.communicationComment);
-        setTotalPerformanceScore(res.totalPerformanceScore);
+        if (res.length > 0) {
+        setWorkHabitRating(res[0].workHabitRating);
+        setWorkHabitComment(res[0].workHabitComment);
+        setCommunicationRating(res[0].communicatonRating);
+        setCommunicationComment(res[0].communicationComment);
+        setTotalPerformanceScore(res[0].totalPerformanceScore);
+        }
       });
   }, []);
 
@@ -88,6 +76,7 @@ const workHabit = () => {
               }}
               title="Rating"
               options={Helpers.rating}
+              readOnly={true}
             />
           </div>
           <div className={styles.section1__comments}>
@@ -110,7 +99,6 @@ const workHabit = () => {
                 writting,listen well and respond appropriately
               </li>
             </ul>
-            \
           </Card>
           <div className={styles.section1__ratings}>
             <Select
@@ -121,6 +109,7 @@ const workHabit = () => {
               title="Rating"
               value={communicationRating}
               options={Helpers.rating}
+              readOnly={true}
             />
           </div>
           <div className={styles.section1__comments}>

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
-import { useHistory, Link, useParam } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import {
   Header,
   Select,
@@ -22,31 +22,19 @@ const KnowlegdeFactor = () => {
   const [workQuantityRating, setworkQuantityRating] = useState("");
   const [workQuantityComment, setworkQuantityComment] = useState("");
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState({});
+  
   const { id } = React.useContext(EmployeeContext);
 
   // const {id} = useParam()
 
   React.useEffect(() => {
     setLoading(true);
-    // sp.profiles.myProperties.get().then((res) => {
-    //   setDetail({ res });
-    //   console.log(res);
-
-    //   sp.web.lists
-    //     .getByTitle("Admin")
-    //     .items.filter(`Email eq '${res?.Email}' `)
-    //     .get()
-    //     .then((res) => {
-    //       setRole(res[0] ? res[0].Role : "Employee");
-    //     });
-    // });
+    
     sp.web.lists
       .getByTitle("PerformanceFactorEvaluation")
       .items.filter(`employeeID eq '${id}'`)
       .get()
       .then((res) => {
-        // setData(res);
         console.log(res);
         setLoading(false);
         if (res.length > 0) {
@@ -54,7 +42,7 @@ const KnowlegdeFactor = () => {
           setknowlegdeComment(res[0].KnowlegdeComment);
           setWorkQualityRating(res[0].workQualityRating);
           setWorkQualityComment(res[0].workQualityComment);
-          setworkQuantityRating(res[0].workQualityratingTwo);
+          setworkQuantityRating(res[0].workQualityRatingtwo);
           setworkQuantityComment(res[0].workQualityCommentTwo);
         }
       });
@@ -90,6 +78,7 @@ const KnowlegdeFactor = () => {
               onChange={""}
               title="Ratings"
               options={Helpers.rating}
+              readOnly={true}
             />
           </div>
 
@@ -114,6 +103,7 @@ const KnowlegdeFactor = () => {
               onChange={""}
               value={workQualityRating}
               options={Helpers.rating}
+              readOnly={true}
             />
           </div>
           <div className={styles.section1__comments}>
@@ -146,6 +136,7 @@ const KnowlegdeFactor = () => {
               onChange={""}
               title="Rating"
               options={Helpers.rating}
+              readOnly={true}
             />
           </div>
           <div className={styles.section1__comments}>
@@ -154,6 +145,7 @@ const KnowlegdeFactor = () => {
               readOnly={true}
               value={workQuantityComment}
               onChange={""}
+              
             />
           </div>
         </div>
