@@ -142,7 +142,6 @@ const RatersWorkHabit = () => {
           setworkQuantityRating(0);
           setWorkHabitRating(0);
           setCommunicationRating(0);
-          setTotalPerformanceScore(0);
 
           swal({
             title: "Success",

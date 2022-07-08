@@ -88,6 +88,7 @@ const RatersKnowlegdeFactor = () => {
               }}
               title="Ratings"
               options={Helpers.rating}
+              
             />
             {knowlegdeRatingMsg ? (
               <span className={styles.msg}>kindly rate </span>

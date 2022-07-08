@@ -29,7 +29,6 @@ const KnowlegdeFactor = () => {
 
   React.useEffect(() => {
     setLoading(true);
-    
     sp.web.lists
       .getByTitle("PerformanceFactorEvaluation")
       .items.filter(`employeeID eq '${id}'`)
@@ -152,7 +151,11 @@ const KnowlegdeFactor = () => {
         <div className={styles.evaluation__section__button}>
           <div className="mtn__btnContaainer">
             <div>
-              <Link to="/" className="mtn__btn mtn__blackOutline" type="button">
+              <Link
+                to="/pendingrequests"
+                className="mtn__btn mtn__blackOutline"
+                type="button"
+              >
                 Previous
               </Link>
             </div>
