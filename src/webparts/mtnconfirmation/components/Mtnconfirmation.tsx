@@ -41,7 +41,12 @@ import {
   HRAdminView,
   MHRBPView,
   ReviewerView,
+  HrAdminstrationPendingPage,
+  GmHrOperationsPendingPage,
 } from "./screens";
+import LineManagerPendingPage from "./screens/ConfirmationForm/PendingRequests/LineManagerPendingPage";
+import HrbpPendingPage from "./screens/ConfirmationForm/PendingRequests/HrbpPendingPage";
+import SeniorManagerESPendingPage from "./screens/ConfirmationForm/PendingRequests/SeniorManagerESPendingPage";
 import "./assets/icon.scss";
 import {
   performanceEvaluationContext,
@@ -806,6 +811,31 @@ export default class Mtnconfirmation extends React.Component<
                               path="/view-supervisory/gmhr"
                               exact
                               component={GMHRView}
+                            />
+                            <Route
+                              path="/pending/requests/linemanager"
+                              exact
+                              component={LineManagerPendingPage}
+                            />
+                            <Route
+                              path="/pending/requests/hrbp"
+                              exact
+                              component={HrbpPendingPage}
+                            />
+                            <Route
+                              path="/pending/requests/hradministrator"
+                              exact
+                              component={HrAdminstrationPendingPage}
+                            />
+                            <Route
+                              path="/pending/requests/seniormanageremployeeservices"
+                              exact
+                              component={SeniorManagerESPendingPage}
+                            />
+                            <Route
+                              path="/pending/requests/seniormanageremployeeservices"
+                              exact
+                              component={GmHrOperationsPendingPage}
                             />
                           </Switch>
                         </BehavioralContext1.Provider>
