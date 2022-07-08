@@ -29,18 +29,6 @@ const KnowlegdeFactor = () => {
 
   React.useEffect(() => {
     setLoading(true);
-    // sp.profiles.myProperties.get().then((res) => {
-    //   setDetail({ res });
-    //   console.log(res);
-
-    //   sp.web.lists
-    //     .getByTitle("Admin")
-    //     .items.filter(`Email eq '${res?.Email}' `)
-    //     .get()
-    //     .then((res) => {
-    //       setRole(res[0] ? res[0].Role : "Employee");
-    //     });
-    // });
     sp.web.lists
       .getByTitle("PerformanceFactorEvaluation")
       .items.filter(`employeeID eq '${id}'`)
@@ -160,7 +148,11 @@ const KnowlegdeFactor = () => {
         <div className={styles.evaluation__section__button}>
           <div className="mtn__btnContaainer">
             <div>
-              <Link to="/" className="mtn__btn mtn__blackOutline" type="button">
+              <Link
+                to="/pendingrequests"
+                className="mtn__btn mtn__blackOutline"
+                type="button"
+              >
                 Previous
               </Link>
             </div>
