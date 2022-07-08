@@ -3,6 +3,7 @@ export { default as Dashboard } from "./Admin/Dashboard";
 export { default as Confirmation } from "./Admin/Confirmation";
 export { default as EditConfirmation } from "./Admin/Confirmation/Edit";
 export { default as Roles } from "./Admin/Config/";
+export { default as Role } from "./Admin/Config/Role";
 export { default as Location } from "./Admin/Config/Location";
 export { default as Division } from "./Admin/Config/Division";
 export { default as AdminPending } from "./Admin/Pending";

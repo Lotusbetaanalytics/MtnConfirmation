@@ -43,6 +43,7 @@ import {
   ReviewerView,
   HrAdminstrationPendingPage,
   GmHrOperationsPendingPage,
+  Role
 } from "./screens";
 import LineManagerPendingPage from "./screens/ConfirmationForm/PendingRequests/LineManagerPendingPage";
 import HrbpPendingPage from "./screens/ConfirmationForm/PendingRequests/HrbpPendingPage";
@@ -71,6 +72,7 @@ import {
 } from "./Context/EmployeeContext";
 import { RoleContext, RoleContextType } from "./Context/RoleContext";
 import { ActorContext, ActorContextType } from "./Context/ActorContext";
+
 
 export default class Mtnconfirmation extends React.Component<
   IMtnconfirmationProps,
@@ -467,6 +469,7 @@ export default class Mtnconfirmation extends React.Component<
     jQuery("#workbenchPageContent").prop("style", "max-width: none");
     jQuery(".SPCanvas-canvas").prop("style", "max-width: none");
     jQuery(".CanvasZone").prop("style", "max-width: none");
+
     return (
       <>
         <HashRouter>
@@ -650,17 +653,22 @@ export default class Mtnconfirmation extends React.Component<
                             <Route
                               path="/admin/confirmation"
                               exact
-                              component={Confirmation}
+                              render={(props) => <Confirmation context={this.props.context} />}
                             />
                             <Route
                               path="/admin/confirmation/edit/:id"
                               exact
-                              component={EditConfirmation}
+                              render={(props) => <EditConfirmation context={this.props.context} />}
                             />
                             <Route
                               path="/admin/config"
                               exact
                               component={Roles}
+                            />
+                            <Route
+                              path="/admin/roles"
+                              exact
+                              component={Role}
                             />
                             <Route
                               path="/admin/location"

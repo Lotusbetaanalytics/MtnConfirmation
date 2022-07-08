@@ -4,8 +4,11 @@ import { useHistory } from 'react-router-dom'
 import { Select, AdminHeader, Input, Navigation, PeoplePicker, Helpers, Spinner } from '../../../Containers';
 import { sp, } from "@pnp/sp"
 import swal from 'sweetalert';
+import { SPHttpClient, SPHttpClientConfiguration, SPHttpClientResponse } from '@microsoft/sp-http';
+import { graph } from "@pnp/graph";
+import '@pnp/graph/users';
 
-const Confirmation = () => {
+const Confirmation = ({ context }) => {
     // Helpers
     const history = useHistory()
 
@@ -28,6 +31,8 @@ const Confirmation = () => {
     const [locations, setLocations] = useState([])
     const [divisions, setDivisions] = useState([])
     const [departments, setDepartments] = useState([])
+    const [raterLineManager, setRaterLineManager] = useState("")
+    const [raterLineManagerName, setRaterLineManagerName] = useState("")
 
 
 
@@ -67,6 +72,8 @@ const Confirmation = () => {
             DirectReport: report,
             ConfirmationStatus: "Pending",
             Approvals: "Rater",
+            RaterLineManager: raterLineManager,
+            RaterLineManagerName: raterLineManagerName
         }).then((res) => {
             swal("Success", "Success", "success");
             history.push("/admin/pending")
@@ -96,6 +103,31 @@ const Confirmation = () => {
         setDivision(e.target.value)
         const filter = divisions.filter((x) => x.Title === e.target.value)
         setDepartments(filter)
+    }
+
+    const raterHandler = (e) => {
+        setRater(e.target.value)
+        const info = e.target.value
+        // context.spHttpClient.get(`https://mtncloud.sharepoint.com/sites/MTNNigeriaComplianceUniverse/testenv/_api/lists/GetByTitle('CURRENT HCM STAFF LIST')/items?$skiptoken=Paged=TRUE`,
+        //     SPHttpClient.configurations.v1)
+        //     .then((response: SPHttpClientResponse) => {
+        //         response.json().then((responseJSON: any) => {
+        //             console.log(responseJSON);
+        //         });
+        //     });
+
+        graph.users.top(999).get().then((res) => {
+            const filteredData = res.filter((x) => x.displayName === info)
+            context.spHttpClient.get(`https://lotusbetaanalytics.sharepoint.com/sites/business_solutions/_api/lists/GetByTitle('CURRENT HCM STAFF LIST-test')/items?$filter=field_8 eq '${filteredData[0].mail}'`,
+                SPHttpClient.configurations.v1)
+                .then((response: SPHttpClientResponse) => {
+                    response.json().then((responseJSON: any) => {
+                        setRaterLineManager(responseJSON.value[0].field_5)
+                        setRaterLineManagerName(responseJSON.value[0].field_8)
+                    });
+                });
+
+        });
     }
 
 
@@ -157,7 +189,7 @@ const Confirmation = () => {
                     <PeoplePicker
                         title="Rater"
                         value={rater}
-                        onChange={(e) => setRater(e.target.value)}
+                        onChange={raterHandler}
                         filter="Email"
                         required={true}
 

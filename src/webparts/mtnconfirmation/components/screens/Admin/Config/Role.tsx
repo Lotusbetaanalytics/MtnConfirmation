@@ -6,7 +6,7 @@ import MaterialTable from "material-table";
 import { sp, } from "@pnp/sp"
 import swal from 'sweetalert';
 
-const Division = () => {
+const Role = () => {
     // Helpers
     const history = useHistory()
 
@@ -22,20 +22,18 @@ const Division = () => {
 
 
     const [columns, setColumns] = React.useState([
-        { title: "Division", field: "Title", type: "string" as const },
-        { title: "Department", field: "Department", type: "string" as const },
+        { title: "Role", field: "Title", type: "string" as const },
     ]);
 
     const [data, setData] = React.useState([])
-    const [Divisions, setDivisions] = React.useState("")
-    const [Department, setDepartment] = React.useState("")
+    const [Title, setTitle] = React.useState("")
     const [open, setOpen] = React.useState(false)
     const [loading, setLoading] = React.useState(false)
     const [edit, setEdit] = React.useState(false)
     const [id, setID] = React.useState(null)
 
     React.useEffect(() => {
-        sp.web.lists.getByTitle(`Division`).items.get().then
+        sp.web.lists.getByTitle(`Role`).items.get().then
             ((res) => {
                 setData(res)
             })
@@ -46,21 +44,20 @@ const Division = () => {
     // Menubar Items
     const menu = [
         { name: "Admin", url: "/admin/config", },
-        { name: "Roles", url: "/admin/roles", },
+        { name: "Roles", url: "/admin/roles", active: true, },
         { name: "Location", url: "/admin/location", },
-        { name: "Division", url: "/admin/division", active: true, },
+        { name: "Division", url: "/admin/division", },
     ];
 
 
     const submitHandler = (e) => {
         e.preventDefault()
-        sp.web.lists.getByTitle("Division").items.add({
-            Title: Divisions,
-            Department: Department,
+        sp.web.lists.getByTitle("Role").items.add({
+            Title: Title,
         }).then((res) => {
             setOpen(false)
-            swal("Success", "Division added Successfully", "success");
-            sp.web.lists.getByTitle(`Division`).items.get().then
+            swal("Success", "Role added Successfully", "success");
+            sp.web.lists.getByTitle(`Role`).items.get().then
                 ((res) => {
                     setData(res)
                 })
@@ -74,13 +71,12 @@ const Division = () => {
 
     const editHandler = (e) => {
         e.preventDefault()
-        sp.web.lists.getByTitle("Division").items.getById(id).update({
-            Title: Divisions,
-            Department: Department,
+        sp.web.lists.getByTitle("Role").items.getById(id).update({
+            Title: Title,
         }).then((res) => {
             setOpen(false)
-            swal("Success", "Division Edited Successfully", "success");
-            sp.web.lists.getByTitle(`Division`).items.get().then
+            swal("Success", "Role Edited Successfully", "success");
+            sp.web.lists.getByTitle(`Role`).items.get().then
                 ((res) => {
                     setData(res)
                 })
@@ -92,9 +88,9 @@ const Division = () => {
     }
     const deleteHandler = (id) => {
         if (window.confirm("Are you sure you want to delete")) {
-            sp.web.lists.getByTitle("Division").items.getById(id).delete().then((res) => {
-                swal("Success", "Division has been deleted", "success");
-                sp.web.lists.getByTitle(`Division`).items.get().then
+            sp.web.lists.getByTitle("Role").items.getById(id).delete().then((res) => {
+                swal("Success", "Role has been deleted", "success");
+                sp.web.lists.getByTitle(`Role`).items.get().then
                     ((res) => {
                         setData(res)
                     })
@@ -114,7 +110,7 @@ const Division = () => {
             <AdminHeader title="Division" />
             <MenuBar menu={menu} />
             <div className='btnContainer right'>
-                <button onClick={openHandler} className="mtn__btns mtn__blue" type='button'>Add Division</button>
+                <button onClick={openHandler} className="mtn__btns mtn__blue" type='button'>Add Role</button>
             </div>
             <MaterialTable
                 title=""
@@ -154,9 +150,7 @@ const Division = () => {
                             setEdit(true)
                             setOpen(true)
                             setID(rowData.ID)
-                            setDivisions(rowData.Title)
-                            setDepartment(rowData.Department)
-
+                            setTitle(rowData.Title)
                         },
                     },
                     {
@@ -182,30 +176,25 @@ const Division = () => {
             />
             <Modal
                 isVisible={open}
-                title="Division"
+                title="Role"
                 size='lg'
                 content={
 
                     loading ? <Spinner /> : <div className="mtn__InputFlex">
 
                         <Input
-                            title="Division"
-                            value={Divisions}
-                            onChange={(e) => setDivisions(e.target.value)} type="text"
+                            title="Role"
+                            value={Title}
+                            onChange={(e) => setTitle(e.target.value)} type="text"
                             size='mtn__adult'
                         />
-                        <Input
-                            title="Department"
-                            value={Department}
-                            onChange={(e) => setDepartment(e.target.value)} type="text"
-                            size='mtn__adult'
-                        />
+
 
                         <button
                             onClick={edit ? editHandler : submitHandler}
                             type="button"
                             className='mtn__btn mtn__yellow'
-                        >{edit ? "Edit Division" : "Add Division"}</button>
+                        >{edit ? "Edit Role" : "Add Role"}</button>
 
                     </div>
 
@@ -219,4 +208,4 @@ const Division = () => {
     </div>;
 };
 
-export default Division;
+export default Role;

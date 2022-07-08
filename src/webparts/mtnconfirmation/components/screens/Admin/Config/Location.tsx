@@ -44,7 +44,8 @@ const Location = () => {
 
     // Menubar Items
     const menu = [
-        { name: "Roles", url: "/admin/config", },
+        { name: "Admin", url: "/admin/config", },
+        { name: "Roles", url: "/admin/roles", },
         { name: "Location", url: "/admin/location", active: true, },
         { name: "Division", url: "/admin/division" },
     ];
