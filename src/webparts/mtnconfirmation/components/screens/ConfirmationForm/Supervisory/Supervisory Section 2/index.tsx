@@ -33,6 +33,8 @@ const Section3 = () => {
     setPeopleManagementRating,
     planningComment,
     setPlanningComment,
+    // nextActor,
+    // setNextActor,
     planningRating,
     setPlanningRating,
     delegationComment,
