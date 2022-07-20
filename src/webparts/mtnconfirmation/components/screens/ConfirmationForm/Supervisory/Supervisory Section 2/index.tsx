@@ -33,6 +33,8 @@ const Section3 = () => {
     setPeopleManagementRating,
     planningComment,
     setPlanningComment,
+    // nextActor,
+    // setNextAcor,
     planningRating,
     setPlanningRating,
     delegationComment,
@@ -245,9 +247,9 @@ const Section3 = () => {
           <div className={styles.section1__comments}>
             <h2>Next Actor</h2>
             <TextAreaSmall
-              value={planningComment}
+              value="Line Manager"
               onChange={(e: any) => {
-                setPlanningComment(e.target.value);
+                // (e.target.value);
               }}
             />
           </div>
