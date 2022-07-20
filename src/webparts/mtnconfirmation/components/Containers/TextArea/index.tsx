@@ -4,7 +4,7 @@ const TextArea = ({ onChange, value, required = false, readOnly = false }) => {
   return (
     <div className={styles.textArea__container}>
       <textarea
-        maxLength={60}
+        
         value={value}
         onChange={onChange}
         required={required}
