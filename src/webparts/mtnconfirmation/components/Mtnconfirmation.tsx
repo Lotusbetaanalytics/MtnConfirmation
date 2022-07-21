@@ -827,11 +827,6 @@ export default class Mtnconfirmation extends React.Component<
                               exact
                               component={LineManagerPendingPage}
                             />
-                            <Route
-                              path="/pending/requests/reviewer"
-                              exact
-                              component={ReviewerPendingPage}
-                            />
 
                             <Route
                               path="/pending/requests/hrbp"
