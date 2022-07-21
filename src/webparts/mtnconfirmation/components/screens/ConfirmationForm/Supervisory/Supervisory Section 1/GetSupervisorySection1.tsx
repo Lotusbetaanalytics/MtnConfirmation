@@ -21,9 +21,10 @@ const GetSuperVisorySection1 = () => {
     history.push("/view-behavioral/section3");
   };
   const nextHandler = () => {
+    console.log(role, "Check.....");
     switch (role) {
-      case "Line Manger":
-        history.push("/view-supervisory/line-manager");
+      case "Rater Line Manager":
+        history.push("/view-supervisory/linemanager");
         break;
       case "HR Administrator, Records":
         history.push("/view-supervisory/hradmin");

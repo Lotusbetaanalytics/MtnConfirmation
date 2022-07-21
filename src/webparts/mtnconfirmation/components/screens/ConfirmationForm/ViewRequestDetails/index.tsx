@@ -45,6 +45,7 @@ const ViewRequestDetails = ({ match }) => {
       .then((res) => {
         setId(res[0].ID);
         setActor(res[0].Approvals);
+        console.log(res[0].Approvals, "Peace");
         setEmployee_Name(res[0].EmployeeName);
         setEmployee_Id(res[0].EmployeeID);
         setEmployeeId(res[0].EmployeeID);
@@ -92,21 +93,23 @@ const ViewRequestDetails = ({ match }) => {
   }, [itemID]);
 
   React.useEffect(() => {
+    console.log(actor === "Rater Line Manager", actor, "actor......");
     switch (actor) {
       case "Rater":
         setRole("Rater");
         break;
       case "Rater Line Manager":
         setRole("Rater Line Manager");
-
+        break;
       default:
-        sp.web.lists
-          .getByTitle("Admin")
-          .items.filter(`Email eq '${raterEmail}'`)
-          .get()
-          .then((res) => {
-            setRole(res[0]?.Role);
-          });
+        // sp.web.lists
+        //   .getByTitle("Admin")
+        //   .items.filter(`Email eq '${raterEmail}'`)
+        //   .get()
+        //   .then((res) => {
+        //     setRole(res[0]?.Role);
+        //   });
+        setRole("");
         break;
     }
   }, [actor]);

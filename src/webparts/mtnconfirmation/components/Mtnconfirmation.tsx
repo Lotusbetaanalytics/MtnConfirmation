@@ -43,7 +43,7 @@ import {
   ReviewerView,
   HrAdminstrationPendingPage,
   GmHrOperationsPendingPage,
-  Role
+  Role,
 } from "./screens";
 import LineManagerPendingPage from "./screens/ConfirmationForm/PendingRequests/LineManagerPendingPage";
 import HrbpPendingPage from "./screens/ConfirmationForm/PendingRequests/HrbpPendingPage";
@@ -72,7 +72,7 @@ import {
 } from "./Context/EmployeeContext";
 import { RoleContext, RoleContextType } from "./Context/RoleContext";
 import { ActorContext, ActorContextType } from "./Context/ActorContext";
-
+import ReviewerPendingPage from "./screens/ConfirmationForm/PendingRequests/ReviewerPendingPage";
 
 export default class Mtnconfirmation extends React.Component<
   IMtnconfirmationProps,
@@ -653,23 +653,25 @@ export default class Mtnconfirmation extends React.Component<
                             <Route
                               path="/admin/confirmation"
                               exact
-                              render={(props) => <Confirmation context={this.props.context} />}
+                              render={(props) => (
+                                <Confirmation context={this.props.context} />
+                              )}
                             />
                             <Route
                               path="/admin/confirmation/edit/:id"
                               exact
-                              render={(props) => <EditConfirmation context={this.props.context} />}
+                              render={(props) => (
+                                <EditConfirmation
+                                  context={this.props.context}
+                                />
+                              )}
                             />
                             <Route
                               path="/admin/config"
                               exact
                               component={Roles}
                             />
-                            <Route
-                              path="/admin/roles"
-                              exact
-                              component={Role}
-                            />
+                            <Route path="/admin/roles" exact component={Role} />
                             <Route
                               path="/admin/location"
                               exact
@@ -824,6 +826,11 @@ export default class Mtnconfirmation extends React.Component<
                               path="/pending/requests/linemanager"
                               exact
                               component={LineManagerPendingPage}
+                            />
+                            <Route
+                              path="/pending/requests/reviewer"
+                              exact
+                              component={ReviewerPendingPage}
                             />
 
                             <Route

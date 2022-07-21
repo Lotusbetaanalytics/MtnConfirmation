@@ -61,7 +61,7 @@ const LineManagerView = () => {
           .getByTitle("Confirmation")
           .items.getById(Number(itemId))
           .update({
-            Approvals: "Reviewer",
+            Approvals: "HRBP",
           })
           .then(() => {
             swal({
@@ -246,7 +246,7 @@ const LineManagerView = () => {
           </Box>
           <div></div>
           <div></div>
-          <div className={styles.section1__comments}>
+          {/* <div className={styles.section1__comments}>
             <h2>Next Actor</h2>
             <TextAreaSmall
               value={planningComment}
@@ -254,7 +254,7 @@ const LineManagerView = () => {
                 setPlanningComment(e.target.value);
               }}
             />
-          </div>
+          </div> */}
         </div>
 
         <div className={`${styles.evaluation__section__button} `}>
