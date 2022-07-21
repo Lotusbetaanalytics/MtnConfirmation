@@ -26,7 +26,7 @@ const workHabit = () => {
   const { id } = React.useContext(EmployeeContext);
   const history = useHistory();
   // const {id} = useParam()
-
+  console.log(id)
   console.log(role);
 
   console.log(Helpers.Helpers.settings[role]);
@@ -38,6 +38,7 @@ const workHabit = () => {
       .items.filter(`employeeID eq '${id}'`)
       .get()
       .then((res) => {
+        console.log(res,"thus is res")
         setLoading(false);
         if (res.length > 0) {
           setWorkHabitRating(res[0].workHabitRating);

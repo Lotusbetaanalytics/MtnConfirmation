@@ -42,7 +42,7 @@ const KnowlegdeFactor = () => {
           setknowlegdeComment(res[0].KnowlegdeComment);
           setWorkQualityRating(res[0].workQualityRating);
           setWorkQualityComment(res[0].workQualityComment);
-          setworkQuantityRating(res[0].workQualityRatingTwo);
+          setworkQuantityRating(res[0].workQualityRatingtwo);
           setworkQuantityComment(res[0].workQualityCommentTwo);
         }
       });

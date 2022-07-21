@@ -38,7 +38,7 @@ const GetSuperVisorySection1 = () => {
       case "Employee":
         history.push("/view-supervisory/employee");
         break;
-      case "MHRBP":
+      case "HRBP":
         history.push("/view-supervisory/mhrbp");
         break;
 
