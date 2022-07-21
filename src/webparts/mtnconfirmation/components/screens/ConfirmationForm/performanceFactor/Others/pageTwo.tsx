@@ -39,11 +39,14 @@ const workHabit = () => {
       .get()
       .then((res) => {
         setLoading(false);
-        setWorkHabitRating(res[0].workHabitRating);
+        if (res.length > 0) {
+          setWorkHabitRating(res[0].workHabitRating);
         setWorkHabitComment(res[0].workHabitComment);
         setCommunicationRating(res[0].communicatonRating);
         setCommunicationComment(res[0].communicationComment);
         setTotalPerformanceScore(res[0].totalPerformanceScore);
+        }
+        
       });
   }, []);
 
