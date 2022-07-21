@@ -101,6 +101,9 @@ const ViewRequestDetails = ({ match }) => {
       case "Rater Line Manager":
         setRole("Rater Line Manager");
         break;
+      case "HRBP":
+          setRole("HRBP");
+          break;
       default:
         // sp.web.lists
         //   .getByTitle("Admin")

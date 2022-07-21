@@ -17,6 +17,7 @@ import { RoleContext } from "../../../../Context/RoleContext";
 const GetSuperVisorySection1 = () => {
   const { role } = React.useContext(RoleContext);
   const history = useHistory();
+  console.log(role, "Check thusssss.....");
   const prevHandler = () => {
     history.push("/view-behavioral/section3");
   };

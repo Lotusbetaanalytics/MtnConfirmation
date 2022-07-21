@@ -255,7 +255,7 @@ const MHRBPView = () => {
                 readOnly={commentFieldReadOnly}
               />
             </div>
-            <div className={styles.section1__comments}>
+            {/* <div className={styles.section1__comments}>
               <h2>Reviewer's comment</h2>
               <TextAreaSmall
                 value={reviewerComment}
@@ -266,8 +266,8 @@ const MHRBPView = () => {
                 required={true}
                 readOnly={commentFieldReadOnly}
               />
-            </div>
-            <div className={styles.section1__comments}>
+            </div> */}
+            {/* <div className={styles.section1__comments}>
               <h2>Employee's comment</h2>
               <TextAreaSmall
                 value={employeeComment}
@@ -278,7 +278,7 @@ const MHRBPView = () => {
                 required={true}
                 readOnly={commentFieldReadOnly}
               />
-            </div>
+            </div> */}
             <div className={styles.section1__comments}>
               <h2>MHRBP comment</h2>
               <TextAreaSmall
@@ -293,7 +293,7 @@ const MHRBPView = () => {
           </Box>
           <div></div>
           <div></div>
-          <div className={styles.section1__comments}>
+          {/* <div className={styles.section1__comments}>
             <h2>Next Actor</h2>
             <TextAreaSmall
               value={planningComment}
@@ -301,7 +301,7 @@ const MHRBPView = () => {
                 setPlanningComment(e.target.value);
               }}
             />
-          </div>
+          </div> */}
         </div>
 
         <div className={`${styles.evaluation__section__button} `}>
