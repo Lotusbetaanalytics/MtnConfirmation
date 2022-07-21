@@ -12,6 +12,7 @@ import {
 import styles from "../performance.module.scss";
 
 import { sp } from "@pnp/sp";
+import { EmployeeContext } from "../../../../Context/EmployeeContext";
 
 const workHabit = () => {
   const [detail, setDetail] = useState({});
@@ -22,6 +23,7 @@ const workHabit = () => {
   const [totalPerformanceScore, setTotalPerformanceScore] = useState(0);
   const [loading, setLoading] = React.useState(false);
   const [role, setRole] = useState("");
+  const { id } = React.useContext(EmployeeContext);
   const history = useHistory();
   // const {id} = useParam()
 
@@ -31,29 +33,17 @@ const workHabit = () => {
 
   React.useEffect(() => {
     setLoading(true);
-    sp.profiles.myProperties.get().then((res) => {
-      setDetail({ res });
-      console.log(res);
-
-      sp.web.lists
-        .getByTitle("Admin")
-        .items.filter(`Email eq '${res?.Email}' `)
-        .get()
-        .then((res) => {
-          setRole(res[0] ? res[0].Role : "Employee");
-        });
-    });
     sp.web.lists
       .getByTitle("PerformanceFactorEvaluation")
-      .items.getById(1)
+      .items.filter(`employeeID eq '${id}'`)
       .get()
       .then((res) => {
         setLoading(false);
-        setWorkHabitRating(res.workHabitRating);
-        setWorkHabitComment(res.workHabitComment);
-        setCommunicationRating(res.communicatonRating);
-        setCommunicationComment(res.communicationComment);
-        setTotalPerformanceScore(res.totalPerformanceScore);
+        setWorkHabitRating(res[0].workHabitRating);
+        setWorkHabitComment(res[0].workHabitComment);
+        setCommunicationRating(res[0].communicatonRating);
+        setCommunicationComment(res[0].communicationComment);
+        setTotalPerformanceScore(res[0].totalPerformanceScore);
       });
   }, []);
 
