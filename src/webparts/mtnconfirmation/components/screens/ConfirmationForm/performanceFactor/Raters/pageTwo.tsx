@@ -26,9 +26,8 @@ const RatersWorkHabit = () => {
   const [communicationCommentMsg, setcommunicationCommentMsg] = useState(false);
   const [workhabitcommentMsg, setworkhabitcommentMsg] = useState(false);
   const { rater, raterEmail, date } = React.useContext(RaterContext);
-
-  console.log(rater, date);
-
+  const { id } = React.useContext(EmployeeContext);
+  
   const {
     knowlegdeRating,
     setKnowlegdeRating,
@@ -114,7 +113,7 @@ const RatersWorkHabit = () => {
       sp.web.lists
         .getByTitle("PerformanceFactorEvaluation")
         .items.add({
-          employeeID: "",
+          employeeID: id,
           RaterName: rater,
           RaterEmail: raterEmail,
           RatingDate: date,
@@ -129,6 +128,7 @@ const RatersWorkHabit = () => {
           communicatonRating: communicationRating,
           communicationComment: communicationComment,
           totalPerformanceScore: totalPerformanceScore,
+          
         })
         .then((item) => {
           setLoading(false);
