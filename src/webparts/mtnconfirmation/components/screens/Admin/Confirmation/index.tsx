@@ -28,7 +28,6 @@ const Confirmation = () => {
   const [phone, setPhone] = useState("");
   const [location, setLocation] = useState("");
   const [rater, setRater] = useState("");
-  const [lineManager, setLineManager] = useState("");
   const [employmentDate, setEmploymentDate] = useState("");
   const [confirmationDate, setConfirmationDate] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -67,7 +66,6 @@ const Confirmation = () => {
         Phone: phone,
         Location: location,
         Rater: rater,
-        RaterLineManager: lineManager,
         EmploymentDate: employmentDate,
         ConfirmationDate: confirmationDate,
         StartDate: startDate,
@@ -190,14 +188,6 @@ const Confirmation = () => {
                 value={rater}
                 onChange={(e) => setRater(e.target.value)}
                 filter="Email"
-                required={true}
-              />
-
-              <Input
-                title="Line Manager"
-                type="text"
-                value={lineManager}
-                onChange={(e) => setLineManager(e.target.value)}
                 required={true}
               />
 
