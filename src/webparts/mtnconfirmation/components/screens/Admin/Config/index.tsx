@@ -29,6 +29,7 @@ const Roles = () => {
     ]);
 
     const [data, setData] = React.useState([])
+    const [roles, setRoles] = React.useState([])
     const [name, setName] = React.useState("")
     const [role, setRole] = React.useState("")
     const [email, setEmail] = React.useState("")
@@ -42,6 +43,11 @@ const Roles = () => {
             ((res) => {
                 setData(res)
             })
+        sp.web.lists.getByTitle(`Role`).items.get().then
+            ((res) => {
+                setRoles(res)
+            })
+
 
     }, [])
 
@@ -49,7 +55,8 @@ const Roles = () => {
 
     // Menubar Items
     const menu = [
-        { name: "Roles", url: "/admin/config", active: true, },
+        { name: "Admin", url: "/admin/config", active: true, },
+        { name: "Roles", url: "/admin/roles", },
         { name: "Location", url: "/admin/location" },
         { name: "Division", url: "/admin/division" },
     ];
@@ -220,7 +227,9 @@ const Roles = () => {
                             value={role}
                             onChange={(e) => setRole(e.target.value)}
                             size='mtn__adult'
-                            options={Helpers.roles}
+                            options={roles}
+                            filter={true}
+                            filterOption="Title"
                         />
 
                         <button

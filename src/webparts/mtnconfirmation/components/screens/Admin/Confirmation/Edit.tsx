@@ -4,11 +4,18 @@ import { useHistory } from 'react-router-dom'
 import { Select, AdminHeader, Input, Navigation, PeoplePicker, Helpers, Spinner } from '../../../Containers';
 import { sp, } from "@pnp/sp"
 import swal from 'sweetalert';
+import { SPHttpClient, SPHttpClientConfiguration, SPHttpClientResponse } from '@microsoft/sp-http';
+import { graph } from "@pnp/graph";
+import '@pnp/graph/users';
+import { useParams } from 'react-router-dom'
 
-const EditConfirmation = ({ match }) => {
+const EditConfirmation = ({ context }) => {
     // Helpers
     const history = useHistory()
-    const itemID = match.params.id
+    // const  = match.params.id
+    const { id: itemID } = useParams()
+
+
 
     const [loading, setLoading] = useState(false)
     const [name, setName] = useState("")
@@ -29,6 +36,8 @@ const EditConfirmation = ({ match }) => {
     const [locations, setLocations] = useState([])
     const [divisions, setDivisions] = useState([])
     const [departments, setDepartments] = useState([])
+    const [raterLineManager, setRaterLineManager] = useState("")
+    const [raterLineManagerName, setRaterLineManagerName] = useState("")
 
 
 
@@ -51,6 +60,8 @@ const EditConfirmation = ({ match }) => {
             StartDate: startDate,
             EndDate: endDate,
             DirectReport: report,
+            RaterLineManager: raterLineManager,
+            RaterLineManagerName: raterLineManagerName
         }).then((res) => {
             swal("Success", "Success", "success");
             history.push("/admin/pending")
@@ -81,6 +92,8 @@ const EditConfirmation = ({ match }) => {
                 setStartDate(res[0].StartDate)
                 setEndDate(res[0].EndDate)
                 setReport(res[0].DirectReport)
+                setRaterLineManager(res[0].field_5)
+                setRaterLineManagerName(res[0].field_8)
                 sp.web.lists.getByTitle(`Division`).items.get().then
                     ((resp) => {
                         setDivisions(resp)
@@ -98,6 +111,31 @@ const EditConfirmation = ({ match }) => {
         setDivision(e.target.value)
         const filter = divisions.filter((x) => x.Title === e.target.value)
         setDepartments(filter)
+    }
+
+    const raterHandler = (e) => {
+        setRater(e.target.value)
+        const info = e.target.value
+        // context.spHttpClient.get(`https://mtncloud.sharepoint.com/sites/MTNNigeriaComplianceUniverse/testenv/_api/lists/GetByTitle('CURRENT HCM STAFF LIST')/items?$skiptoken=Paged=TRUE`,
+        //     SPHttpClient.configurations.v1)
+        //     .then((response: SPHttpClientResponse) => {
+        //         response.json().then((responseJSON: any) => {
+        //             console.log(responseJSON);
+        //         });
+        //     });
+
+        graph.users.top(999).get().then((res) => {
+            const filteredData = res.filter((x) => x.displayName === info)
+            context.spHttpClient.get(`https://lotusbetaanalytics.sharepoint.com/sites/business_solutions/_api/lists/GetByTitle('CURRENT HCM STAFF LIST-test')/items?$filter=field_8 eq '${filteredData[0].mail}'`,
+                SPHttpClient.configurations.v1)
+                .then((response: SPHttpClientResponse) => {
+                    response.json().then((responseJSON: any) => {
+                        setRaterLineManager(responseJSON.value[0].field_5)
+                        setRaterLineManagerName(responseJSON.value[0].field_8)
+                    });
+                });
+
+        });
     }
 
 
@@ -159,7 +197,7 @@ const EditConfirmation = ({ match }) => {
                     <PeoplePicker
                         title="Rater"
                         value={rater}
-                        onChange={(e) => setRater(e.target.value)}
+                        onChange={raterHandler}
                         filter="Email"
                         required={true}
 
