@@ -28,9 +28,24 @@ const Section2 = () => {
 
   const history = useHistory();
   const nextHandler = () => {
-    history.push("/behavioral/section3");
+    if (adaptComment.length < 60) {
+      setAdaptCommentMsg(true);
+    }
+    if (judgementComment.length < 60) {
+      setJudgementCommentMsg(true);
+    }
+    if (attendanceComment.length < 60) {
+      setAttendanceCommentMsg(true);
+    } else {
+      history.push("/behavioral/section3");
+    }
+   
   };
 
+  const [adaptCommentMsg,setAdaptCommentMsg] = React.useState(false)
+  const [judgementCommentMsg,setJudgementCommentMsg] = React.useState(false)
+  const [attendanceCommentMsg,setAttendanceCommentMsg] =React.useState(false)
+  const [msg, setMsg] = React.useState(false)
   return (
     <>
       <Header title="Behavioural Traits Evaluation" />
@@ -72,6 +87,9 @@ const Section2 = () => {
                 setAdaptComment(e.target.value);
               }}
             />
+             {adaptCommentMsg ? (
+              <span>Your comment should be at least 60 characters </span>
+            ) : null}
           </div>
         </div>
         <div className={`${styles.evaluation__section} `}>
@@ -106,6 +124,9 @@ const Section2 = () => {
               }}
               required={true}
             />
+             {judgementCommentMsg ? (
+              <span>Your comment should be at least 60 characters </span>
+            ) : null}
           </div>
         </div>
         <div className={`${styles.evaluation__section} `}>
@@ -138,6 +159,9 @@ const Section2 = () => {
               }}
               required={true}
             />
+             {attendanceCommentMsg ? (
+              <span>Your comment should be at least 60 characters </span>
+            ) : null}
           </div>
         </div>
         <div className={`${styles.evaluation__section__button} `}>

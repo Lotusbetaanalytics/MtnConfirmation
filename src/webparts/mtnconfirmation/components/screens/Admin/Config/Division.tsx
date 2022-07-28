@@ -37,7 +37,9 @@ const Division = () => {
     React.useEffect(() => {
         sp.web.lists.getByTitle(`Division`).items.get().then
             ((res) => {
+                
                 setData(res)
+                console.log(data)
             })
 
     }, [])
@@ -54,6 +56,7 @@ const Division = () => {
 
     const submitHandler = (e) => {
         e.preventDefault()
+        console.log("i am here")
         sp.web.lists.getByTitle("Division").items.add({
             Title: Divisions,
             Department: Department,

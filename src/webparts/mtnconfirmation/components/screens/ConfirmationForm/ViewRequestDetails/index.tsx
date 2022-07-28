@@ -188,7 +188,7 @@ const ViewRequestDetails = ({ match }) => {
               </span>
             </div>
             <div className={styles.eachGridbox__allContent}>
-              <header>Emplyment Date</header>
+              <header>Employment Date</header>
               <span className={styles.grid__titleContent}>
                 <p className={styles.grid__titleName}>{employmentDate}</p>
               </span>

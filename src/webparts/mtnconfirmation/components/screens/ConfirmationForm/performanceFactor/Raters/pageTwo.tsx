@@ -113,21 +113,21 @@ const RatersWorkHabit = () => {
       sp.web.lists
         .getByTitle("PerformanceFactorEvaluation")
         .items.add({
-          employeeID: id,
+          EmployeeID: id,
           RaterName: rater,
           RaterEmail: raterEmail,
           RatingDate: date,
           KnowlegdeRating: knowlegdeRating,
           KnowlegdeComment: knowlegdeComment,
-          workQualityRating: workQualityRating,
-          workQualityComment: workQualityComment,
-          workQualityRatingtwo: workQuantityRating,
-          workQualityCommentTwo: workQuantityComment,
-          workHabitRating: workHabitRating,
-          workHabitComment: workHabitComment,
-          communicatonRating: communicationRating,
-          communicationComment: communicationComment,
-          totalPerformanceScore: totalPerformanceScore,
+          WorkQualityRating: workQualityRating,
+          WorkQualityComment: workQualityComment,
+          WorkQuantityRating: workQuantityRating,
+          WorkQuantityComment: workQuantityComment,
+          WorkHabitRating: workHabitRating,
+          WorkHabitComment: workHabitComment,
+          CommunicatonRating: communicationRating,
+          CommunicationComment: communicationComment,
+          TotalPerformanceScore: totalPerformanceScore,
           
         })
         .then((item) => {

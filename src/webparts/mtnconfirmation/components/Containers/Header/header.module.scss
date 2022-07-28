@@ -12,6 +12,15 @@ display: flex;
 flex: 0.3;
 justify-content: flex-start;
 }
+.imageContainer{
+    height: 80px;
+    width: 100px;
+}
+
+.imageContainer img{
+    height: 100%;
+    width: 100%;
+}
 
 
 .mtn__header__text{
