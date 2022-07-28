@@ -35,7 +35,7 @@ const workHabit = () => {
     setLoading(true);
     sp.web.lists
       .getByTitle("PerformanceFactorEvaluation")
-      .items.filter(`employeeID eq '${id}'`)
+      .items.filter(`EmployeeID eq '${id}'`)
       .get()
       .then((res) => {
         console.log(res,"thus is res")

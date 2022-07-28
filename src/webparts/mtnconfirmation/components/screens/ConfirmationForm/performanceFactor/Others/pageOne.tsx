@@ -31,7 +31,7 @@ const KnowlegdeFactor = () => {
     setLoading(true);
     sp.web.lists
       .getByTitle("PerformanceFactorEvaluation")
-      .items.filter(`employeeID eq '${id}'`)
+      .items.filter(`EmployeeID eq '${id}'`)
       .get()
       .then((res) => {
         // setData(res);
@@ -40,10 +40,10 @@ const KnowlegdeFactor = () => {
         if (res.length > 0) {
           setKnowlegdeRating(res[0].KnowlegdeRating);
           setknowlegdeComment(res[0].KnowlegdeComment);
-          setWorkQualityRating(res[0].workQualityRating);
-          setWorkQualityComment(res[0].workQualityComment);
-          setworkQuantityRating(res[0].workQualityRatingtwo);
-          setworkQuantityComment(res[0].workQualityCommentTwo);
+          setWorkQualityRating(res[0].WorkQualityRating);
+          setWorkQualityComment(res[0].WorkQualityComment);
+          setworkQuantityRating(res[0].WorkQuantityRating);
+          setworkQuantityComment(res[0].WorkQuantityComment);
         }
       });
   }, []);

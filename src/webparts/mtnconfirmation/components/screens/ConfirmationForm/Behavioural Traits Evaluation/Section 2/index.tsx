@@ -7,8 +7,9 @@ import {
   TextArea,
   Helpers,
 } from "../../../../Containers";
+import { EmployeeContext } from "../../../../Context/EmployeeContext";
 import { BehavioralContext } from "../../../../Context/BehavioralContext";
-
+import { sp } from "@pnp/sp";
 import styles from "./section2.module.scss";
 const Section2 = () => {
   const {
@@ -25,8 +26,19 @@ const Section2 = () => {
     attendanceComment,
     setAttendanceComment,
   } = React.useContext(BehavioralContext);
-
+  const { itemId } = React.useContext(EmployeeContext);
+  // const [level,setLevel] = React.useState("")
+  console.log(itemId)
   const history = useHistory();
+  React.useEffect(()=>{
+    sp.web.lists
+          .getByTitle("Confirmation")
+          .items.getById(Number(itemId))
+          .get().then((res)=>{
+            console.log(res.Level)
+          });
+        },[])
+
   const nextHandler = () => {
     if (adaptComment.length < 60) {
       setAdaptCommentMsg(true);
