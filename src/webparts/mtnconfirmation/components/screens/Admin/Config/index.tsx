@@ -1,14 +1,15 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom'
-import { Select, AdminHeader, Input, Navigation, Helpers, MenuBar, Spinner, Modal, PeoplePicker } from '../../../Containers';
+import { Select, AdminHeader, Input, Navigation, Helpers, MenuBar, Spinner, Modal} from '../../../Containers';
 import MaterialTable from "material-table";
 import { sp, } from "@pnp/sp"
 import swal from 'sweetalert';
 import { graph } from "@pnp/graph";
 import '@pnp/graph/users';
+import { PeoplePicker, PrincipalType } from "@pnp/spfx-controls-react/lib/PeoplePicker";
 
-const Roles = () => {
+const Roles = ({context}) => {
     // Helpers
     const history = useHistory()
 
@@ -119,14 +120,13 @@ const Roles = () => {
     }
 
 
-    const mailHandler = (e) => {
-        setName(e.target.value)
-        const staff = e.target.value
-        graph.users.top(999).get().then((res) => {
-            const filteredData = res.filter((x) => x.displayName === staff)
-            setEmail(filteredData[0].mail)
-        })
-    }
+
+     
+  function getPeoplePickerItems(items: any[]) {
+    setName(items[0].text)
+    setEmail(items[0].secondaryText)
+}
+
 
     return <div className="appContainer">
         <Navigation config={`active`} />
@@ -208,20 +208,23 @@ const Roles = () => {
 
                     loading ? <Spinner /> : <div className="mtn__InputFlex">
 
-                        <PeoplePicker
-                            title="Name"
-                            value={name}
-                            onChange={mailHandler}
-                            size='mtn__adult'
-                            filter="displayName"
-                        />
-                        <Input
-                            title="Email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)} type="text"
-                            size='mtn__adult'
-                            readOnly={true}
-                        />
+<div className={`mtn__InputContainer mtn__adult`}>
+                                <PeoplePicker
+                                    context={context}
+                                    titleText="Employee Name"
+                                    personSelectionLimit={1}
+                                    groupName="" // Leave this blank in case you want to filter from all users
+                                    showtooltip={true}
+                                    required={true}
+                                    disabled={false}
+                                    onChange={getPeoplePickerItems}
+                                    showHiddenInUI={false}
+                                    principalTypes={[PrincipalType.User]}
+                                    resolveDelay={1000}
+
+                                />
+                            </div>
+                       
                         <Select
                             title="Role"
                             value={role}

@@ -669,7 +669,11 @@ export default class Mtnconfirmation extends React.Component<
                             <Route
                               path="/admin/config"
                               exact
-                              component={Roles}
+                              render={(props) => (
+                                <Roles
+                                  context={this.props.context}
+                                />
+                              )}
                             />
                             <Route path="/admin/roles" exact component={Role} />
                             <Route

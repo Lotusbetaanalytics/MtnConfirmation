@@ -1,13 +1,15 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom'
-import { Select, AdminHeader, Input, Navigation, PeoplePicker, Helpers, Spinner } from '../../../Containers';
+import { Select, AdminHeader, Input, Navigation, Helpers, Spinner } from '../../../Containers';
 import { sp, } from "@pnp/sp"
 import swal from 'sweetalert';
 import { SPHttpClient, SPHttpClientConfiguration, SPHttpClientResponse } from '@microsoft/sp-http';
 import { graph } from "@pnp/graph";
 import '@pnp/graph/users';
 import { useParams } from 'react-router-dom'
+import { PeoplePicker, PrincipalType } from "@pnp/spfx-controls-react/lib/PeoplePicker";
+
 
 const EditConfirmation = ({ context }) => {
     // Helpers
@@ -113,32 +115,28 @@ const EditConfirmation = ({ context }) => {
         setDepartments(filter)
     }
 
-    const raterHandler = (e) => {
-        setRater(e.target.value)
-        const info = e.target.value
-        // context.spHttpClient.get(`https://mtncloud.sharepoint.com/sites/MTNNigeriaComplianceUniverse/testenv/_api/lists/GetByTitle('CURRENT HCM STAFF LIST')/items?$skiptoken=Paged=TRUE`,
-        //     SPHttpClient.configurations.v1)
-        //     .then((response: SPHttpClientResponse) => {
-        //         response.json().then((responseJSON: any) => {
-        //             console.log(responseJSON);
-        //         });
-        //     });
+   
 
-        graph.users.top(999).get().then((res) => {
-            const filteredData = res.filter((x) => x.displayName === info)
-            context.spHttpClient.get(`https://lotusbetaanalytics.sharepoint.com/sites/business_solutions/_api/lists/GetByTitle('CURRENT HCM STAFF LIST-test')/items?$filter=field_8 eq '${filteredData[0].mail}'`,
-                SPHttpClient.configurations.v1)
-                .then((response: SPHttpClientResponse) => {
-                    response.json().then((responseJSON: any) => {
-                        setRaterLineManager(responseJSON.value[0].field_5)
-                        setRaterLineManagerName(responseJSON.value[0].field_8)
-                    });
-                });
-
-        });
+ 
+    function getPeoplePickerItems(items: any[]) {
+        setName(items[0].text)
     }
-
-
+    
+    
+    function getRaterPickerItems(items: any[]) {
+      const staff = items[0].secondaryText
+      setName(items[0].text)
+    setRater(items[0].secondaryText)
+    context.spHttpClient.get(`https://mtncloud.sharepoint.com/sites/MTNNigeriaComplianceUniverse/testenv/_api/lists/GetByTitle('CURRENT HCM STAFF LIST')/items?$filter=EMAIL_ADDRESS eq '${staff}'`,
+    SPHttpClient.configurations.v1)
+    .then((response: SPHttpClientResponse) => {
+        response.json().then((responseJSON: any) => {
+            setRaterLineManagerName(responseJSON.value[0]["SUPERVISOR_x0020_FULLNAME"])
+            setRaterLineManager(responseJSON.value[0]["SUPERVISOR_x0020_EMAIL"])
+    
+        });
+    });
+    }
 
     return <div className="appContainer">
         <Navigation init={`active`} />
@@ -146,13 +144,22 @@ const EditConfirmation = ({ context }) => {
             <AdminHeader title="Edit Confirmation Form" />
             {loading ? <Spinner /> : <form onSubmit={submitHandler}>
                 <div className='mtn__InputFlex'>
-                    <PeoplePicker
-                        title="Employee Name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        filter="displayName"
-                        required={true}
-                    />
+                <div className={`mtn__InputContainer mtn__child`}>
+                                <PeoplePicker
+                                    context={context}
+                                    titleText="Employee Name"
+                                    personSelectionLimit={1}
+                                    groupName="" // Leave this blank in case you want to filter from all users
+                                    showtooltip={true}
+                                    required={true}
+                                    disabled={false}
+                                    onChange={getPeoplePickerItems}
+                                    showHiddenInUI={false}
+                                    principalTypes={[PrincipalType.User]}
+                                    resolveDelay={1000}
+
+                                />
+                            </div>
                     <Input
                         title="Employee ID"
                         value={id}
@@ -194,14 +201,22 @@ const EditConfirmation = ({ context }) => {
                     />
                     <Select onChange={(e) => setLocation(e.target.value)} title="Location" value={location} required={true} options={locations} filterOption="Title" filter={true} />
 
-                    <PeoplePicker
-                        title="Rater"
-                        value={rater}
-                        onChange={raterHandler}
-                        filter="Email"
-                        required={true}
+                    <div className={`mtn__InputContainer mtn__child`}>
+                                <PeoplePicker
+                                    context={context}
+                                    titleText="Rater"
+                                    personSelectionLimit={1}
+                                    groupName="" // Leave this blank in case you want to filter from all users
+                                    showtooltip={true}
+                                    required={true}
+                                    disabled={false}
+                                    onChange={getRaterPickerItems}
+                                    showHiddenInUI={false}
+                                    principalTypes={[PrincipalType.User]}
+                                    resolveDelay={1000}
 
-                    />
+                                />
+                            </div>
 
                     <Input
                         title="Employment Date"
